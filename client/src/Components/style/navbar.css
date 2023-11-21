@@ -1,0 +1,75 @@
+.side-navbar{
+    background-color: rgb(42, 37, 37);
+    position: fixed;
+    top: 1%;
+    left: 0.5%;
+    width: 20%;
+    height: 100vh;
+    border-radius: 5px ;
+    animation:move-sidebar-back 1 0.5s forwards;
+}
+@keyframes move-sidebar-back{
+    0%{
+        width: 2%;
+    }
+    100%{
+        width: 20%;
+    }
+}
+.side-nav-close{
+    animation:move-sidebar 1 0.5s forwards;
+    
+}
+@keyframes move-sidebar{
+    0%{
+        width: 20%;
+    }
+    100%{
+        width: 2%;
+    }
+}
+.top-navbar{
+    background-color: rgb(42, 37, 37);
+    position: fixed;
+    top: 1%;
+    right: 0;
+    left: 21%;
+    width: 100%;
+    height: 4rem;
+    border-radius: 10px ;
+    animation:move-topbar-back 1 0.5s forwards;
+
+}
+@keyframes move-topbar-back{
+    0%{
+        left: 5%;
+    }
+    100%{
+        left: 21%;
+    }
+}
+.top-navbar-add{
+    
+    background-color: rgb(42, 37, 37);
+    position: fixed;
+    top: 1%;
+    right: 0;
+    /* left: 5%; */
+    width: 100%;
+    height: 4rem;
+    border-radius: 10px ;
+    animation:move-topbar 1 0.5s forwards;
+
+
+}
+@keyframes move-topbar{
+    0%{
+        left: 21%;
+    }
+    100%{
+        left: 5%;
+    }
+}
+.top-inside{
+    padding: 20px;
+}
