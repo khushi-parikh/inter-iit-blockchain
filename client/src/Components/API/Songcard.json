@@ -2,23 +2,42 @@
     {
         "id" : 1,
         "title":"trending",
-        "name" : "hindi",
-        "amount" :"free"
+       "music":[
+        {
+           "Song_name" : "hsiu",
+           "Artist_name" :"as",
+           "Song_Album": "maslk"
+        },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         }
+       ]
         
-    },
-    {
-        "id" : 2,
-        "title":"trending",
-        "name" : "hindi",
-        "amount" :"free"
-        
-    },
-    {
-        "id" : 3,
-        "title":"trending",
-        "name" : "hindi",
-        "amount" :"free"
+    },{
+        "id" : 1,
+        "title":"for you",
+       "music":[
+        {
+           "Song_name" : "hsiu",
+           "Artist_name" :"as",
+           "Song_Album": "maslk"
+        },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         }
+       ]
         
     }
+   
 
 ]
