@@ -1,18 +1,20 @@
 import React from 'react'
 import '../style/songcard.css'
-
+type Props = {
+  Songname: string;
+  Artistname : string;
+ 
+};
 // function cards(){
 //   for(var i =0 ; i<3 ; i++){
 //     let row = document.getElementById(card);
 //   }
 // }
-const SongCard = () => {
+const SongCard: React.FC<Props> = ({Songname,Artistname}) => {
   return (
-    <div className='card-container'>
-      <p>Trending Songs</p>
-
+    
+      
       <div className='cards'>
-
         <div id='card'>
           <div className='song-image'>
 
@@ -20,10 +22,10 @@ const SongCard = () => {
 
           <div className='song-details'>
             <div className='song-name'>
-              Song name
+              {Songname}
             </div>
             <div className='artist-name'>
-              Artist name
+              {Artistname}
             </div>
           </div>
 
@@ -37,239 +39,8 @@ const SongCard = () => {
 
         </div>
 
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-          
-
-        </div>
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-      <p>Recently played</p>
-      <div className="cards">
-
-      <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-          
-
-        </div>
-        
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-      </div>
-
-      <p>For You</p>
-      <div className="cards">
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-        </div>
-
-        <div id='card'>
-          <div className='song-image'>
-
-          </div>
-
-          <div className='song-details'>
-            <div className='song-name'>
-              Song name
-            </div>
-            <div className='artist-name'>
-              Artist name
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-        </div>
       </div>
     
-    </div>
 
     
   )
