@@ -11,24 +11,36 @@ module profile_addr::Profile {
     struct Song has key {
         album_id: u64,
         song_id: u64,
-        file: vector<u8>,
         artist_address: address,
         name: String,
         duration: u64,
         num_likes: u64,
         current_price: u64,
-        date: u64,
-        cid: u64,
+        date: u64, // ? How is date stored
+        cid: String, //removed file
         num_streams: u64,
         genre: String,
-        preview_info: String,
+        preview_info: vector<u64>, //startTime, endTime
+    }
+
+    // Struct to represent an album
+    struct Album has key{    
+        album_id: u64,
+        album_name: String,
+        artist_address: address,
+        despription: String,
+        date_added: String, // ? Date
+        cid: String,
+        album_cover : String,  //pfp file string
+        songs: vector <u64> //song_id
     }
 
     // Struct to represent a user
     struct User has key{
         user_address: address,
         liked_songs: vector<u64>,
-        playlist: vector<PlaylistEntry>,
+        // playlist: vector<PlaylistEntry>,
+        playlist : vector<u64>,
         transaction_history: vector<u64>,
         listening_history: vector<u64>,
     }
@@ -39,19 +51,23 @@ module profile_addr::Profile {
         transaction_id: u64,
         timestamp: u64,
         song_id: u64,
+        from_address: address,
+        to_address: address,
     }
 
-    // Struct for playlist entry
-    struct PlaylistEntry has store {
-        song_id: u64,
-        name: String,
+    struct Playlist has key{
+        playlistID: u64,
+        playlistName: String,
+        // songs: Table<u64, Song>,
+        songs: vector<u64>,
+        dateAdded: String,
     }
 
     // Struct to represent an artist
     struct Artist has key{
-        user_address: address,
+        artist_address: address,
         liked_songs: vector<u64>,
-        playlist: vector<PlaylistEntry>,
+        playlist: vector<u64>, //playlist_id
         transaction_history: vector<u64>,
         listening_history: vector<u64>,
         uploaded_songs: vector<u64>,
@@ -66,7 +82,7 @@ module profile_addr::Profile {
         let user = User {
             user_address: signer::address_of(account),
             liked_songs: vector::empty<u64>(),
-            playlist: vector::empty<PlaylistEntry>(),
+            playlist: vector::empty<u64>(),
             transaction_history: vector::empty<u64>(),
             listening_history: vector::empty<u64>(),
         };
@@ -76,9 +92,9 @@ module profile_addr::Profile {
     // Function to create a new artist
     public fun create_artist(account: &signer) {
         let artist = Artist {
-            user_address: signer::address_of(account),
+            artist_address: signer::address_of(account),
             liked_songs:vector::empty<u64>(),
-            playlist:vector::empty<PlaylistEntry>(),
+            playlist:vector::empty<u64>(),
             transaction_history: vector::empty<u64>(),
             listening_history: vector::empty<u64>(),
             uploaded_songs:vector::empty<u64>(),
@@ -89,17 +105,16 @@ module profile_addr::Profile {
 
     // Function to create a new song
     public fun create_song(
-        account: &signer,
         album_id: u64,
         song_id: u64,
-        file: vector<u8>,
+        account: &signer,
         name: String,
         duration: u64,
         current_price: u64,
         date: u64,
-        cid: u64,
+        cid: String,
         genre: String,
-        preview_info: String,
+        preview_info: vector<u64>,
     ) acquires Artist{
         // Get the artist's address
         let artist_address = signer::address_of(account);
@@ -111,7 +126,6 @@ module profile_addr::Profile {
         let song = Song {
             album_id,
             song_id,
-            file,
             artist_address,
             name,
             duration,
@@ -142,19 +156,18 @@ module profile_addr::Profile {
         // Make the user an artist
         create_artist(&admin);
 
-        // Upload a song by the artist
+
         create_song(
-            &admin,
             1, // album_id
             1, // song_id
-            vector::empty<u8>(), // file data
+            &admin,
             string::utf8(b"Song name"), // name
             180, // duration
-            100, // current_price
+            101, // current_price
             20231231, // date
-            123, // cid
+            string::utf8(b"cid"), // cid
             string::utf8(b"Rock"), // genre
-            string::utf8(b"Preview Info"), // preview_info
+            vector<u64>[0, 120] , // preview_info
         );
 
         // Check if the song is successfully uploaded
@@ -169,11 +182,11 @@ module profile_addr::Profile {
         assert!(song.artist_address == signer::address_of(&admin), 4);
         assert!(song.name == string::utf8(b"Song name"), 5);
         assert!(song.duration == 180, 6);
-        assert!(song.current_price == 100, 7);
+        assert!(song.current_price == 101, 7);
         assert!(song.date == 20231231, 8);
-        assert!(song.cid == 123, 9);
+        assert!(song.cid == string::utf8(b"cid"), 9);
         assert!(song.num_streams == 0, 10);
         assert!(song.genre == string::utf8(b"Rock"), 11);
-        assert!(song.preview_info == string::utf8(b"Preview Info"), 12);
+        assert!(song.preview_info == vector<u64>[0,120], 12);
     }
 }
