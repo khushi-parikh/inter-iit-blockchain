@@ -3,6 +3,17 @@
     top: 10%;
     right: 0;
     left: 21%;
-    height: 100vh;
-    background-color: rgb(15, 207, 207);
+    height: 110vh;
+    background-color: #212121;
+}
+
+.home-page p{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: white;
+    left: 22%;
+}
+
+.home-page a{
+    text-decoration: none;
 }

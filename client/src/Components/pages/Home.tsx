@@ -7,11 +7,9 @@ const Home = () => {
   return (
     <div className='home-page'>
       <div>
-        <h1>trending songs</h1>
         <div >
           <Link to='songpage'><SongCard  />
           </Link>
-            
         </div>
       </div>
     </div>

@@ -16,6 +16,33 @@
         width: 20%;
     }
 }
+
+.login-button{
+    border-radius: 10px;
+    height: 25px;
+    width: 60px;
+    background-color: rgb(232, 11, 48);
+    border: transparent;
+    position: fixed;
+    right: 30px;
+}
+
+.login-button a{
+    text-decoration: none;
+    color: white;
+    text-transform: capitalize;
+}
+
+.search-bar{
+    height: 25px;
+    border-radius: 6px;
+    border: transparent;
+    width: 300px;
+    margin-right: 20px;
+    padding-left: 5px;
+}
+
+
 .side-nav-close{
     animation:move-sidebar 1 0.5s forwards;
     
