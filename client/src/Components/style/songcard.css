@@ -1,3 +1,11 @@
+.card-container{
+  margin: 5rem 0rem 2rem 21%;
+  width: 79%;
+  background-color: rgb(36, 36, 36);
+  border-radius: 10px;
+  padding: 10px 0px 25px 0px;
+}
+
 .cards{
   display: flex;
   flex-wrap: wrap;
@@ -9,15 +17,14 @@
 }
 
 #card{
-    flex-basis: 21% ;
-    height: 200px;
-    width: 25%;
-    background-color: rgba(0, 0, 0, 0.54);
-    border-radius: 6px;
-    margin-left: 2%;
-    color: white;
-    text-decoration: none;
-  
+  flex-basis: 21% ;
+  height: 200px;
+  width: 25%;
+  background-color: rgba(0, 0, 0, 0.54);
+  border-radius: 6px;
+  margin-left: 2%;
+  color: white;
+  text-decoration: none;
 }
 
 .song-image{

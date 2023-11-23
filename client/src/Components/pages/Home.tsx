@@ -8,7 +8,8 @@ const Home = () => {
     <div className='home-page'>
       <div>
         <div >
-          <Link to='songpage'><SongCard  />
+          <Link to='songpage'>
+            <SongCard/>
           </Link>
         </div>
       </div>

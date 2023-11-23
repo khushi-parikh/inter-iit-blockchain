@@ -8,7 +8,7 @@ import '../style/songcard.css'
 // }
 const SongCard = () => {
   return (
-    <div>
+    <div className='card-container'>
       <p>Trending Songs</p>
 
       <div className='cards'>
