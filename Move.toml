@@ -4,8 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-onChainRadio_add = '583e74f3ff4226454f0263b4e74e07647681e549d93a466c9f45c90bb41dc856'
-
+profile_addr='5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652'
 [dev-addresses]
 
 [dependencies.AptosFramework]

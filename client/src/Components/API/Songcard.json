@@ -1,0 +1,43 @@
+[
+    {
+        "id" : 1,
+        "title":"trending",
+       "music":[
+        {
+           "Song_name" : "hsiu",
+           "Artist_name" :"as",
+           "Song_Album": "maslk"
+        },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         }
+       ]
+        
+    },{
+        "id" : 1,
+        "title":"for you",
+       "music":[
+        {
+           "Song_name" : "hsiu",
+           "Artist_name" :"as",
+           "Song_Album": "maslk"
+        },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         },{
+            "Song_name" : "hsiu",
+            "Artist_name" :"as",
+            "Song_Album": "maslk"
+         }
+       ]
+        
+    }
+   
+
+]

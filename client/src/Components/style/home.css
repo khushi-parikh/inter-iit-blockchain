@@ -1,0 +1,17 @@
+.home-page{
+    top: 10%;
+    right: 0;
+    left: 21%;
+    color: white;
+}
+
+.home-page p{
+    font-size: 20px;
+    text-transform: capitalize;
+    color: white;
+    left: 22%;
+}
+
+.home-page a{
+    text-decoration: none;
+}
