@@ -5,14 +5,9 @@ type Props = {
   Artistname : string;
  
 };
-// function cards(){
-//   for(var i =0 ; i<3 ; i++){
-//     let row = document.getElementById(card);
-//   }
-// }
+
 const SongCard: React.FC<Props> = ({Songname,Artistname}) => {
   return (
-    
       
       <div className='cards'>
         <div id='card'>
