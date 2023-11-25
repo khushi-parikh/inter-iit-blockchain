@@ -6,6 +6,8 @@ module profile_addr::Profile {
     use std::string::String;
      #[test_only]
     use std::string;
+    use std::debug::print;
+
 
     // Struct to represent a song
     struct Song has key {
@@ -56,11 +58,10 @@ module profile_addr::Profile {
     }
 
     struct Playlist has key{
-        playlistID: u64,
-        playlistName: String,
-        // songs: Table<u64, Song>,
+        playlist_id: u64,
+        playlist_name: String,
         songs: vector<u64>,
-        dateAdded: String,
+        date_added: String,
     }
 
     // Struct to represent an artist
@@ -76,6 +77,10 @@ module profile_addr::Profile {
 
     // Error codes
     const E_NOT_INITIALIZED: u64 = 1;
+    // const E_PLAYLIST_NOT_FOUND: u8 = 2;
+    // const E_NOT_OWNER: u8 = 3;
+    // const E_USER_NOT_FOUND: u8 = 4;
+    const E_SONG_ALREADY_IN_PLAYLIST: u8 = 45;
 
     // Function to create a new user
     public fun create_user(account: &signer) {
@@ -147,9 +152,78 @@ module profile_addr::Profile {
         vector::push_back(&mut artist_var.uploaded_songs, song_id_copy);
 
     }
+
+    public entry fun create_playlist(account: &signer, 
+                                    _playlistID: u64, 
+                                    _playlistName: String,
+                                    _dateAdded: String)acquires User{
+
+        let user_address =  signer::address_of(account);
+
+        assert!(exists<User>(user_address), E_NOT_INITIALIZED);
+
+        let _songs = vector::empty<u64>();
+
+        let newPlaylist= Playlist {
+                                playlist_id :_playlistID,
+                                playlist_name : _playlistName, 
+                                songs : vector::empty<u64>(),
+                                date_added : _dateAdded, 
+                            };
+
+        print(&newPlaylist);
+        
+        move_to(account, newPlaylist);
+
+        let user: &mut User = borrow_global_mut(user_address);
+
+        vector::push_back(&mut user.playlist, _playlistID);
+        
+        print(&user.playlist);
+    } 
+
+    public fun add_songs_to_playlist(account: &signer,
+                                    _playlistID: u64,
+                                    _songIDs: vector<u64>) acquires Playlist{
+
+        // let playlist = &mut Playlist{playlist_id: _playlistID};
+
+        // let playlist_address = address_of<Playlist>(signer::address_of(account));
+
+        let playlist = borrow_global_mut<Playlist>(signer::address_of(account));
+
+        let user_address = signer::address_of(account);
+
+
+        // Check if the user exists
+        assert!(exists<User>(user_address), 2);
+
+        //Checking if the song already exists in the playlist
+        let i = 0;
+        while (i < vector::length(&_songIDs) ){
+
+            let element = *vector::borrow(&_songIDs, i);
+
+            // print(&playlist.songs);
+            // print(&(vector::contains(&playlist.songs, &element)));
+
+            if(!(vector::contains(&playlist.songs, &element))){
+                vector::push_back(&mut playlist.songs, element);
+            }
+            else{
+                abort 45
+            };
+            
+            i = i + 1;
+        };
+
+        print(&playlist.songs);
+
+    }
+
     // Test flow
     #[test(admin = @0x123)]
-    public entry fun test_profile_flow(admin: signer) acquires  Artist, Song {
+    public entry fun test_profile_flow(admin: signer) acquires  Artist, Song , User, Playlist{
         // Create a user
         create_user(&admin);
 
@@ -174,7 +248,6 @@ module profile_addr::Profile {
         let artist_var = borrow_global<Artist>(signer::address_of(&admin));
         assert!(vector::length(&artist_var.uploaded_songs) == 1,1);
 
-
         // Retrieve the uploaded song
         let song = borrow_global<Song>(signer::address_of(&admin));
         assert!(song.album_id == 1, 2);
@@ -188,5 +261,30 @@ module profile_addr::Profile {
         assert!(song.num_streams == 0, 10);
         assert!(song.genre == string::utf8(b"Rock"), 11);
         assert!(song.preview_info == vector<u64>[0,120], 12);
+
+        create_playlist(&admin,
+                        1,
+                        string::utf8(b"Playlist's Name"),
+                        string::utf8(b"Date Created")
+                        );
+
+        let playlist = borrow_global<Playlist>(signer::address_of(&admin));
+
+        // print(playlist);
+
+        assert!(playlist.playlist_id == 1, 2);
+        assert!(playlist.playlist_name == string::utf8(b"Playlist's Name"), 3);
+        assert!(playlist.songs == vector::empty<u64>(), 4);
+        assert!(playlist.date_added == string::utf8(b"Date Created"), 5);
+
+
+        add_songs_to_playlist(&admin,
+                                1,
+                                vector<u64>[1,2,3,4,5,6,7,8,9,10]);
+
+        // let playlist = borrow_global<Playlist>(signer::address_of(&admin));
+
+        // print(playlist);
+
     }
 }
