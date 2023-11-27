@@ -1,0 +1,70 @@
+.profile-page{
+    /* position:absolute; */
+  margin: 5em 0rem 2rem 21%;
+  width: 79%;
+  background-color: rgb(36, 36, 36);
+  border-radius: 10px;
+  min-height: 100vh;
+  column-gap: 10px;
+  
+}
+
+.profile-header{
+  background-color: rgb(68, 67, 67);
+  height: 120px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* float: left; */
+  margin: 0%;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding-left: 10px;
+  /* margin-bottom: 20px; */
+}
+
+.profile-header-start{
+  position: relative;
+  margin-top: 0%;
+  padding: 0%;
+  height: 20px;
+  width: 100%;
+}
+
+.profile-header-start-h1{
+  position: relative;
+  height: 50px;
+}
+
+.profile-header p{
+  float: left;
+}
+
+.profile-header h1{
+  float: left;
+}
+
+.playlist-section{
+  margin-top: 10px;
+}
+
+.pc{
+  margin-top: 10px;
+  align-items: center;
+  margin-left: 2%;
+  color: whitesmoke;
+}
+
+.playlist-heading{
+  font-size: 20px;
+  margin-left: 3%;
+}
+
+.Playlists{
+  margin-top: 20px;
+}
+
+.temp{
+  display: flex;
+  flex-direction: column;
+}

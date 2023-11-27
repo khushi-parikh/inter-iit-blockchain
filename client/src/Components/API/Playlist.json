@@ -1,0 +1,48 @@
+[
+    {
+        "PlaylistName" : "Playlist 1",
+        "Songs" : [
+            {
+                "SongTitle" : "ABC Song",
+                "ArtistName" : "ABC Artist",
+                "AlbumName" : "ABC Album"
+            },
+            {
+                "SongTitle" : "ABC Song",
+                "ArtistName" : "ABC Artist",
+                "AlbumName" : "ABC Album"
+            }
+        ]
+    },
+    {
+        "PlaylistName" : "Playlist 2",
+        "Songs" : [
+            {
+                "SongTitle" : "ABC Song",
+                "ArtistName" : "ABC Artist",
+                "AlbumName" : "ABC Album"
+            }
+        ]
+    },
+    {
+        "PlaylistName" : "Playlist 3",
+        "Songs" : [
+            {
+                "SongTitle" : "ABC Song",
+                "ArtistName" : "ABC Artist",
+                "AlbumName" : "ABC Album"
+            }
+        ]
+    },
+    {
+        "PlaylistName" : "Playlist 4",
+        "Songs" : [
+            {
+                "SongTitle" : "ABC Song",
+                "ArtistName" : "ABC Artist",
+                "AlbumName" : "ABC Album"
+            }
+        ]
+    }
+
+]
