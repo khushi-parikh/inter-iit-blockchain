@@ -1,7 +1,62 @@
-.card{
-    height: 100px;
-    width: 20%;
-    background-color: rgb(0, 255, 30);
+.card-container{
+  margin: 5rem 0rem 2rem 21%;
+  width: 79%;
+  background-color: rgb(36, 36, 36);
+  border-radius: 10px;
+  padding: 10px 0px 25px 0px;
+}
+
+.cards{
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.cards a{
+  text-decoration: none;
+}
+
+#card{
+  flex-basis: 21% ;
+  height: 200px;
+  width: 25%;
+  background-color: rgba(0, 0, 0, 0.54);
+  border-radius: 6px;
+  margin-left: 2%;
+  color: white;
+  text-decoration: none;
+}
+
+.song-image{
+  background-color: grey;
+  width: 100%;
+  height: 70%;
+  border-radius: 6px;
+}
+
+.song-details{
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+  margin-left: 1.5%;
+  /* text-decoration: none; */
+}
+
+.song-details a{
+  text-decoration: none;
+}
+.song-name{
+  font-weight: 500;
+  color: pink;
+  text-transform: capitalize;
+}
+
+.artist-name{
+  font-size: 16px;
+}
+
+.album-name{
+  font-size: 16px;
 }
 
 .component {
