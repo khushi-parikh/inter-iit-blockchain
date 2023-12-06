@@ -8,7 +8,6 @@ import likedSongsApi from '../API/LikedSong.json'
 import LikedSongCard from '../Music/LikedSongs'
 import Transaction from '../API/Transaction.json'
 import TransactionCard from '../Music/TransactionCard'
-import { TabComponent , TabItemDirective , TabItemsDirective } from '@syncfusion/ej2-react-navigations/src/tab'
 import {useState} from 'react';
 
  
