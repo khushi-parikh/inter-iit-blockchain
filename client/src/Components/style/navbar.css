@@ -101,3 +101,69 @@
 .top-inside{
     padding: 20px;
 }
+
+.bottom-navbar{
+    padding-left: 10px;
+    padding-top: 20px;
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
+    position: fixed;
+    bottom: 0%;
+    right: 0;
+    left: 21%;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px ;
+    animation:move-bottombar-back 1 0.5s forwards;
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+}
+
+@keyframes move-bottombar-back{
+    0%{
+        left: 5%;
+    }
+    100%{
+        left: 21%;
+    }
+}
+.bottom-navbar-add{
+    
+    background-color: rgb(125, 12, 12);
+    position: fixed;
+    bottom: 0%;
+    right: 0;
+    left: 5%;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px ;
+    animation:move-bottombar 1 0.5s forwards;
+}
+
+@keyframes move-bottombar{
+    0%{
+        left: 21%;
+    }
+    100%{
+        left: 5%;
+    }
+}
+
+.Song-artist{
+    display: flex;
+    flex-direction: column;
+}
+
+.icons .pause-button{
+    height: 30px;
+    width: 30px;
+    padding-left: 10px;
+    /* padding-left: 20%; */
+}
+
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    size: 40px;
+}
