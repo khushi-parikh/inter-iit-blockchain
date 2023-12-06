@@ -1,15 +1,15 @@
 // Import necessary Move modules and libraries
 module profile_addr::Profile {
-    // use aptos_framework::account;
+
     use std::signer;
     use std::vector;
     use std::string::String;
-     #[test_only]
+    #[test_only]
     use std::string;
     use aptos_std::table::{Self, Table};
     use std::debug::print;
+
     // use aptos_framework::event;
-    // use aptos_std::table::Table;    
     // use aptos_framework::account; 
 
     // Struct to represent a song table
@@ -56,7 +56,6 @@ module profile_addr::Profile {
     struct User has key{
         user_address: address,
         liked_songs: vector<u64>,
-        // playlist: vector<PlaylistEntry>,
         playlist : vector<u64>,
         transaction_history: vector<u64>,
         listening_history: vector<u64>,
@@ -120,7 +119,7 @@ module profile_addr::Profile {
     }
 
     //Allocate a song resource to the artist
-    public entry fun create_song_resource(account: &signer){
+    public entry fun create_resource(account: &signer){
         let songs_holder = Songs_Table {
             songs: table::new(),
             song_counter: 0
@@ -156,7 +155,6 @@ module profile_addr::Profile {
 
         // gets the Songs Table resource
         let song_table = borrow_global_mut<Songs_Table>(signer_address);
-        // ? increment song counter... Why are we maintaining a song counter
         let counter = song_table.song_counter + 1;
 
         // creates a new song
@@ -176,7 +174,7 @@ module profile_addr::Profile {
         };
 
         // adds the new task into the songs table
-        table::upsert(&mut song_table.songs, counter, new_song);
+        table::upsert(&mut song_table.songs, song_id, new_song);
         // sets the task counter to be the incremented counter
         song_table.song_counter = counter;
 
@@ -186,9 +184,9 @@ module profile_addr::Profile {
     }
 
     public entry fun create_playlist(account: &signer, 
-                                    _playlistID: u64, 
-                                    _playlistName: String,
-                                    _dateAdded: String)acquires User, Playlists_Table{
+                                    playlistID: u64, 
+                                    playlistName: String,
+                                    dateAdded: String)acquires User, Playlists_Table{
 
         
 
@@ -200,75 +198,70 @@ module profile_addr::Profile {
         let playlist_table = borrow_global_mut<Playlists_Table>(user_address);
 
         let counter = playlist_table.playlist_counter + 1;
-        
-        let _songs = vector::empty<u64>();
 
         let newPlaylist= Playlist {
-            playlist_id :_playlistID,
-            playlist_name : _playlistName, 
+            playlist_id :playlistID,
+            playlist_name : playlistName, 
             songs : vector::empty<u64>(),
-            date_added : _dateAdded, 
+            date_added : dateAdded, 
         };
         
 
+        std::debug::print(&std::string::utf8(b"Playlist created"));
         print(&newPlaylist);
 
-        table::upsert(&mut playlist_table.playlists, counter, newPlaylist);
+        table::upsert(&mut playlist_table.playlists, playlistID, newPlaylist);
 
         let user: &mut User = borrow_global_mut(user_address);
 
-        vector::push_back(&mut user.playlist, _playlistID);
+        vector::push_back(&mut user.playlist, playlistID);
 
+        std::debug::print(&std::string::utf8(b"Playlist added to user"));
         print(&user.playlist);
+
+        playlist_table.playlist_counter = counter;
 
     } 
 
     public fun add_songs_to_playlist(account: &signer,
-                                    _playlistID: u64,
-                                    _songIDs: vector<u64>) acquires Playlists_Table{
-
-        // let playlist = &mut Playlist{playlist_id: _playlistID};
-
-        // let playlist_address = address_of<Playlist>(signer::address_of(account));
+                                    playlistID: u64,
+                                    songIDs: vector<u64>) acquires Playlists_Table{
 
         // gets the signer address
         let signer_address = signer::address_of(account);
 
+        assert!(exists<User>(signer_address), 2);
+
         // gets the playlist resource
         let playlist_table = borrow_global_mut<Playlists_Table>(signer_address);
 
-        // gets the playlist matches the task_id
-        let playlist = table::borrow_mut(&mut playlist_table.playlists, _playlistID);
 
-        // let playlist = borrow_global_mut<Playlist>(signer::address_of(account));
-
-        // let user_address = signer::address_of(account);
+        // gets the playlist matches the playlist_id
+        let playlist = table::borrow_mut(&mut playlist_table.playlists, playlistID);
 
 
-        // Check if the user exists
-        assert!(exists<User>(signer_address), 2);
+        print(&vector::length(&songIDs));
 
-        //Checking if the song already exists in the playlist
+        // Checking if the song already exists in the playlist
+        
         let i = 0;
-        while (i < vector::length(&_songIDs) ){
-
-            let element = *vector::borrow(&_songIDs, i);
-
-            // print(&playlist.songs);
-            // print(&(vector::contains(&playlist.songs, &element)));
-
+        while (i < vector::length(&songIDs) ){
+            
+            let element = *vector::borrow(&songIDs, i);
+            
             if(!(vector::contains(&playlist.songs, &element))){
                 vector::push_back(&mut playlist.songs, element);
             }
             else{
-                abort 45
+                std::debug::print(&std::string::utf8(b"Song already exists in playlist"));
             };
-
+            
             i = i + 1;
         };
 
+        std::debug::print(&std::string::utf8(b"Song added to playlist"));
         print(&playlist.songs);
-
+        
     }
 
     // Test flow
@@ -280,7 +273,7 @@ module profile_addr::Profile {
         // Make the user an artist
         create_artist(&admin);
 
-        create_song_resource(&admin);
+        create_resource(&admin);
 
         create_song(
             1, // album_id
@@ -316,17 +309,19 @@ module profile_addr::Profile {
         create_playlist(
                         &admin, 
                         1, 
-                        string::utf8(b"Playlist name"), 
+                        string::utf8(b"Playlist name 1"), 
                         string::utf8(b"2021-04-01"));
+
         create_playlist(
                         &admin, 
                         2, 
-                        string::utf8(b"Playlist name 1"), 
+                        string::utf8(b"Playlist name 2"), 
                         string::utf8(b"2021-04-01"));
+
         create_playlist(
                         &admin, 
                         3, 
-                        string::utf8(b"Playlist name 2"), 
+                        string::utf8(b"Playlist name 3"), 
                         string::utf8(b"2021-04-01"));
 
 
@@ -335,6 +330,13 @@ module profile_addr::Profile {
                             &admin,
                             1, 
                             vector<u64>[1,2]);
+
+        add_songs_to_playlist(
+                            &admin,
+                            1, 
+                            vector<u64>[1,2,3,4]);
+
+
         add_songs_to_playlist(
                             &admin, 
                             2, 
