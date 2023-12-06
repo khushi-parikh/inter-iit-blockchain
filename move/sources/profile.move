@@ -211,14 +211,19 @@ module profile_addr::Profile {
         };
         
 
+        std::debug::print(&std::string::utf8(b"Playlist created"));
         print(&newPlaylist);
 
         table::upsert(&mut playlist_table.playlists, counter, newPlaylist);
+
+        
 
         let user: &mut User = borrow_global_mut(user_address);
 
         vector::push_back(&mut user.playlist, _playlistID);
 
+
+        std::debug::print(&std::string::utf8(b"Playlist added to user"));
         print(&user.playlist);
 
     } 
@@ -227,12 +232,10 @@ module profile_addr::Profile {
                                     _playlistID: u64,
                                     _songIDs: vector<u64>) acquires Playlists_Table{
 
-        // let playlist = &mut Playlist{playlist_id: _playlistID};
-
-        // let playlist_address = address_of<Playlist>(signer::address_of(account));
-
         // gets the signer address
         let signer_address = signer::address_of(account);
+
+        assert!(exists<User>(signer_address), 2);
 
         // gets the playlist resource
         let playlist_table = borrow_global_mut<Playlists_Table>(signer_address);
@@ -240,22 +243,13 @@ module profile_addr::Profile {
         // gets the playlist matches the task_id
         let playlist = table::borrow_mut(&mut playlist_table.playlists, _playlistID);
 
-        // let playlist = borrow_global_mut<Playlist>(signer::address_of(account));
-
-        // let user_address = signer::address_of(account);
-
-
         // Check if the user exists
-        assert!(exists<User>(signer_address), 2);
 
         //Checking if the song already exists in the playlist
         let i = 0;
         while (i < vector::length(&_songIDs) ){
 
             let element = *vector::borrow(&_songIDs, i);
-
-            // print(&playlist.songs);
-            // print(&(vector::contains(&playlist.songs, &element)));
 
             if(!(vector::contains(&playlist.songs, &element))){
                 vector::push_back(&mut playlist.songs, element);
@@ -267,7 +261,7 @@ module profile_addr::Profile {
             i = i + 1;
         };
 
-        print(&playlist.songs);
+        // print(&playlist.songs);
 
     }
 
