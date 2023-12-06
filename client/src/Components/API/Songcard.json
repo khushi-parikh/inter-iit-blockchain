@@ -1,42 +1,79 @@
 [
     {
         "id" : 1,
-        "title":"trending",
+        "title":"Trending Songs",
        "music":[
         {
-           "Song_name" : "hsiu",
+           "Song_name" : "Song-9",
            "Artist_name" :"as",
-           "Song_Album": "maslk"
+           "Song_Album": "maslk",
+           "Purchase_Status" : false,
+           "Song_price" : 123
         },{
-            "Song_name" : "hsiu",
+            "Song_name" : "Song-8",
             "Artist_name" :"as",
-            "Song_Album": "maslk"
+            "Song_Album": "maslk",
+            "Purchase_Status" : true,
+            "Song_price" : 123
          },{
-            "Song_name" : "hsiu",
+            "Song_name" : "Song-7",
             "Artist_name" :"as",
-            "Song_Album": "maslk"
+            "Song_Album": "maslk",
+            "Purchase_Status" : true,
+            "Song_price" : 123
          }
-       ]
-        
+       ]   
     },{
         "id" : 1,
         "title":"for you",
        "music":[
         {
-           "Song_name" : "hsiu",
+           "Song_name" : "Song-6",
            "Artist_name" :"as",
-           "Song_Album": "maslk"
+           "Song_Album": "maslk",
+           "Purchase_Status" :true,
+           "Song_price" : 123
         },{
-            "Song_name" : "hsiu",
+            "Song_name" : "Song-5",
             "Artist_name" :"as",
-            "Song_Album": "maslk"
+            "Song_Album": "maslk",
+            "Purchase_Status" : true,
+            "Song_price" : 123
          },{
-            "Song_name" : "hsiu",
+            "Song_name" : "Song-4",
             "Artist_name" :"as",
-            "Song_Album": "maslk"
+            "Song_Album": "maslk",
+            "Purchase_Status" : true,
+            "Song_price" : 123
          }
        ]
         
+    },
+    {
+      "id" : 1,
+        "title":"Recently played",
+       "music":[
+        {
+           "Song_name" : "Song-3",
+           "Artist_name" :"as",
+           "Song_Album": "maslk",
+           "Purchase_Status" : false,
+           "Song_price" : 123
+        },{
+            "Song_name" : "Song-2",
+            "Artist_name" :"as",
+            "Song_Album": "maslk",
+            "Purchase_Status" : false,
+            "Song_price" : 123
+         },{
+            "Song_name" : "Song-1",
+            "Artist_name" :"as",
+            "Song_Album": "maslk",
+            "Purchase_Status" : false,
+            "Song_price" : 123
+         }
+       ]
+
     }
    
 
