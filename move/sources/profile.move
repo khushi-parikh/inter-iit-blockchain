@@ -190,6 +190,7 @@ module profile_addr::Profile {
 
         
 
+        std::debug::print(&std::string::utf8(b"ENTERED CREATE PLAYLIST-------------"));
         let user_address =  signer::address_of(account);
 
         assert!(exists<User>(user_address), E_NOT_INITIALIZED);
@@ -337,15 +338,15 @@ module profile_addr::Profile {
                             vector<u64>[1,2,3,4]);
 
 
-        add_songs_to_playlist(
-                            &admin, 
-                            2, 
-                            vector<u64>[1,2]);
+        // add_songs_to_playlist(
+        //                     &admin, 
+        //                     2, 
+        //                     vector<u64>[1,2]);
 
-        add_songs_to_playlist(
-                            &admin, 
-                            3, 
-                            vector<u64>[1,2]);
+        // add_songs_to_playlist(
+        //                     &admin, 
+        //                     3, 
+        //                     vector<u64>[1,2]);
         
 
         // Retrieve the uploaded song
