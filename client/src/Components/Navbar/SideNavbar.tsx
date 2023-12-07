@@ -16,6 +16,7 @@ const SideNavbar: React.FC<Props> = ({ sidenav,text,handleclose}) => {
          <button onClick={()=> handleclose()}>{text}</button>
          <Link to='/profile'>profile</Link>
          <Link to='/'>Home</Link>
+         <Link to='/upload'>upload</Link>
 
         </div>
     </div>
