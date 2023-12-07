@@ -1,3 +1,5 @@
+
+
 .profile-page{
     /* position:absolute; */
   margin: 5em 0rem 2rem 21%;
@@ -6,11 +8,12 @@
   border-radius: 10px;
   min-height: 100vh;
   column-gap: 10px;
-  
+  margin-bottom: 20px;
 }
 
 .profile-header{
-  background-color: rgb(68, 67, 67);
+  /* background: radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%); */
+  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
   height: 120px;
   width: 100%;
   display: flex;
@@ -67,4 +70,53 @@
 .temp{
   display: flex;
   flex-direction: column;
+}
+
+.tabs{
+  margin-left: 2%;
+  margin-top: 1%;
+  align-items: center;
+}
+
+.tabs button{
+
+  border: none;
+  margin-right: 10px;
+  height: 30px;
+  border-radius: 6px;
+  color: white;
+  letter-spacing: 1px;
+  
+}
+.tabs .active-button{
+  background-image: linear-gradient(to right, #e53935 0%, #e35d5b  51%, #e53935  100%);
+  
+}
+
+
+.non-active-button{
+  background-image: linear-gradient(to right, #fd746c 0%, #ff9068  51%, #fd746c  100%);
+}
+
+         
+         
+          
+.btn-grad {
+  background-image: linear-gradient(to right, #e53935 0%, #e35d5b  51%, #e53935  100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
 }

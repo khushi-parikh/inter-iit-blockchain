@@ -8,29 +8,21 @@ import '../style/songcard.css'
 const Home = () => {
   return (
     <div className='home-page'>
-      <div  className='card-container'>
-        {api.map((apimusic,index)=>{
+      <div>
+        {api.map((apimusic , index) => {
           return(
-        <div>
-          <p>{apimusic.title}</p>
-          <div>
-            
-            {apimusic.music.map((musicdetail,index)=>{
-            return(
-        
-            <Link to='songpage' >
-              <SongCard Songname={musicdetail.Song_name} Artistname ={musicdetail.Artist_name} />
-            </Link>
-          
-          )
-          })}
-          </div>
-          </div>
+            <div className='temp' >
+              <p>{apimusic.title}</p>
+              <div className="pc">
+                {apimusic.music.map((musicDetails , index) => {
+                  return(
+                    <SongCard SongName= {musicDetails.Song_name} ArtistName= {musicDetails.Artist_name} AlbumName={musicDetails.Song_Album} Purchase_Status={musicDetails.Purchase_Status} Song_Price={musicDetails.Song_price}/>
+                  )
+                })}
+              </div>
+            </div>
           )
         })}
-        
-        
-        
       </div>
     </div>
   )
