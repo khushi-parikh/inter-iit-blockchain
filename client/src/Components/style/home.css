@@ -1,16 +1,21 @@
 .home-page{
-    top: 10%;
-    right: 0;
-    left: 21%;
-    color: white;
-    /* z-index: -1; */
+    margin: 5em 0rem 2rem 21%;
+    width: 79%;
+    background-color: rgb(36, 36, 36);
+    border-radius: 10px;
+    min-height: 100vh;
+    column-gap: 10px;
+    display: flex;
+    flex-direction: column;
+    z-index: -1;
 }
 
 .home-page p{
     font-size: 20px;
     text-transform: capitalize;
     color: white;
-    left: 22%;
+    margin-left: 2%;
+    padding-top: 2%;
 }
 
 .home-page a{
