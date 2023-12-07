@@ -8,11 +8,12 @@
   border-radius: 10px;
   min-height: 100vh;
   column-gap: 10px;
-  
+  margin-bottom: 20px;
 }
 
 .profile-header{
-  background: radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%);
+  /* background: radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%); */
+  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
   height: 120px;
   width: 100%;
   display: flex;

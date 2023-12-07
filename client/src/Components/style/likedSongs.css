@@ -2,7 +2,7 @@
     width: 250px;
     height: 240px;
     color: white;
-    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.96) 11.2%, rgb(65, 61, 61) 78.9%);
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.418) 11.2%, rgba(82, 70, 70, 0.44) 78.9%);
     /* background-color: black; */
     float: left;
     margin-right: 10px;
@@ -10,7 +10,7 @@
     text-align: left;
     color: rgb(213, 211, 211);
     box-shadow: 0px 3px 3px black;
-    transition: all 300ms ease-in-out;
+    transition: all 150ms ease-in-out;
 }
 
 .Liked-card:hover{
@@ -27,6 +27,26 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
+}
+.show-button{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%);
+    /* background-color: rgb(37, 233, 37); */
+    align-items: center;
+    position:absolute;
+    bottom: -12%;
+    right: 1%;
+    margin-right: 2%;
+}
+.play-button{
+    color: black;
+    height: 30px;
+    width: 30px;
+    align-self: center;
+    padding-top: 15px;
+    padding-left: 10px;
 }
 
 .Liked-card p{
