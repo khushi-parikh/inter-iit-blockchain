@@ -5,8 +5,6 @@
 }
 .top-navbar{
   background: linear-gradient(to bottom, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
-
-    /* background-color: rgb(68, 61, 61); */
     position: fixed;
     top: 0%;
     right: 0;
@@ -116,19 +114,17 @@
                  /* side navbar */
 .side-navbar{
   background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
-
-    /* background: linear-gradient(129.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 50.9% , rgb(178, 178, 165) ); */
-    /* background-color: rgb(42, 37, 37); */
     position: fixed;
     top: 0%;
     left: 0%;
     width: 16.5%;
     height: 100vh;
     border-radius: 5px ;
-    /* padding: 10px; */
     display: flex;
     flex-direction: column;
     align-items: start;
+  border-right: 5px solid black;
+
 }
 .menu-tab{
     width: 100%;

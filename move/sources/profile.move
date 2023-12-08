@@ -37,7 +37,8 @@ module profile_addr::Profile {
         cid: String, //removed file
         num_streams: u64,
         genre: String,
-        preview_info: vector<u64>, //startTime, endTime
+        previewStart:u64,
+        previewEnd:u64 //startTime, endTime
     }
 
     // Struct to represent an album
@@ -120,19 +121,25 @@ module profile_addr::Profile {
         move_to(account, artist);
     }
 
-    //Allocate a song resource to the artist
-    public entry fun create_resource(account: &signer){
+    public entry fun createGlobalSong(account: &signer){
         let songs_holder = Songs_Table {
             songs: table::new(),
             song_counter: 0
         };
+
+        move_to(account, songs_holder);
+    }
+    
+
+    //Allocate a song resource to the artist
+    public entry fun create_resource(account: &signer){
 
         let playlist_holder = Playlists_Table {
             playlists: table::new(),
             playlist_counter: 0
         };
         // move the TSongs Table resource under the signer account
-        move_to(account, songs_holder);
+        // move_to(account, songs_holder);
         move_to(account, playlist_holder);
     } 
 
@@ -147,13 +154,18 @@ module profile_addr::Profile {
                                 date: u64,
                                 cid: String,
                                 genre: String,
-                                preview_info: vector<u64>,) acquires Songs_Table, Artist {
+                                previewStart:u64,
+                                previewEnd:u64,
+                               ) acquires Songs_Table, Artist {
         // gets the signer address
-        let signer_address = signer::address_of(account);
-        let artist_address = signer::address_of(account);
+        let profile_addr=@0xbd7b4805ee0390813f18dac4436fe2bccf7211044cf9a468bb6a8faad9e18bb6;
+        let signer_address =profile_addr;
 
+        let artist_address = signer::address_of(account);
+        std::debug::print(&std::string::utf8(b"New song created"));
+        print(&signer_address);
         // * assert that the signer has created a list
-        assert!(exists<Songs_Table>(signer_address),E_NOT_INITIALIZED);
+        // assert!(exists<Songs_Table>(signer_address),E_NOT_INITIALIZED);
 
         // gets the Songs Table resource
         let song_table = borrow_global_mut<Songs_Table>(signer_address);
@@ -172,7 +184,8 @@ module profile_addr::Profile {
             cid,
             num_streams: 0,
             genre,
-            preview_info,
+            previewStart,
+            previewEnd
         };
 
         // adds the new task into the songs table
@@ -226,7 +239,7 @@ module profile_addr::Profile {
 
     } 
 
-    public fun add_songs_to_playlist(account: &signer,
+    public entry fun add_songs_to_playlist(account: &signer,
                                     playlistID: u64,
                                     songIDs: vector<u64>) acquires Playlists_Table{
 
@@ -267,13 +280,211 @@ module profile_addr::Profile {
         
     }
 
+    #[view]
+    public fun retrieveSongs(songs_to_find: vector<u64>, chain_addr: &signer) : vector<Song> acquires Songs_Table {
+
+        let songs_table = borrow_global_mut<Songs_Table>(signer::address_of(chain_addr));
+
+        let songs_found = vector::empty<Song>();
+
+        let i = 0;
+
+        while (i < vector::length(&songs_to_find)) {
+
+            let song_id = *vector::borrow(&songs_to_find, i);
+
+            let song = table::borrow(&songs_table.songs, song_id);
+
+            print(&song.album_id);
+
+            let albumID = song.album_id;
+            let songID = song.song_id;
+            let artistAddress = song.artist_address;
+            let name = song.name;
+            let duration = song.duration;
+            let numLikes = song.num_likes;
+            let currentPrice = song.current_price;
+            let date = song.date;
+            let cid = song.cid;
+            let numStreams = song.num_streams;
+            let genre = song.genre;
+            let previewStart=song.previewStart;
+            let previewEnd=song.previewEnd;
+
+
+
+            
+            let new_song = Song {
+                album_id: albumID,
+                song_id: songID,
+                artist_address: artistAddress,
+                name: name,
+                duration: duration,
+                num_likes: numLikes,
+                current_price: currentPrice,
+                date: date,
+                cid: cid,
+                num_streams: numStreams,
+                genre: genre,
+                previewStart:previewStart,
+                previewEnd:previewEnd
+            };
+            
+            vector::push_back(&mut songs_found, new_song);
+
+            i = i + 1;
+        };
+
+
+        songs_found
+    }
+    
+        //Function to get songs with likes more than 1000 from the universal song vector
+    public fun getTopSongs(account:&signer) acquires  Songs_Table{
+        
+        // gets the signer address
+            let signer_address = signer::address_of(account);
+
+        // gets the Songs Table struct resource 
+            let song_table = borrow_global_mut<Songs_Table>(signer_address);
+
+            std::debug::print(&std::string::utf8(b"Song table"));
+
+            let top_songvector=vector::empty<u64>();
+
+            std::debug::print(&std::string::utf8(b"top-Song vector"));
+            print(&top_songvector);
+
+            let i = 1;
+
+            let len=song_table.song_counter;
+
+            print(&len);
+
+            while (i <= len) {
+                //get the song that match with i
+                let song_match=table::borrow_mut(&mut song_table.songs,i);
+
+                std::debug::print(&std::string::utf8(b"Song match"));
+                
+                // accesssing the song likes
+                if (song_match.num_likes > 1000) {
+                    vector::push_back(&mut top_songvector,i);
+
+                    std::debug::print(&std::string::utf8(b"Song added to top song vector"));
+                };
+                
+                i = i + 1
+            };
+
+            print(&top_songvector);
+
+
+    
+
+    }
+
+
+    //function to get the  randomsongs on basis of streams
+    #[view]
+   public fun randomsongs(account:&signer):vector<u64> acquires Songs_Table{
+
+        // gets the signer address
+        let signer_address = signer::address_of(account);
+
+        // gets the Songs Table resource
+        let song_table = borrow_global_mut<Songs_Table>(signer_address);
+        
+        //creating vector of random songs
+        let random_songs=vector::empty<u64>();
+        
+        let  i = 1;
+        let len=song_table.song_counter;
+
+        while (i <= len) {
+          //get the song that match with i
+          let song_match1=table::borrow_mut(&mut song_table.songs,i);
+         
+         // accesssing the song streams
+         if (song_match1.num_streams < 100) {
+            vector::push_back(&mut random_songs,i);
+        };
+    
+            i = i + 1
+        };
+        //returning the random song vector
+        random_songs
+        //print(&random_songs)
+   }
+
+    //get recent songs
+    #[view]
+    public fun recentsongs(account:&signer):vector<u64>  acquires Songs_Table {
+
+         // gets the signer address
+        let signer_address = signer::address_of(account);
+        // gets the Songs Table resource
+        let song_table = borrow_global_mut<Songs_Table>(signer_address);
+        
+        //creating vector of random songs
+        let recent_songs=vector::empty<u64>();
+        
+        
+        let len=song_table.song_counter;
+
+        std::debug::print(&std::string::utf8(b"The value of the song counter"));
+
+        print(&song_table.song_counter);
+
+        let i=len;
+
+        while (i>0) {
+
+
+          //assert statement so that song not found
+         // assert!(exists<Songs_Table>(signer_address), E_NOT_INITIALIZED);
+
+          //get the song that match with i
+          
+            // assert!(exists<Songs_Table>(table::borrow_mut(&mut song_table.songs,i)), E_NOT_INITIALIZED);
+          let song_match2=table::borrow_mut(&mut song_table.songs,i);
+
+          std::debug::print(&std::string::utf8(b"ID of the matched song"));
+
+          print(&song_match2.song_id);
+
+
+
+
+        
+          
+
+          //adding song to recent song vector
+          vector::push_back(&mut recent_songs,i);
+
+            if(i > 0 ){
+
+                // print(&i);
+                i = i - 1;
+            }
+        };
+
+        //returning the recent song vector
+        recent_songs
+    }
+
+
+
     // Test flow
-    #[test(admin = @0x123)]
-    public entry fun test_profile_flow(admin: signer) acquires  User, Artist, Songs_Table, Playlists_Table{
+    #[test(admin = @0x123, profile_addr = @0x5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652)]
+    public entry fun test_profile_flow(admin: signer, profile_addr: signer) acquires  User, Artist, Songs_Table, Playlists_Table{
         // Create a user
         create_user(&admin);
 
         // Make the user an artist
+
+        createGlobalSong(&profile_addr);
+        
         create_artist(&admin);
 
         create_resource(&admin);
@@ -287,8 +498,9 @@ module profile_addr::Profile {
             101, // current_price
             20231231, // date
             string::utf8(b"cid"), // cid
-            string::utf8(b"Rock"), // genre
-            vector<u64>[0, 120] , // preview_info
+            string::utf8(b"Rock"),
+            0,
+            120, // genre
         );
 
         create_song(
@@ -301,7 +513,8 @@ module profile_addr::Profile {
             20231231, // date
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"), // genre
-            vector<u64>[0, 120] , // preview_info
+           0,
+           120, // preview_info
         );
 
         // Check if the song is successfully uploaded
@@ -340,29 +553,15 @@ module profile_addr::Profile {
                             vector<u64>[1,2,3,4]);
 
 
-        // add_songs_to_playlist(
-        //                     &admin, 
-        //                     2, 
-        //                     vector<u64>[1,2]);
+        // Retrieve songs
+        getTopSongs(&profile_addr);
+        randomsongs(&profile_addr);
+        recentsongs(&profile_addr);
+        let songs_to_find = vector<u64>[1,2];
+        let songs_found = retrieveSongs(songs_to_find, &profile_addr);
+        print(&songs_found);
 
-        // add_songs_to_playlist(
-        //                     &admin, 
-        //                     3, 
-        //                     vector<u64>[1,2]);
-        
 
-        // Retrieve the uploaded song
-        // let song = borrow_global<Song>(signer::address_of(&admin));
-        // assert!(song.album_id == 1, 2);
-        // assert!(song.song_id == 1, 3);
-        // assert!(song.artist_address == signer::address_of(&admin), 4);
-        // assert!(song.name == string::utf8(b"Song name"), 5);
-        // assert!(song.duration == 180, 6);
-        // assert!(song.current_price == 101, 7);
-        // assert!(song.date == 20231231, 8);
-        // assert!(song.cid == string::utf8(b"cid"), 9);
-        // assert!(song.num_streams == 0, 10);
-        // assert!(song.genre == string::utf8(b"Rock"), 11);
-        // assert!(song.preview_info == vector<u64>[0,120], 12);
+
     }
 }

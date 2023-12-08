@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, ChangeEvent, FormEvent } from 'react'
 import '../style/upload.css'
 const Upload = () => {
     const [Amount,SetAmount] = React.useState(false)
@@ -10,6 +10,16 @@ const Upload = () => {
             SetAmount(true)
         }
     }
+    const [formData, setFormData] = useState({
+        songName: '',
+        songTitle: '',
+        album: '',
+        amount: '',
+        musicFile: null as File | null,
+        photoFile: null as File | null,
+        about: '',
+      });
+      
   return (
     <div className="page">
 
@@ -65,7 +75,7 @@ const Upload = () => {
                    
                     <br />
                     </label> 
-                    <label>Music*
+                    <label>Music* <br />
                     <input 
                         type="file"
                         name="file"
@@ -77,7 +87,7 @@ const Upload = () => {
                     /> 
                     <br />
                     </label> 
-                    <label>Photo*
+                    <label>Photo*<br/>
                     <input 
                         type="file"
                         name="file"
