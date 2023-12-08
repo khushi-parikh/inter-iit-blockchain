@@ -9,13 +9,13 @@ type Props = {
 	sidenav: Boolean;
 };
 
-const TopNavbar: React.FC<Props> = ({ sidenav }) => {
+const TopNavbar: React.FC<Props> = () => {
 	const [searchText,setSearchText] = useState("");
 	const handleInputText = (e : any) => {
 		setSearchText(e.target.value);
 	}
 	return (
-		<div className={` ${sidenav ? 'top-navbar' : ' top-navbar-add'}`}>
+		<div className='top-navbar' >
 			<div className='top-inside'>
 				<div>
 					<div className="search-bar">

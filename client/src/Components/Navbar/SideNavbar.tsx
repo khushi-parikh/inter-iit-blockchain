@@ -8,15 +8,14 @@ type Props = {
   // sidenav: (val: string) => void;
   handleclose: () => void;
 };
-const SideNavbar: React.FC<Props> = ({ sidenav,text,handleclose}) => {
+const SideNavbar: React.FC<Props> = () => {
    
   return (
-    <div className={ ` ${ sidenav ? 'side-navbar':'side-navbar side-nav-close' }`}>
+    <div className='side-navbar'>
         <div >
-         <button onClick={()=> handleclose()}>{text}</button>
-         <Link to='/profile'>profile</Link>
-         <Link to='/'>Home</Link>
-         <Link to='/upload'>upload</Link>
+         <Link to='/profile'>profile</Link><br /><br />
+         <Link to='/'>Home</Link><br /><br />
+         <Link to='/upload'>upload</Link><br /><br />
 
         </div>
     </div>
