@@ -3,46 +3,56 @@ import '../style/upload.css'
 const Upload = () => {
   return (
     <div className="upload-file page"> 
-            <h1>User Name</h1> 
-            <fieldset> 
-                <form action="#" method="get"> 
-                    <label>Song Name*</label> 
+            <center className='upload-form' > 
+                <p className='form-header'>Upload Details</p> 
+                <p className='below-header'>Enter the song details</p>
+                <hr className='line'/>
+                <form action="#" method="get" className='login-form'> 
+                    <label >Song Name* 
                     <input 
                         type="text"
                         name="firstname"
                         id="songname"
                         placeholder="Enter Song Name"
                         required 
-                    /> 
-                    <br /><br /> 
-                    <label >Song Title*</label> 
+                        className='enter-data'
+                    /><br />
+                    </label>
+
+                    <label >Song Title*
                     <input 
                         type="text"
                         name="songtitle"
                         id="lastname"
                         placeholder="Enter Song Title"
                         required 
-                    /> 
-                    <br /><br /> 
-                    <label >Album* </label> 
+                        className='enter-data'
+                    /><br />
+                    </label> 
+
+                    <label >Album* 
                     <input 
                         type="text"
                         name="Album"
                         id="email"
                         placeholder="Enter Album"
                         required 
+                        className='enter-data'
                     /> 
-                    <br /><br /> 
-                    <label >Amount*</label> 
-                    <br /> 
+                    <br />
+                    </label> 
+
+                    <label >Amount*
+                    
                     <input type="radio" name="Amount"
                         value="" id="Free" /> 
                     Free 
                     <input type="radio" name="Amount"
                         value="" id="Amount" /> 
                     Amount
-                    <br /><br /> 
-                    <label>Music*</label> 
+                    <br />
+                    </label> 
+                    <label>Music*
                     <input 
                         type="file"
                         name="file"
@@ -50,9 +60,11 @@ const Upload = () => {
                         placeholder="Enter Upload File"
                         required 
                         accept=''
+                        className='enter-data'
                     /> 
-                    <br /><br /> 
-                    <label>Photo*</label> 
+                    <br />
+                    </label> 
+                    <label>Photo*
                     <input 
                         type="file"
                         name="file"
@@ -60,27 +72,33 @@ const Upload = () => {
                         placeholder="Enter Upload File"
                         required 
                         accept=''
+                        className='enter-data'
                     /> 
-                    <br /><br /> 
-                    <label>About</label> 
-                    <br /> 
+                    <br />
+                    </label> 
+                    <label>About </label>
+                     
                     <textarea 
                         name="about"
                         id="about"
-                        placeholder="About your self"
+                        placeholder="Enter something about your self"
                         required 
+                        className='enter-data'
                     ></textarea> 
                     <br /><br /> 
-                    <label>Submit OR Reset</label> 
-                    <br /> 
-                    <button type="reset" value="reset"> 
-                        Reset 
-                    </button> 
-                    <button type="submit" value="Submit"> 
-                        Submit 
-                    </button> 
+                    
+                    
+                    <center className='submit-button'>
+                        <button type="reset" value="reset"> 
+                            Reset 
+                        </button> 
+                        <button type="submit" value="Submit"> 
+                            Submit 
+                        </button> 
+
+                    </center>
                 </form> 
-            </fieldset> 
+            </center> 
         </div> 
   )
 }

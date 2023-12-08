@@ -29,24 +29,24 @@
 
 }
 .show-button{
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%);
     /* background-color: rgb(37, 233, 37); */
     align-items: center;
     position:absolute;
-    bottom: -12%;
+    bottom: -15%;
     right: 1%;
     margin-right: 2%;
 }
 .play-button{
     color: black;
-    height: 30px;
-    width: 30px;
+    height: 28px;
+    width: 28px;
     align-self: center;
-    padding-top: 15px;
-    padding-left: 10px;
+    padding-top: 12px;
+    padding-left: 6px;
 }
 
 .Liked-card p{
@@ -64,7 +64,6 @@
     display: flex;
     flex-direction: row;
     row-gap: 20px;
-    align-items: center;
 }
 
 .songs{
@@ -74,12 +73,14 @@
 }
 
 .purchase{
+    margin-top: 30px;
     margin-left: 20px;
     width: 80px;
     border-radius: 8px;
-    text-align: center;
+    /* text-align: center; */
     display: flex;
     flex-direction: row;
+    align-items:end;
     /* background-color: red; */
     align-items: center;
 }
@@ -88,7 +89,7 @@
     height: 30px;
     width: 30px;
     color: yellow;
-    text-align: center;
+    /* text-align: center; */
 }
 
 .image-not-show{
@@ -99,15 +100,20 @@
     color: transparent;
 }
 .not_show_paid{
+    margin-top: 20px;
     width: 0;
     color: transparent;
 }
 
 .show_paid{
+    
     width: 60px;
     background: linear-gradient(rgb(52, 102, 174) 0%, rgb(83, 144, 241) 100%);
     text-align: center;
     margin-left: 20px;
     border-radius: 8px;
     height: 25px;
+}
+.not-purchase .show_paid{
+    margin-top: 15px;
 }
