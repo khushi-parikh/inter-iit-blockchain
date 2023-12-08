@@ -1,18 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Italianno&family=Labrada&family=Nunito:wght@600&family=Roboto&family=Roboto+Slab&display=swap');
 
-.upload-file page{
-	margin: 5em 0rem 2rem 21%;
+.upload-page{
+	margin: 4em 0rem 5% 16.8%;
+  	width: 85%;
+	margin-bottom: 5%;
+
 }
-.upload-file {
+.upload-page {
     justify-content: center;
     
 }
-.upload-file h1 { 
+.upload-page h1 { 
 	text-align: center; 
 	color:whitesmoke; 
 } 
 
-.upload-file .upload-form { 
+.upload-page .upload-form { 
 	margin-top: 2%;
 	margin-left: 20%; 
 	margin-right: 20%; 
@@ -21,25 +24,25 @@
 	border:2px solid rgba(214, 211, 211, 0.368);
 } 
 
-.upload-file input { 
+.upload-page input { 
 	padding: .3rem; 
 	border: 1px solid #ccc; 
 	border-radius: 4px; 
 	margin: 10px; 
 } 
 
-.upload-file textarea { 
+.upload-page textarea { 
 	padding: .3rem; 
 	border: 1px solid #ccc; 
 	border-radius: 4px; 
 	margin: 10px; 
 } 
 
-.upload-file label { 
+.upload-page label { 
 	margin: 10px; 
 } 
 
-.upload-file button { 
+.upload-page button { 
 	padding: .3rem; 
 	font-size: 15px; 
 	background-color: rgb(9, 17, 6); 

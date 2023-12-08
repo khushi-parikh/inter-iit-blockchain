@@ -1,10 +1,16 @@
                   /* top navbar */
+.app-logo{
+    height: 20px;
+    /* width: 30px; */
+}
 .top-navbar{
-    background-color: rgb(68, 61, 61);
+  background: linear-gradient(to bottom, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
+
+    /* background-color: rgb(68, 61, 61); */
     position: fixed;
     top: 0%;
     right: 0;
-    left: 18%;
+    left: 16.8%;
     width: 100%;
     height: 4rem;
     border-radius: 6px 0px;
@@ -13,7 +19,6 @@
 .top-inside{
     padding: 15px;
 }
-
 .search-bar{
     height: 34px;
     border-radius: 6px;
@@ -77,14 +82,14 @@
     position: fixed;
     bottom: 0%;
     right: 0;
-    left: 21%;
+    left: 16.5%;
     width: 100%;
     height: 60px;
     border-radius: 10px ;
     display: flex;
     flex-direction: row;
     gap: 200px;
-    /* z-index: 1; */
+    z-index: 1;
 }
 
 
@@ -110,12 +115,55 @@
 
                  /* side navbar */
 .side-navbar{
-    background-color: rgb(42, 37, 37);
+  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
+
+    /* background: linear-gradient(129.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 50.9% , rgb(178, 178, 165) ); */
+    /* background-color: rgb(42, 37, 37); */
     position: fixed;
     top: 0%;
     left: 0%;
     width: 16.5%;
     height: 100vh;
     border-radius: 5px ;
-    padding: 10px;
+    /* padding: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.menu-item{
+    margin-left: 0px;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    /* background-color: rgb(96, 94, 94); */
+    border-bottom: 1px rgb(121, 119, 119) solid;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    width: 250px;
+    height: 40px;
+    transition: all 150ms ease-in-out
+}
+
+.menu-item:hover{
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+    /* background-color: grey; */
+    height: 42px;
+}
+
+.menu-icon{
+    width: 40px;
+    height: 20px;
+    color: white;
+}
+
+.menu-item a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.menu-head{
+    color: rgb(177, 169, 169);
+    padding-left: 10px;
 }
