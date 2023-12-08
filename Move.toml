@@ -5,6 +5,7 @@ authors = []
 
 [addresses]
 profile_addr='5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652'
+
 [dev-addresses]
 
 [dependencies.AptosFramework]

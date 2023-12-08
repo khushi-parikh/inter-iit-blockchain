@@ -34,14 +34,34 @@
 }
 
 .search-bar{
-    height: 25px;
+    height: 34px;
     border-radius: 6px;
-    border: transparent;
+    border: none;
     width: 300px;
-    margin-right: 20px;
-    padding-left: 5px;
+    background-color: rgb(231, 231, 231);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    &:hover{
+        border: none;
+    }
 }
 
+.search-bar-input{
+    width: 90%;
+    background-color: rgb(231, 231, 231);
+    border: none;
+    height: 34px;
+    &:focus{
+        outline: none;
+    }
+}
+
+.search-icon{
+    color: black;
+    height: 25px;
+    padding: 10px 5px 10px 10px;
+}
 
 .side-nav-close{
     animation:move-sidebar 1 0.5s forwards;
@@ -59,13 +79,15 @@
 .top-navbar{
     background-color: rgb(42, 37, 37);
     position: fixed;
-    top: 1%;
+    top: 0%;
     right: 0;
-    left: 21%;
     width: 100%;
     height: 4rem;
-    border-radius: 10px ;
+    border-radius: 6px;
+    border-left: 0px solid black;
+    border-top: 10px solid black;
     animation:move-topbar-back 1 0.5s forwards;
+    z-index: 10;
 }
 
 @keyframes move-topbar-back{
@@ -99,5 +121,90 @@
 }
 
 .top-inside{
-    padding: 20px;
+    padding: 15px;
+}
+
+.bottom-navbar{
+    padding-left: 10px;
+    padding-top: 20px;
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
+    position: fixed;
+    bottom: 0%;
+    right: 0;
+    left: 21%;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px ;
+    animation:move-bottombar-back 1 0.5s forwards;
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+    z-index: 1;
+}
+
+@keyframes move-bottombar-back{
+    0%{
+        left: 5%;
+    }
+    100%{
+        left: 21%;
+    }
+}
+.bottom-navbar-add{
+    
+    background-color: rgb(125, 12, 12);
+    position: fixed;
+    bottom: 0%;
+    right: 0;
+    left: 5%;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px ;
+    animation:move-bottombar 1 0.5s forwards;
+}
+
+@keyframes move-bottombar{
+    0%{
+        left: 21%;
+    }
+    100%{
+        left: 5%;
+    }
+}
+
+.Song-artist{
+    display: flex;
+    flex-direction: column;
+}
+
+.icons .pause-button{
+    height: 30px;
+    width: 30px;
+    padding-left: 10px;
+    /* padding-left: 20%; */
+}
+
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    size: 40px;
+}
+
+.wallet{
+    width: 70px;
+    height: 40px;
+    right: 10%;
+    position: fixed;
+    top: 2.6%;
+}
+
+.wallet button{
+    background: linear-gradient(25deg, rgb(214, 76, 127), rgb(238, 71, 88) 50%);
+    border: none;
+    color: white;
+}
+
+.wallet-button{
+    color: white !important;
 }

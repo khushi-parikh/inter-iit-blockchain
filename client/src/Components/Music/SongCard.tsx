@@ -1,49 +1,60 @@
-import React from 'react'
-import '../style/songcard.css'
+import React, { useState } from 'react';
+import { FaPlay } from "react-icons/fa";
+import { LiaCoinsSolid } from "react-icons/lia";
+
 type Props = {
-  Songname: string;
-  Artistname : string;
- 
+ SongName: string;
+ ArtistName : string;
+ AlbumName : string;
+ Purchase_Status : boolean;
+ Song_Price : number
 };
-// function cards(){
-//   for(var i =0 ; i<3 ; i++){
-//     let row = document.getElementById(card);
-//   }
-// }
-const SongCard: React.FC<Props> = ({Songname,Artistname}) => {
-  return (
-    
-      
-      <div className='cards'>
-        <div id='card'>
-          <div className='song-image'>
 
-          </div>
+const SongCard: React.FC<Props> = ({SongName , ArtistName , AlbumName , Purchase_Status , Song_Price}) => {
+const [isHovered, setIsHovered] = useState(false);
 
-          <div className='song-details'>
-            <div className='song-name'>
-              {Songname}
-            </div>
-            <div className='artist-name'>
-              {Artistname}
-            </div>
-          </div>
-
-          <div className='song-details'>
-            <div className='album-name'>
-              Song Album
-            </div>
-          </div>
-
-          
-
+ return (
+   <center className='Liked-card'
+     onMouseEnter={() => setIsHovered(true)}
+     onMouseLeave={() => setIsHovered(false)}
+   >
+    {isHovered ? (
+      <>
+       <div className='playlist-image'>
+        <center className="show-button">
+            <FaPlay className='play-button'/>
+        </center>
+       </div>
+      </>
+    ) :
+    <>
+    <div className='playlist-image'>
+    </div>
+    </> 
+    }
+    <div className="bottom-details">
+      <div className="songs">
+        <div className='song-details'>
+            {SongName}
         </div>
-
+        <div className='song-details'>
+            Artist : {ArtistName}
+        </div>
+        <div className='song-details'>
+            Album : {AlbumName}
+        </div>
       </div>
-    
-
-    
-  )
+      <div className= {Purchase_Status == true ? "purchase" : "not-purchase" }>
+        <LiaCoinsSolid className={Purchase_Status == true ? "image-show" : "image-not-show"} />
+        <div className={Purchase_Status == false ? "show_paid" : "not_show_paid"}>Paid</div>
+        <div className = {Purchase_Status == true ? "show_price" : "not-show-price"}>
+          {Song_Price}
+        </div>
+      </div>
+    </div>
+   </center>
+ )
 }
+
 
 export default SongCard

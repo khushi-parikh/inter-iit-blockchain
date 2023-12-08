@@ -8,6 +8,8 @@ import Profile from './Components/pages/Profile';
 import Login from './Components/pages/Login';
 import Fixedcomp from './Components/fixed/Fixedcomp';
 import SongPage from './Components/Music/SongPage';
+import PlayList from './Components/Music/PlayList';
+import Upload from './Components/pages/Upload';
 
 function App() {
 
@@ -22,6 +24,9 @@ function App() {
       <Route path="/login" element={<Login/>} />
       <Route path="*" element={<PageNotFound/>} />
       <Route path="/profile" element={<Profile/>} />
+      <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
+      <Route path="/upload" element={<Upload/>} />
+      
 
     </Routes>
    

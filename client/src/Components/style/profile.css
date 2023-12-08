@@ -1,0 +1,122 @@
+
+
+.profile-page{
+    /* position:absolute; */
+  margin: 5em 0rem 2rem 21%;
+  width: 79%;
+  background-color: rgb(36, 36, 36);
+  border-radius: 10px;
+  min-height: 100vh;
+  column-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.profile-header{
+  /* background: radial-gradient(circle at 10% 20%, rgb(0, 0, 0) 0%, rgb(64, 64, 64) 90.2%); */
+  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
+  height: 120px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* float: left; */
+  margin: 0%;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  padding-left: 10px;
+  /* margin-bottom: 20px; */
+}
+
+.profile-header-start{
+  position: relative;
+  margin-top: 0%;
+  padding: 0%;
+  height: 20px;
+  width: 100%;
+}
+
+.profile-header-start-h1{
+  position: relative;
+  height: 50px;
+}
+
+.profile-header p{
+  float: left;
+}
+
+.profile-header h1{
+  float: left;
+}
+
+.playlist-section{
+  margin-top: 10px;
+}
+
+.pc{
+  margin-top: 10px;
+  align-items: center;
+  margin-left: 2%;
+  color: whitesmoke;
+}
+
+.playlist-heading{
+  font-size: 20px;
+  margin-left: 3%;
+}
+
+.Playlists{
+  margin-top: 20px;
+}
+
+.temp{
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs{
+  margin-left: 2%;
+  margin-top: 1%;
+  align-items: center;
+}
+
+.tabs button{
+
+  border: none;
+  margin-right: 10px;
+  height: 30px;
+  border-radius: 6px;
+  color: white;
+  letter-spacing: 1px;
+  
+}
+.tabs .active-button{
+  background-image: linear-gradient(to right, #e53935 0%, #e35d5b  51%, #e53935  100%);
+  
+}
+
+
+.non-active-button{
+  background-image: linear-gradient(to right, #fd746c 0%, #ff9068  51%, #fd746c  100%);
+}
+
+         
+         
+          
+.btn-grad {
+  background-image: linear-gradient(to right, #e53935 0%, #e35d5b  51%, #e53935  100%);
+  margin: 10px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}

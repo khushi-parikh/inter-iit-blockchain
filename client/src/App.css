@@ -2,14 +2,21 @@ body{
   background-color: black;
   color: white;
   overflow-y:scroll ;
-  align-items: center;
-  justify-content: center;
   min-height: 100vh;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
 }
 body::-webkit-scrollbar {
   -webkit-appearance: none;
   width: 7px;
+}
+.page{
+  margin: 5em 0rem 2rem 21%;
+  width: 79%;
+  background-color: rgb(36, 36, 36);
+  border-radius: 10px;
+  min-height: 100vh;
+  column-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  z-index: -1;
+  margin-bottom: 20px;
 }
