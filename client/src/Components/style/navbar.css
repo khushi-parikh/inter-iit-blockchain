@@ -1,43 +1,24 @@
-.side-navbar{
-    background-color: rgb(42, 37, 37);
+                  /* top navbar */
+.top-navbar{
+    background-color: rgb(68, 61, 61);
     position: fixed;
-    top: 1%;
-    left: 0.5%;
-    width: 20%;
-    height: 100vh;
-    border-radius: 5px ;
-    animation:move-sidebar-back 1 0.5s forwards;
+    top: 0%;
+    right: 0;
+    left: 18%;
+    width: 100%;
+    height: 4rem;
+    border-radius: 6px 0px;
+    z-index: 10;
 }
-@keyframes move-sidebar-back{
-    0%{
-        width: 2%;
-    }
-    100%{
-        width: 20%;
-    }
-}
-
-.login-button{
-    border-radius: 10px;
-    height: 25px;
-    width: 60px;
-    background-color: rgb(232, 11, 48);
-    border: transparent;
-    position: fixed;
-    right: 30px;
-}
-
-.login-button a{
-    text-decoration: none;
-    color: white;
-    text-transform: capitalize;
+.top-inside{
+    padding: 15px;
 }
 
 .search-bar{
     height: 34px;
     border-radius: 6px;
     border: none;
-    width: 300px;
+    width: 15%;
     background-color: rgb(231, 231, 231);
     overflow: hidden;
     display: flex;
@@ -62,141 +43,12 @@
     height: 25px;
     padding: 10px 5px 10px 10px;
 }
-
-.side-nav-close{
-    animation:move-sidebar 1 0.5s forwards;
-    
-}
-@keyframes move-sidebar{
-    0%{
-        width: 20%;
-    }
-    100%{
-        width: 2%;
-    }
-}
-
-.top-navbar{
-    background-color: rgb(42, 37, 37);
-    position: fixed;
-    top: 0%;
-    right: 0;
-    width: 100%;
-    height: 4rem;
-    border-radius: 6px;
-    border-left: 0px solid black;
-    border-top: 10px solid black;
-    animation:move-topbar-back 1 0.5s forwards;
-    z-index: 10;
-}
-
-@keyframes move-topbar-back{
-    0%{
-        left: 5%;
-    }
-    100%{
-        left: 21%;
-    }
-}
-.top-navbar-add{
-    
-    background-color: rgb(42, 37, 37);
-    position: fixed;
-    top: 1%;
-    right: 0;
-    left: 5%;
-    width: 100%;
-    height: 4rem;
-    border-radius: 10px ;
-    animation:move-topbar 1 0.5s forwards;
-}
-
-@keyframes move-topbar{
-    0%{
-        left: 21%;
-    }
-    100%{
-        left: 5%;
-    }
-}
-
-.top-inside{
-    padding: 15px;
-}
-
-.bottom-navbar{
-    padding-left: 10px;
-    padding-top: 20px;
-    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
-    position: fixed;
-    bottom: 0%;
-    right: 0;
-    left: 21%;
-    width: 100%;
-    height: 60px;
-    border-radius: 10px ;
-    animation:move-bottombar-back 1 0.5s forwards;
-    display: flex;
-    flex-direction: row;
-    gap: 200px;
-    /* z-index: 1; */
-}
-
-@keyframes move-bottombar-back{
-    0%{
-        left: 5%;
-    }
-    100%{
-        left: 21%;
-    }
-}
-.bottom-navbar-add{
-    
-    background-color: rgb(125, 12, 12);
-    position: fixed;
-    bottom: 0%;
-    right: 0;
-    left: 5%;
-    width: 100%;
-    height: 40px;
-    border-radius: 10px ;
-    animation:move-bottombar 1 0.5s forwards;
-}
-
-@keyframes move-bottombar{
-    0%{
-        left: 21%;
-    }
-    100%{
-        left: 5%;
-    }
-}
-
-.Song-artist{
-    display: flex;
-    flex-direction: column;
-}
-
-.icons .pause-button{
-    height: 30px;
-    width: 30px;
-    padding-left: 10px;
-    /* padding-left: 20%; */
-}
-
-
-.icons{
-    display: flex;
-    flex-direction: row;
-    size: 40px;
-}
-
 .wallet{
     width: 70px;
     height: 40px;
-    right: 10%;
+    right: 7%;
     position: fixed;
-    top: 2.6%;
+    top: 1%;
 }
 
 .wallet button{
@@ -209,3 +61,54 @@
     color: white !important;
 }
 
+
+             /* .bottom-navbar */
+.bottom-navbar{
+    padding-left: 10px;
+    padding-top: 20px;
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
+    position: fixed;
+    bottom: 0%;
+    right: 0;
+    left: 21%;
+    width: 100%;
+    height: 60px;
+    border-radius: 10px ;
+    display: flex;
+    flex-direction: row;
+    gap: 200px;
+    /* z-index: 1; */
+}
+
+
+.Song-artist{
+    display: flex;
+    flex-direction: column;
+}
+
+.icons .pause-button{
+    height: 30px;
+    width: 30px;
+    padding-left: 10px;
+}
+
+
+.icons{
+    display: flex;
+    flex-direction: row;
+    size: 40px;
+}
+
+              
+
+                 /* side navbar */
+.side-navbar{
+    background-color: rgb(42, 37, 37);
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 16.5%;
+    height: 100vh;
+    border-radius: 5px ;
+    padding: 10px;
+}

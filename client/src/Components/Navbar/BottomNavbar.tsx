@@ -9,9 +9,9 @@ type Props = {
   sidenav: Boolean;
 };
 
-const BottomNavbar : React.FC<Props>= ({sidenav}) => {
+const BottomNavbar : React.FC<Props>= () => {
   return (
-    <div className={ ` ${ sidenav ? 'bottom-navbar':' bottom-navbar-add' }`}>
+    <div className= 'bottom-navbar'>
 
             <div className='Song-artist'>
                 Song name 
