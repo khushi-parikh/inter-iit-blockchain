@@ -13,7 +13,7 @@ import Fixedcomp from './Components/fixed/Fixedcomp';
 import SongPage from './Components/Music/SongPage';
 import PlayList from './Components/Music/PlayList';
 import Upload from './Components/pages/Upload';
-import Appdemo from './Components/demo-music/Appdemo';
+// import Indexaudio from './Components/audio/Indexaudio';
 
 
 function App() {
@@ -30,7 +30,8 @@ function App() {
       <Route path="/profile" element={<Profile/>} />
       <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
       <Route path="/upload" element={<Upload/>} />
-      <Route path="/App" element={<Appdemo/>} />
+      {/* <Route path="/demo" element={<Indexaudio/>} /> */}
+
 
 
       
