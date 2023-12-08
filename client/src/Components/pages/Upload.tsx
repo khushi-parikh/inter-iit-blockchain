@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, ChangeEvent, FormEvent } from 'react'
 import '../style/upload.css'
 const Upload = () => {
     const [Amount,SetAmount] = React.useState(false)
@@ -10,6 +10,16 @@ const Upload = () => {
             SetAmount(true)
         }
     }
+    const [formData, setFormData] = useState({
+        songName: '',
+        songTitle: '',
+        album: '',
+        amount: '',
+        musicFile: null as File | null,
+        photoFile: null as File | null,
+        about: '',
+      });
+      
   return (
     <div className="upload-page"> 
             <center className='upload-form' > 
