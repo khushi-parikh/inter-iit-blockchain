@@ -11,20 +11,20 @@ type Props = {
 
 const BottomNavbar : React.FC<Props>= () => {
   return (
-    <div className= 'bottom-navbar'>
+    <div className="bottom-inside">
+      <div className= 'bottom-navbar'>
+        <div className='Song-artist'>
+            Song name 
+            <br />
+            Artist name - Artist 1
+        </div>
 
-            <div className='Song-artist'>
-                Song name 
-                <br />
-                Artist name - Artist 1
-            </div>
-
-            <div className='icons'>
-                <FaFastBackward className='pause-button'/>
-                <MdOutlinePauseCircleFilled className='pause-button'/>
-                <FaForwardFast className='pause-button'/>
-            </div>
-        
+        <div className='icons'>
+            <FaFastBackward className='pause-button'/>
+            <MdOutlinePauseCircleFilled className='pause-button'/>
+            <FaForwardFast className='pause-button'/>
+        </div>
+      </div>
     </div>
   )
 }

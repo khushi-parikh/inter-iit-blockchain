@@ -2,7 +2,7 @@ import React from 'react'
 import '../style/upload.css'
 const Upload = () => {
   return (
-    <div className="upload-file page"> 
+    <div className="upload-page"> 
             <center className='upload-form' > 
                 <p className='form-header'>Upload Details</p> 
                 <p className='below-header'>Enter the song details</p>
