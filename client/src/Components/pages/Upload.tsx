@@ -75,7 +75,7 @@ const Upload = () => {
                    
                     <br />
                     </label> 
-                    <label>Music*
+                    <label>Music* <br />
                     <input 
                         type="file"
                         name="file"
@@ -87,7 +87,7 @@ const Upload = () => {
                     /> 
                     <br />
                     </label> 
-                    <label>Photo*
+                    <label>Photo*<br/>
                     <input 
                         type="file"
                         name="file"

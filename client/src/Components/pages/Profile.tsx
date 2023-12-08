@@ -14,6 +14,7 @@ import { Network, Provider } from 'aptos'
 
  
 
+
 type Song = {
     album_id: BigInteger,
     song_id: BigInteger,
@@ -305,9 +306,9 @@ const Profile = (props: any) => {
 
         </div>
     )
+
+
 }
-
-
 export default Profile;
 
 function setTransactionInProgress(arg0: boolean) {
