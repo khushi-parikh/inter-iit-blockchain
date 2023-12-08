@@ -18,7 +18,7 @@ const SideNavbar: React.FC<Props> = () => {
     <div className='side-navbar'>
       <img src={aptosLogo} alt='aptos-logo' className='app-logo'/>
       <p className='menu-head'>Menu</p>
-        <div >
+        <div className='menu-tab'>
           <div className="menu-item">
             <FaHome className='menu-icon'/>
             <Link to='/'>Home</Link><br /><br />

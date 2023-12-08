@@ -130,7 +130,10 @@
     flex-direction: column;
     align-items: start;
 }
-
+.menu-tab{
+    width: 100%;
+    /* background-color: red; */
+}
 .menu-item{
     margin-left: 0px;
     position: relative;
@@ -141,7 +144,7 @@
     border-bottom: 1px rgb(121, 119, 119) solid;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    width: 250px;
+    width:100%;
     height: 40px;
     transition: all 150ms ease-in-out
 }
