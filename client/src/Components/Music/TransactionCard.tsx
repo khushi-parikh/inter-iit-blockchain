@@ -1,5 +1,8 @@
 import React from 'react'
 import '../style/likedSongs.css'
+import '../style/transaction.css'
+import { LiaCoinsSolid } from "react-icons/lia";
+
 type Props = {
     TransactionID : number;
     TransactionDate : string;
@@ -9,18 +12,17 @@ type Props = {
 
 const TransactionCard: React.FC<Props> = ({TransactionID , TransactionDate , SongName}) => {
   return (
-    <center className='Liked-card'>
-        <div className='playlist-image'>
-
-        </div>
-        <div className='song-details'>
-            Transaction ID : {TransactionID}
-        </div>
-        <div className='song-details'>
-            Transaction Date : {TransactionDate}
-        </div>
-        <div className='song-details'>
-            Song Purchased : {SongName}
+    <center className='Transaction-card'>
+        <div className="left-side">
+          <div className='song-details'>
+              Date : {TransactionDate}
+          </div>
+          <div className='song-details'>
+              Transaction ID : {TransactionID}
+          </div>
+          <div className='song-details'>
+              Song Purchased : {SongName}
+          </div>
         </div>
     </center>
 

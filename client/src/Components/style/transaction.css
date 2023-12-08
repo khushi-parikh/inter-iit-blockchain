@@ -1,0 +1,14 @@
+.Transaction-card{
+    width: calc(100%-20%);   
+    background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.418) 11.2%, rgba(82, 70, 70, 0.44) 78.9%);
+    height: 120px;
+    border: 1px white solid;
+    display: flex;
+    column-gap: 0px;
+    /* margin-left: 0px; */
+}
+
+.left-side{
+    flex-direction: column;
+    width: 70%;
+}
