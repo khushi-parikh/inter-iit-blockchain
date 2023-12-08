@@ -47,6 +47,13 @@
     color: black;
     height: 25px;
     padding: 10px 5px 10px 10px;
+
+}
+.search-icon-close{
+    color: black;
+    height: 25px;
+    padding: 10px 5px 10px 10px;
+    cursor: pointer; 
 }
 .wallet{
     width: 70px;
