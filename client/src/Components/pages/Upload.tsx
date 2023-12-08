@@ -11,6 +11,8 @@ const Upload = () => {
         }
     }
   return (
+    <div className="page">
+
     <div className="upload-page"> 
             <center className='upload-form' > 
                 <p className='form-header'>Upload Details</p> 
@@ -111,6 +113,7 @@ const Upload = () => {
 
                 </form> 
             </center> 
+    </div>
         </div> 
   )
 }
