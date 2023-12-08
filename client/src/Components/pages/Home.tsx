@@ -7,8 +7,8 @@ import '../style/songcard.css'
 
 const Home = () => {
   return (
-    <div className='home-page'>
-      <div>
+    <div className='page'>
+      <div className='home-page'>
         {api.map((apimusic , index) => {
           return(
             <div className='temp' >
