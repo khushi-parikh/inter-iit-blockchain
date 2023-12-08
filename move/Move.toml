@@ -4,8 +4,8 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-profile_addr='0x5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652'
-
+profile_addr='0xb6ca3dd8b279948bae3050f8661a152a24a5aef8cc337fe590fe7cf1cff9e460'
+transaction_addr='0xb6ca3dd8b279948bae3050f8661a152a24a5aef8cc337fe590fe7cf1cff9e460'
 [dev-addresses]
 
 [dependencies.AptosFramework]

@@ -14,124 +14,6 @@ import { Network, Provider } from 'aptos'
 
  
 
-
-const Profile = () => {
-  
-  var count = Object.keys(api).length;
-  const [activeTab, setActiveTab] = useState(0);
-  const handleTabChange = (args: number) => {
-    setActiveTab(args);
-   };
-   
-
-
-  const playlistContent = () =>{
-    return (
-      <div className='Playlists'>
-          {api.map((apimusic , index) => {
-            return(
-              <div className="pc">
-                  <PlaylistCard PlaylistName={apimusic.PlaylistName} NumOfSongs={apimusic.Songs.length}/>
-              </div>
-            )
-          })}
-      </div>
-    );
-  }
-
-  const likedSongContent = () => {
-    return (
-      <div className='Playlists'>
-          
-          {likedSongsApi.map((apimusic , index) => {
-            return(
-              <div className="pc">
-                 <LikedSongCard SongName= {apimusic.SongTitle} ArtistName= {apimusic.ArtistName} AlbumName= {apimusic.AlbumName}/>
-              </div>
-            )
-          })}
-        </div>
-    );
-  }
-
-  const recentSongContent = () => {
-    return(
-      <div className='Playlists'>
-          {likedSongsApi.map((apimusic , index) => {
-            return(
-              <div className="pc">
-                 <LikedSongCard SongName= {apimusic.SongTitle} ArtistName= {apimusic.ArtistName} AlbumName= {apimusic.AlbumName}/>
-              </div>
-            )
-          })}
-        </div>
-    )
-  }
-
-  const transactionContent = () => {
-    return(
-
-    <div className='Playlists'>
-          {Transaction.map((apimusic , index) => {
-            return(
-              <div className="pc">
-                 <TransactionCard TransactionID={apimusic.Transaction_ID} TransactionDate={apimusic.Transaction_Date} SongName={apimusic.Song_Purchased} />
-              </div>
-            )
-          })}
-        </div>
-    )
-  }
-
-  function Tabs({ activeTab }: { activeTab: number }) {
-    switch (activeTab) {
-      case 0:
-        return playlistContent();
-      case 1:
-        return likedSongContent();
-      case 2:
-        return recentSongContent();
-      case 3:
-        return transactionContent();
-      default:
-        return <div>No tab selected</div>;
-    }
-   }
-
-  return (
-    <div className='profile-page'>
-
-      <div className='profile-header'>
-        <div className='profile-header-start'>
-          <p>Profile Details</p>
-        </div>
-        <div className='profile-header-start-h1'>
-          <h1>User key : 123ABCD</h1>
-        </div>
-        <div className='profile-header-start'>
-          <p>Playlists : {count} </p>
-        
-        </div>
-      </div>
-
-      <div className='temp'>
-          <div className='tabs'>
-            <button onClick={() => {handleTabChange(0)}} className= {activeTab == 0? "active-button" : "non-active-button" }>Your Playlist</button>
-            <button onClick={() => {handleTabChange(1)}} className= {activeTab == 1? "active-button" : "non-active-button" }>Liked Songs</button>
-            <button onClick={() => {handleTabChange(2)}} className= {activeTab == 2? "active-button" : "non-active-button" }>Recent Songs</button>
-            <button onClick={() => {handleTabChange(3)}} className= {activeTab == 3? "active-button" : "non-active-button" }>Transaction History</button>
-
-          </div>
-          
-          
-          {Tabs({ activeTab })}
-
-          <br />
-
-      </div>
-      
-    </div>
-  )
 type Song = {
     album_id: BigInteger,
     song_id: BigInteger,
@@ -165,7 +47,7 @@ const Profile = (props: any) => {
     };
 
     const { account, signAndSubmitTransaction } = useWallet();
-    const module_address = '0x5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652';
+    const module_address = '0xb6ca3dd8b279948bae3050f8661a152a24a5aef8cc337fe590fe7cf1cff9e460';
 
     // console.log("profile : ", account);
 
@@ -289,18 +171,36 @@ const Profile = (props: any) => {
             setAccountHasPlaylist(false);
         }
     }
+ const create_Song=async()=>{
+    if(!account) return [];
 
-    useEffect(() => {
-        fetchPlaylists();
-    }, [account?.address]);
+    const payload={
+        type:"entry_function_payload",
+        function:`${module_address}::Profile::create_song`,
+        type_arguments:[],
+        arguments:[1,1,"Song1",180,101,20231231,"onasdolflsandflknsadf","genre",0,120],
+    };
+    try{
+        const response=await signAndSubmitTransaction(payload);
+        await provider.waitForTransaction(response.hash);
+
+        console.log(response);
+        console.log("completed")
+    }
+    catch(error:any){
+        console.log("error",error)
+    }
 
 
+ }
     const playlistContent = () => {
         return (
             <div className='Playlists'>
                 {!accountHasResource && <button onClick={createResource}>Create resource</button>}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create User</button>}
+                <h1>kasbdfaskdfkasdfb</h1>
+                <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
                     return (
                         <div className="pc">
@@ -406,7 +306,7 @@ const Profile = (props: any) => {
         </div>
     )
 }
-}
+
 
 export default Profile;
 
