@@ -14,14 +14,18 @@ const TransactionCard: React.FC<Props> = ({TransactionID , TransactionDate , Son
   return (
     <center className='Transaction-card'>
         <div className="left-side">
-          <div className='song-details'>
-              Date : {TransactionDate}
+          <div className='transac-details'>
+              <div className='key-transac'>Date :</div> 
+              <div className='val-transac'>{TransactionDate}</div>
           </div>
-          <div className='song-details'>
-              Transaction ID : {TransactionID}
+          <div className='transac-details'>
+            <div className='key-transac'>Transaction ID :</div> 
+            <div className='val-transac'>{TransactionID}</div>
           </div>
-          <div className='song-details'>
-              Song Purchased : {SongName}
+          <div className='transac-details'>
+          <div className='key-transac'> Song Purchased :</div> 
+            <div className='val-transac'>{SongName}</div>
+      
           </div>
         </div>
     </center>

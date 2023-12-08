@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Italianno&family=Labrada&family=Nunito:wght@600&family=Roboto&family=Roboto+Slab&display=swap');
 
 body{
-  background-color: black;
+  background-color: rgb(36, 36, 36);
   color: white;
   overflow-y:scroll ;
   min-height: 100vh;
@@ -11,13 +11,12 @@ body::-webkit-scrollbar {
   width: 7px;
 }
 .page{
-  margin: 4em 0rem 2rem 18%;
-  width: 82%;
+  margin: 4em 0rem 2rem 16.8%;
+  width: calc(100%-16.8%);
   background-color: rgb(36, 36, 36);
   min-height: 100vh;
   column-gap: 10px;
   display: flex;
   flex-direction: column;
   z-index: -1;
-  margin-bottom: 20px;
 }

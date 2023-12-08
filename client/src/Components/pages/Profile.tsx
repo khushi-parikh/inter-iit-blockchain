@@ -97,7 +97,7 @@ const Profile = () => {
    }
 
   return (
-    <div className='profile-page'>
+    <div className='page'>
 
       <div className='profile-header'>
         <div className='profile-header-start'>

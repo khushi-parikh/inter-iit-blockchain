@@ -13,7 +13,7 @@ const Navbar :React.FC= () => {
     <div>
         <SideNavbar sidenav={sidenav} text={text} handleclose={handleclose} />
         <TopNavbar sidenav={sidenav}/>
-        <BottomNavbar sidenav={sidenav}/>
+        {/* <BottomNavbar sidenav={sidenav}/> */}
     </div>
   )
 }
