@@ -91,9 +91,11 @@ module profile_addr::Profile {
 
     // Error codes
     const E_NOT_INITIALIZED: u64 = 1;
+    const USER_NOT_INITIALIZED: u64 = 5;
+    const RESOURCE_NOT_INITIALIZED: u64 = 7;
 
     // Function to create a new user
-    public fun create_user(account: &signer) {
+    public entry fun create_user(account: &signer) {
         let user = User {
             user_address: signer::address_of(account),
             liked_songs: vector::empty<u64>(),
@@ -105,7 +107,7 @@ module profile_addr::Profile {
     }
 
     // Function to create a new artist
-    public fun create_artist(account: &signer) {
+    public entry fun create_artist(account: &signer) {
         let artist = Artist {
             artist_address: signer::address_of(account),
             liked_songs:vector::empty<u64>(),
@@ -190,10 +192,11 @@ module profile_addr::Profile {
 
         
 
+        std::debug::print(&std::string::utf8(b"ENTERED CREATE PLAYLIST-------------"));
         let user_address =  signer::address_of(account);
 
-        assert!(exists<User>(user_address), E_NOT_INITIALIZED);
-        assert!(exists<Playlists_Table>(user_address), E_NOT_INITIALIZED);
+        assert!(exists<User>(user_address), USER_NOT_INITIALIZED);
+        assert!(exists<Playlists_Table>(user_address), RESOURCE_NOT_INITIALIZED);
 
         let playlist_table = borrow_global_mut<Playlists_Table>(user_address);
 
@@ -337,15 +340,15 @@ module profile_addr::Profile {
                             vector<u64>[1,2,3,4]);
 
 
-        add_songs_to_playlist(
-                            &admin, 
-                            2, 
-                            vector<u64>[1,2]);
+        // add_songs_to_playlist(
+        //                     &admin, 
+        //                     2, 
+        //                     vector<u64>[1,2]);
 
-        add_songs_to_playlist(
-                            &admin, 
-                            3, 
-                            vector<u64>[1,2]);
+        // add_songs_to_playlist(
+        //                     &admin, 
+        //                     3, 
+        //                     vector<u64>[1,2]);
         
 
         // Retrieve the uploaded song
