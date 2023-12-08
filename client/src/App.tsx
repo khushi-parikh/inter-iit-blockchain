@@ -19,18 +19,16 @@ function App() {
   return (
     <div>
       <BrowserRouter>
-     <Fixedcomp/>
-    <Routes>
-      <Route path="/" element={<Home/>} />
-      <Route path="/songpage" element={<SongPage/>} />
-      <Route path="/login" element={<Login/>} />
-      <Route path="*" element={<PageNotFound/>} />
-      <Route path="/profile" element={<Profile/>} />
-      <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
-      <Route path="/upload" element={<Upload/>} />
-      
-
-        </Routes>
+      <Fixedcomp/>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+        <Route path="/songpage" element={<SongPage/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="*" element={<PageNotFound/>} />
+        <Route path="/profile" element={<Profile/>} />
+        <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
+        <Route path="/upload" element={<Upload/>} />
+      </Routes>
 
       </BrowserRouter>
     </div>

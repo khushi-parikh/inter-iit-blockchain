@@ -114,18 +114,34 @@
               
 
                  /* side navbar */
-.side-navbar{
-  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
+.logo-items{
+    padding-left: 1.5%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 4rem;
+    background: radial-gradient(circle at 10% 20%, rgb(28, 27, 27) 0%, rgb(64, 64, 64) 90.2%);
+    width: calc(100% - 1.5%);
+}
 
-    /* background: linear-gradient(129.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 50.9% , rgb(178, 178, 165) ); */
-    /* background-color: rgb(42, 37, 37); */
+.logo-items p{
+    font-size: 18px;
+}
+
+.app-logo{
+    margin-top: 3%;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.side-navbar{
+    background: linear-gradient(to bottom, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
     position: fixed;
     top: 0%;
     left: 0%;
     width: 16.5%;
     height: 100vh;
     border-radius: 5px ;
-    /* padding: 10px; */
     display: flex;
     flex-direction: column;
     align-items: start;
