@@ -91,17 +91,22 @@ module profile_addr::Profile {
     }
 
     // Error codes
+
+    /// Not initialized
     const E_NOT_INITIALIZED: u64 = 1;
     /// Not admin, can't create shared object
     const ENOT_ADMIN: u64 = 2;
     /// Shared object doesn't exist
     const ESHARED_NOT_EXIST: u64 = 3;
 
+    /// Sample error
+    const SAMPLE_ERROR: u64 =  6;
+
     const USER_NOT_INITIALIZED: u64 = 5;
 
     const RESOURCE_NOT_INITIALIZED: u64 = 7;
 
-    const PROFILE_ADDRESS: address = @0xe3228812828f67bdd62d88489ab4db809679f052ba2e13a2af3f17ca8ef104d6;
+    const PROFILE_ADDRESS: address = @0xb5422892f64f748f1b2c6f5c7fa0002ba54f35868af03b5a1a62d7ad1b555549;
 
     const ADMIN_ADDRESS: address = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0;
 
@@ -137,7 +142,6 @@ module profile_addr::Profile {
     public entry fun createGlobalSong(account : &signer){
 
         assert!(signer::address_of(account) == ADMIN_ADDRESS, ENOT_ADMIN);
-        // assert!(exists<Songs_Table>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
 
         let songs_holder = Songs_Table {
             songs: table::new(),
@@ -162,9 +166,9 @@ module profile_addr::Profile {
 
     // Function to create a new album
     public entry fun create_song(
+                                account: &signer,
                                 album_id: u64,
                                 song_id: u64,
-                                account: &signer,
                                 name: String,
                                 duration: u64,
                                 current_price: u64,
@@ -172,21 +176,25 @@ module profile_addr::Profile {
                                 cid: String,
                                 genre: String,
                                 previewStart:u64,
-                                previewEnd:u64,
+                                previewEnd:u64
                                 ) acquires Songs_Table, Artist {
-        // gets the signer address
-        let profile_addr=PROFILE_ADDRESS;
-        let signer_address =profile_addr;
+
+                                    
+        std::debug::print(&std::string::utf8(b"create_song Initialized -------------"));
 
         let artist_address = signer::address_of(account);
-        std::debug::print(&std::string::utf8(b"New song created"));
-        print(&signer_address);
-        // * assert that the signer has created a list
+        
+        assert!(exists<Artist>(artist_address), E_NOT_INITIALIZED);
         // assert!(exists<Songs_Table>(signer_address),E_NOT_INITIALIZED);
 
         // gets the Songs Table resource
+        assert!(exists<Songs_Table>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
+
         let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
+
         let counter = song_table.song_counter + 1;
+
+        assert!(counter > 0 , SAMPLE_ERROR);
 
         // creates a new song
         let new_song = Song {
@@ -207,12 +215,21 @@ module profile_addr::Profile {
 
         // adds the new task into the songs table
         table::upsert(&mut song_table.songs, song_id, new_song);
+
+        assert!(table::contains(&song_table.songs, song_id), SAMPLE_ERROR);
+
+        // assert!(counter > 0 , SAAMPLE_ERROR);
+        
+        print(&song_table.songs);
+
         // sets the task counter to be the incremented counter
         song_table.song_counter = counter;
 
         let  artist_var: &mut Artist = borrow_global_mut(artist_address);
 
         vector::push_back(&mut artist_var.uploaded_songs, song_id);
+
+        // print(&artist_var.uploaded_songs);
     }
 
     public entry fun create_playlist(account: &signer, 
@@ -298,7 +315,7 @@ module profile_addr::Profile {
     }
 
     #[view]
-    public fun retrieveSongs(songs_to_find: vector<u64>, account: &signer) : vector<Song> acquires Songs_Table {
+    public fun retrieveSongs( account: &signer, songs_to_find: vector<u64>) : vector<Song> acquires Songs_Table {
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
@@ -495,7 +512,7 @@ module profile_addr::Profile {
 
 
     // Test flow
-    #[test(admin = @0x123, profile_addr = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0 )]
+    #[test(admin = @0xd6f998affe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2, profile_addr = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0 )]
     public entry fun test_profile_flow(admin: signer, profile_addr: signer) acquires  User, Artist, Songs_Table, Playlists_Table{
         // Create a user
         create_user(&admin);
@@ -521,7 +538,7 @@ module profile_addr::Profile {
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"),
             0,
-            120, // genre
+            120 // genre
         );
 
         create_song(
@@ -535,7 +552,7 @@ module profile_addr::Profile {
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"), // genre
            0,
-           120, // preview_info
+           120// preview_info
         );
 
         // Check if the song is successfully uploaded
