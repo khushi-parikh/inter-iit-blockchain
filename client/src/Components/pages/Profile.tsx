@@ -56,37 +56,50 @@ const Profile = (props: any) => {
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
+    const createUser = async () => {
+        if (!account) return [];
+        const payload = {
+            type: "entry_function_payload",
+            function: `${module_address}::Profile::create_user`,
+            type_arguments: [],
+            arguments: [],
+        };
+        try {
+            // sign and submit transaction to chain
+            const response = await signAndSubmitTransaction(payload);
+            console.log("response", response)
+            await provider.waitForTransaction(response.hash);
+            setAccountHasUser(true);
+            console.log("Completed adding User")
+        }
+        catch (error: any) {
+            setAccountHasUser(false);
+        }
+    }
+
     const createResource = async () => {
         if (!account) return [];
-        // setTransactionInProgress(true);
-        console.log("entered add resource", account.address)
         const payload = {
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_resource`,
             type_arguments: [],
             arguments: [],
         };
-        console.log("payload 1", payload)
         try {
             // sign and submit transaction to chain
             const response = await signAndSubmitTransaction(payload);
-            console.log("response", response)
             await provider.waitForTransaction(response.hash);
             setAccountHasResource(true);
             console.log("Completed adding resource")
         }
         catch (error: any) {
-            setAccountHasPlaylist(false);
+            setAccountHasResource(false);
             console.log("ERROR-----", error)
         }
-        // finally {
-        //     setTransactionInProgress(false);
-        // }
     }
 
     const addNewPlaylist = async () => {
         if (!account) return [];
-        // setTransactionInProgress(true);
         console.log("entered add new playlist", account.address)
         const payload = {
             type: "entry_function_payload",
@@ -110,33 +123,9 @@ const Profile = (props: any) => {
         //     setTransactionInProgress(false);
         // }
     }
-    const createUser=async()=>{
-        if (!account) return [];
-        // setTransactionInProgress(true);
-        console.log("entered create User", account.address)
-        const payload = {
-            type: "entry_function_payload",
-            function: `${module_address}::Profile::create_user`,
-            type_arguments: [],
-            arguments: [],
-        };
-        try {
-            // sign and submit transaction to chain
-            console.log("entered try loop", payload)
-            const response = await signAndSubmitTransaction(payload);
-            console.log("response", response)
-            await provider.waitForTransaction(response.hash);
-            setAccountHasUser(true);
-            console.log("Completed")
-        }
-        catch (error: any) {
-            setAccountHasPlaylist(false);
-        }
-        // finally {
-        //     setTransactionInProgress(false);
-        // }
-    }
+
     const fetchPlaylists = async () => {
+        console.log("Entered fetch playlists")
         if (!account) return [];
         // console.log(module_address)
         try {
@@ -164,15 +153,23 @@ const Profile = (props: any) => {
             //     counter++;
             // }
             // setTasks(tasks);
-        } 
+        }
         catch (e: any) {
             setAccountHasPlaylist(false);
         }
     }
 
     useEffect(() => {
-        fetchPlaylists();
-    }, [account?.address]);
+        if(!accountHasUser){
+            createUser();
+        }
+        if(!accountHasResource){
+            createResource();
+        }
+        if(accountHasUser && accountHasResource){
+            fetchPlaylists();
+        }
+    }, [account?.address, accountHasUser, accountHasResource]);
 
 
     const playlistContent = () => {
