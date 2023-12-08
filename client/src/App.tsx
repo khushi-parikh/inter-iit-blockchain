@@ -1,6 +1,9 @@
-import React ,{useState} from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider, Network } from "aptos";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import './App.css';
+
 import PageNotFound from './Components/pages/PageNotFound';
 import Home from './Components/pages/Home';
 import Navbar from './Components/Navbar/Navbar';
@@ -13,7 +16,6 @@ import Upload from './Components/pages/Upload';
 
 function App() {
 
-  
   return (
     <div>
       <BrowserRouter>
@@ -28,9 +30,9 @@ function App() {
       <Route path="/upload" element={<Upload/>} />
       
 
-    </Routes>
-   
-  </BrowserRouter>
+        </Routes>
+
+      </BrowserRouter>
     </div>
   );
 }
