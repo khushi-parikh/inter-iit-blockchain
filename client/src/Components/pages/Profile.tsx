@@ -144,7 +144,6 @@ const Profile = (props: any) => {
                 account.address,
                 `${module_address}::Profile::Playlists_Table`
             );
-
             console.log("Playlists_Table---------------")
             console.log(Playlists_Table)
             // setAccountHasPlaylist(true);
@@ -253,7 +252,7 @@ const Profile = (props: any) => {
     }
 
     return (
-        <div className='profile-page'>
+        <div className='page'>
 
             <div className='profile-header'>
                 <div className='profile-header-start'>
