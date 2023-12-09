@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../style/profile.css'
 import api from '../API/Playlist.json'
 import PlaylistCard from '../Music/PlayList'
@@ -8,9 +8,9 @@ import likedSongsApi from '../API/LikedSong.json'
 import LikedSongCard from '../Music/LikedSongs'
 import Transaction from '../API/Transaction.json'
 import TransactionCard from '../Music/TransactionCard'
-import { useState } from 'react';
-import { useWallet } from '@aptos-labs/wallet-adapter-react'
+import {useState} from 'react';
 import { Network, Provider } from 'aptos'
+import { useWallet } from "@aptos-labs/wallet-adapter-react"
 
  
 
@@ -48,7 +48,7 @@ const Profile = (props: any) => {
     };
 
     const { account, signAndSubmitTransaction } = useWallet();
-    const module_address = '0xb6ca3dd8b279948bae3050f8661a152a24a5aef8cc337fe590fe7cf1cff9e460';
+    const module_address = '0xe04053115104aa71b7f70cd48cd47a19a246dbb09220aa1c7299ec04d526133e';
 
     // console.log("profile : ", account);
 
@@ -311,6 +311,4 @@ const Profile = (props: any) => {
 }
 export default Profile;
 
-function setTransactionInProgress(arg0: boolean) {
-    throw new Error('Function not implemented.')
-}
+
