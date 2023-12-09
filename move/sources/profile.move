@@ -390,17 +390,25 @@ module profile_addr::Profile {
         
     }
     #[view]
-    public fun getTransactionHistory() : vector<Transaction> acquires TransactionTable {
+    public fun getTransactionHistory(account: &signer) : vector<Transaction> acquires User, TransactionTable {
+
+        std::debug::print(&std::string::utf8(b"Getting Transaction History-------------"));
 
         let transaction_table = borrow_global_mut<TransactionTable>(ADMIN_ADDRESS);
 
         let transaction_history = vector::empty<Transaction>();
 
-        let i = 1;
+        let user: &mut User = borrow_global_mut(signer::address_of(account));
 
-        while (i <= transaction_table.transaction_counter) {
+        // let all_transaction = borrow_global_mut<User>(signer::address_of(account)).transaction_history;
 
-            let transaction = *table::borrow_mut(&mut transaction_table.transactions, i);
+        let i = 0;
+
+        while (i < vector::length(&mut user.transaction_history)) {
+
+            let transaction_id = *vector::borrow(&user.transaction_history, i);
+
+            let transaction = *table::borrow_mut(&mut transaction_table.transactions, transaction_id);
 
             vector::push_back(&mut transaction_history,transaction);
 
@@ -434,9 +442,6 @@ module profile_addr::Profile {
             let previewStart=song.previewStart;
             let previewEnd=song.previewEnd;
 
-
-
-            
             let new_song = Song {
                 album_id: albumID,
                 song_id: songID,
@@ -452,12 +457,6 @@ module profile_addr::Profile {
                 previewStart:previewStart,
                 previewEnd:previewEnd
             };
-            
-            // vector::push_back(&mut songs_found, new_song);
-
-            // i = i + 1;
-        // };
-
 
         new_song
     }
@@ -637,12 +636,6 @@ module profile_addr::Profile {
 
           print(&song_match2.song_id);
 
-
-
-
-        
-          
-
           //adding song to recent song vector
           vector::push_back(&mut recent_songs,i);
 
@@ -659,24 +652,30 @@ module profile_addr::Profile {
 
 
 
-    // Test flow
-    #[test(admin = @0xd6f998affe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2, profile_addr = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0 )]
-    public entry fun test_profile_flow(admin: signer, profile_addr: signer) acquires  User, Artist, Songs_Table, Playlists_Table{
+    // Test flowd6f998afd6f998affe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2fe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2
+    #[test(user1 = @0x123,user2 = @0x124, user3 = @0x125,  admin_addr = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0 )]
+    public entry fun test_profile_flow(user1: signer, admin_addr: signer, user2: signer, user3: signer) acquires  User, Artist, Songs_Table, Playlists_Table, TransactionTable{
         // Create a user
-        create_user(&admin);
+        create_user(&admin_addr);
 
         // Make the user an artist
 
-        createGlobalResources(&profile_addr);
+        createGlobalResources(&admin_addr);
 
-        assert!(exists<Songs_Table>(signer::address_of(&profile_addr)), E_NOT_INITIALIZED);
+        assert!(exists<Songs_Table>(signer::address_of(&admin_addr)), E_NOT_INITIALIZED);
         
-        create_artist(&admin);
+        create_user(&user1);
+        create_artist(&user1);
+        create_resource(&user1);
 
-        create_resource(&admin);
+        create_user(&user2);
+        create_resource(&user2);
+
+        create_user(&user3);
+        create_resource(&user3);
 
         create_song(
-            &admin,
+            &user1,
             1, // album_id
             1, // song_id
             string::utf8(b"Song name"), // name
@@ -690,7 +689,7 @@ module profile_addr::Profile {
         );
 
         create_song(
-            &admin,
+            &user1,
             1, // album_id
             2, // song_id
             string::utf8(b"Song name"), // name
@@ -699,29 +698,29 @@ module profile_addr::Profile {
             20231231, // date
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"), // genre
-           0,
-           120// preview_info
+            0,
+            120// preview_info
         );
 
         // Check if the song is successfully uploaded
-        let artist_var = borrow_global<Artist>(signer::address_of(&admin));
+        let artist_var = borrow_global<Artist>(signer::address_of(&user1));
         assert!(vector::length(&artist_var.uploaded_songs) == 2,2);
 
         // Create a playlist
         create_playlist(
-                        &admin, 
+                        &user1, 
                         1, 
                         string::utf8(b"Playlist name 1"), 
                         string::utf8(b"2021-04-01"));
 
         create_playlist(
-                        &admin, 
+                        &user1, 
                         2, 
                         string::utf8(b"Playlist name 2"), 
                         string::utf8(b"2021-04-01"));
 
         create_playlist(
-                        &admin, 
+                        &user1, 
                         3, 
                         string::utf8(b"Playlist name 3"), 
                         string::utf8(b"2021-04-01"));
@@ -729,12 +728,12 @@ module profile_addr::Profile {
 
         // Add songs to playlist
         add_songs_to_playlist(
-                            &admin,
+                            &user1,
                             1, 
                             vector<u64>[1,2]);
 
         add_songs_to_playlist(
-                            &admin,
+                            &user1,
                             1, 
                             vector<u64>[1,2,3,4]);
 
@@ -750,6 +749,26 @@ module profile_addr::Profile {
         print(&songs_found2);
 
 
+        // Create a transaction
+        create_transaction(
+            &user2,
+            100, // price
+            1, // transaction_id
+            1, // song_id
+            signer::address_of(&user1), // to_address
+        );
+
+        create_transaction(
+            &user2,
+            100, // price
+            2, // transaction_id
+            2, // song_id
+            signer::address_of(&user1), // to_address
+        );
+
+        let th = getTransactionHistory(&user2);
+
+        print(&th);
 
     }
 }
