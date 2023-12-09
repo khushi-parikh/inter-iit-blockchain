@@ -113,6 +113,7 @@ const Profile = (props: any) => {
         //     setTransactionInProgress(false);
         // }
     }
+    
     const createUser=async()=>{
         if (!account) return [];
         // setTransactionInProgress(true);
@@ -195,9 +196,11 @@ const Profile = (props: any) => {
 
  }
     const playlistContent = () => {
+      // const [showResource , setResourse] = useState(false);
         return (
             <div className='Playlists'>
-                {!accountHasResource && <button onClick={createResource}>Create resource</button>}
+              {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div> }
+                {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create User</button>}
                 <h1>kasbdfaskdfkasdfb</h1>

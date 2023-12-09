@@ -21,15 +21,20 @@
     background: none;
 }
 
-.playlist-image{
+.playlist-image {
     position: relative;
     margin-top: 0;
     height: 95%;
-    background-color: rgb(241, 70, 70);
+    /* background-color: rgb(241, 70, 70); */
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
 }
+.playlist-image img{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
 
 .card-image{
     width: 100%;
