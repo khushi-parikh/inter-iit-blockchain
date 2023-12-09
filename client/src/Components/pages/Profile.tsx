@@ -63,7 +63,7 @@ const Profile = (props: any) => {
         if (!account) return [];
         const payload = {
             type: "entry_function_payload",
-            function: `${module_address}::Profile::create_user`,
+            function: `${module_address}::Profile::create_artist`,
             type_arguments: [],
             arguments: [],
         };
@@ -188,7 +188,7 @@ const Profile = (props: any) => {
             <div className='Playlists'>
                 {!accountHasResource && <button onClick={createResource}>Create resource</button>}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
-                {!accountHasUser && <button onClick={createUser}>Create User</button>}
+                {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
                 <h1>kasbdfaskdfkasdfb</h1>
                 <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
