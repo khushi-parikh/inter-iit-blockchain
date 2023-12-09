@@ -14,6 +14,25 @@ const Home = () => {
   const [tranasactionID, setTransactionID] = useState(0);
   const module_address =
     "0x4bb4d95ba6ff482924084bbfea2af98c634638a77a0c91b909ab9da53a802660";
+  const [topSongs, setTopSongs] = useState({});
+  type EntryFunctionId = string;
+  type MoveType = string;
+  type ViewRequest = {
+    function: EntryFunctionId;
+    type_arguments: Array<MoveType>;
+    arguments: Array<any>;
+  };
+  const fetchTopSongs = async () => {
+    if (!account) return [];
+    const payload: ViewRequest = {
+      function: `${module_address}::Profile::getTopSongs`,
+      type_arguments: [],
+      arguments: [],
+    };
+    
+    const balance = await provider.view(payload);
+    console.log(balance);
+  };
 
   const transferAmt = async (toAddress: string, amount: number) => {
     if (!account) return null;
@@ -84,6 +103,7 @@ const Home = () => {
 
   return (
     <div className="page">
+      <button onClick={fetchTopSongs}>Fetch Top Songs</button>
       <div className="home-page">
         {api.map((apimusic, index) => {
           return (
