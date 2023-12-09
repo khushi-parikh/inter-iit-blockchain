@@ -105,6 +105,12 @@ module profile_addr::Profile {
     /// Shared object doesn't exist
     const ESHARED_NOT_EXIST: u64 = 3;
 
+    /// User already exists
+    const USER_EXISTS: u64 = 4;
+
+    /// Artist already exists
+    const ARTIST_EXISTS: u64 = 5;
+
     /// Sample error
     const SAMPLE_ERROR: u64 =  6;
 
@@ -123,6 +129,9 @@ module profile_addr::Profile {
     }
     // Function to create a new user
     public entry fun create_user(account: &signer) {
+
+        assert!(!exists<User>(signer::address_of(account)), USER_EXISTS);
+
         let user = User {
             user_address: signer::address_of(account),
             liked_songs: vector::empty<u64>(),
@@ -135,6 +144,8 @@ module profile_addr::Profile {
 
     // Function to create a new artist
     public entry fun create_artist(account: &signer) {
+
+        assert!(!exists<Artist>(signer::address_of(account)), ARTIST_EXISTS);
 
         let artist = Artist {
             artist_address: signer::address_of(account),
@@ -404,16 +415,6 @@ module profile_addr::Profile {
     public fun retrieveSong(song_to_find: u64) : Song acquires Songs_Table {
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
-
-        // let _signer_address = signer::address_of(account);
-
-        // let songs_found = <Song>;
-
-        // let i = 0;
-
-        // while (i < vector::length(&songs_to_find)) {
-
-            // let song_id = *vector::borrow(&songs_to_find, i);
 
             let song = table::borrow(&songs_table.songs, song_to_find);
 
