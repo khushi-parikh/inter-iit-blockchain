@@ -106,7 +106,7 @@ module profile_addr::Profile {
 
     const RESOURCE_NOT_INITIALIZED: u64 = 7;
 
-    const PROFILE_ADDRESS: address = @0xb5422892f64f748f1b2c6f5c7fa0002ba54f35868af03b5a1a62d7ad1b555549;
+    const PROFILE_ADDRESS: address = @0x5d83b2ea7970bd29b1a92e94ae58bd37cb59cb59d5a764a21d01670688871f4d;
 
     const ADMIN_ADDRESS: address = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0;
 
@@ -315,11 +315,72 @@ module profile_addr::Profile {
     }
 
     #[view]
-    public fun retrieveSongs( account: &signer, songs_to_find: vector<u64>) : vector<Song> acquires Songs_Table {
+    public fun retrieveSong(song_to_find: u64) : Song acquires Songs_Table {
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
-        let _signer_address = signer::address_of(account);
+        // let _signer_address = signer::address_of(account);
+
+        // let songs_found = <Song>;
+
+        // let i = 0;
+
+        // while (i < vector::length(&songs_to_find)) {
+
+            // let song_id = *vector::borrow(&songs_to_find, i);
+
+            let song = table::borrow(&songs_table.songs, song_to_find);
+
+            print(&song.album_id);
+
+            let albumID = song.album_id;
+            let songID = song.song_id;
+            let artistAddress = song.artist_address;
+            let name = song.name;
+            let duration = song.duration;
+            let numLikes = song.num_likes;
+            let currentPrice = song.current_price;
+            let date = song.date;
+            let cid = song.cid;
+            let numStreams = song.num_streams;
+            let genre = song.genre;
+            let previewStart=song.previewStart;
+            let previewEnd=song.previewEnd;
+
+
+
+            
+            let new_song = Song {
+                album_id: albumID,
+                song_id: songID,
+                artist_address: artistAddress,
+                name: name,
+                duration: duration,
+                num_likes: numLikes,
+                current_price: currentPrice,
+                date: date,
+                cid: cid,
+                num_streams: numStreams,
+                genre: genre,
+                previewStart:previewStart,
+                previewEnd:previewEnd
+            };
+            
+            // vector::push_back(&mut songs_found, new_song);
+
+            // i = i + 1;
+        // };
+
+
+        new_song
+    }
+
+    #[view]
+    public fun retrieveSongs(songs_to_find: vector<u64>) : vector<Song> acquires Songs_Table {
+
+        let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
+
+        // let _signer_address = signer::address_of(account);
 
         let songs_found = vector::empty<Song>();
 
@@ -376,10 +437,10 @@ module profile_addr::Profile {
     }
     
         //Function to get songs with likes more than 1000 from the universal song vector
-    public fun getTopSongs(account: &signer) acquires  Songs_Table{
+    public fun getTopSongs() acquires  Songs_Table{
         
         // gets the signer address
-            let _signer_address = signer::address_of(account);
+            // let _signer_address = signer::address_of(account);
 
         // gets the Songs Table struct resource 
             let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
@@ -423,10 +484,10 @@ module profile_addr::Profile {
 
     //function to get the  randomsongs on basis of streams
     #[view]
-   public fun randomsongs(account: &signer):vector<u64> acquires Songs_Table{
+   public fun randomsongs():vector<u64> acquires Songs_Table{
 
         // gets the signer address
-        let _signer_address = signer::address_of(account);
+        // let _signer_address = signer::address_of(account);
 
         // gets the Songs Table resource
         let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
@@ -455,10 +516,10 @@ module profile_addr::Profile {
 
     //get recent songs
     #[view]
-    public fun recentsongs(account:&signer):vector<u64>  acquires Songs_Table {
+    public fun recentsongs():vector<u64>  acquires Songs_Table {
 
          // gets the signer address
-        let _signer_address = signer::address_of(account);
+        // let _signer_address = signer::address_of(account);
         // gets the Songs Table resource
         let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
         
@@ -528,9 +589,9 @@ module profile_addr::Profile {
         create_resource(&admin);
 
         create_song(
+            &admin,
             1, // album_id
             1, // song_id
-            &admin,
             string::utf8(b"Song name"), // name
             180, // duration
             101, // current_price
@@ -542,9 +603,9 @@ module profile_addr::Profile {
         );
 
         create_song(
+            &admin,
             1, // album_id
             2, // song_id
-            &admin,
             string::utf8(b"Song name"), // name
             180, // duration
             101, // current_price
@@ -592,12 +653,14 @@ module profile_addr::Profile {
 
 
         // Retrieve songs
-        getTopSongs(&admin);
-        randomsongs(&admin);
-        recentsongs(&admin);
+        getTopSongs();
+        randomsongs();
+        recentsongs();
         let songs_to_find = vector<u64>[1,2];
-        let songs_found = retrieveSongs(songs_to_find, &admin);
+        let songs_found = retrieveSong(1);
+        let songs_found2 = retrieveSongs(songs_to_find);
         print(&songs_found);
+        print(&songs_found2);
 
 
 
