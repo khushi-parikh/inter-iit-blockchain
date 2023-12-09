@@ -58,7 +58,7 @@
     height: 40px;
     right: 7%;
     position: fixed;
-    top: 1%;
+    top: 1.5%;
 }
 
 .wallet button{
@@ -112,6 +112,26 @@
               
 
                  /* side navbar */
+
+.logo-items{
+    padding-left: 1.5%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 4rem;
+    background: radial-gradient(circle at 10% 20%, rgb(28, 27, 27) 0%, rgb(64, 64, 64) 90.2%);
+    width: calc(100% - 1.5%);
+}
+
+.logo-items p{
+    font-size: 18px;
+}
+
+.app-logo{
+    height: 35px;
+    border-radius: 50%;
+}
+
 .side-navbar{
   background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
     position: fixed;
@@ -123,7 +143,7 @@
     display: flex;
     flex-direction: column;
     align-items: start;
-  border-right: 5px solid black;
+    border-right: 5px solid black;
 
 }
 .menu-tab{
