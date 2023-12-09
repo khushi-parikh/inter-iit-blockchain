@@ -118,7 +118,7 @@ module profile_addr::Profile {
 
     const RESOURCE_NOT_INITIALIZED: u64 = 7;
 
-    const PROFILE_ADDRESS: address = @0x4c4865348f30d4f8c9e1e21d37f8ee7fd8eb4ac3c25e67b39ef230db03a6d254;
+    const PROFILE_ADDRESS: address = @0x4bb4d95ba6ff482924084bbfea2af98c634638a77a0c91b909ab9da53a802660;
 
     const ADMIN_ADDRESS: address = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0;
 
@@ -270,7 +270,7 @@ module profile_addr::Profile {
 
         let from_address = signer::address_of(account);
 
-        assert!(exists<User>(from_address), E_NOT_INITIALIZED);
+        assert!(exists<User>(from_address), USER_NOT_INITIALIZED);
         assert!(exists<Artist>(to_address), E_NOT_INITIALIZED);
 
         // gets the TransactionTable resource
@@ -420,7 +420,6 @@ module profile_addr::Profile {
         transaction_history
     }
 
-
     #[view]
     public fun retrieveSong(song_to_find: u64) : Song acquires Songs_Table {
 
@@ -528,7 +527,7 @@ module profile_addr::Profile {
         songs_found
     }
     
-        //Function to get songs with likes more than 1000 from the universal song vector
+    #[view]  //Function to get songs with likes more than 1000 from the universal song vector
     public fun getTopSongs() : vector<u64> acquires  Songs_Table{
 
         std::debug::print(&std::string::utf8(b"getTopSongs Initialized -------------"));
@@ -574,6 +573,33 @@ module profile_addr::Profile {
             top_songvector
 
     }
+
+    public entry fun addLike (account: &signer, song_id: u64) acquires Songs_Table, User {
+        std::debug::print(&std::string::utf8(b"like_song Initialized -------------"));
+
+        let user_address = signer::address_of(account);
+
+        assert!(exists<User>(user_address), USER_NOT_INITIALIZED);
+        assert!(exists<Songs_Table>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
+
+        let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
+
+        let song = table::borrow_mut(&mut song_table.songs, song_id);
+
+        song.num_likes = song.num_likes + 1;
+
+        let user: &mut User = borrow_global_mut(user_address);
+
+        if(!vector::contains(&user.liked_songs, &song_id)){
+            vector::push_back(&mut user.liked_songs, song_id);
+        }
+
+    }
+
+
+
+
+
 
 
     //function to get the  randomsongs on basis of streams
@@ -774,6 +800,44 @@ module profile_addr::Profile {
         let th = getTransactionHistory(&user2);
 
         print(&th);
+
+        // Add like to a song
+        addLike(&user2, 1);
+
+        // Add like to a song
+        addLike(&user2, 2);
+
+        let song = retrieveSong(1);
+
+        print(&song.num_likes);
+
+        let song2 = retrieveSong(2);
+
+        print(&song2.num_likes);
+
+        let artist = borrow_global<Artist>(signer::address_of(&user1));
+
+        std::debug::print(&std::string::utf8(b"Artist's Transaction History-------------"));
+        print(&artist.transaction_history);
+
+        std::debug::print(&std::string::utf8(b"Artist's Uploaded Songs-------------"));
+        print(&artist.uploaded_songs);
+
+        std::debug::print(&std::string::utf8(b"Artist's Liked Songs-------------"));
+        print(&artist.earner_money);
+
+        let user = borrow_global<User>(signer::address_of(&user2));
+
+        std::debug::print(&std::string::utf8(b"User's Transaction History-------------"));
+        print(&user.transaction_history);
+
+        std::debug::print(&std::string::utf8(b"User's Liked Songs-------------"));
+        print(&user.liked_songs);
+
+        std::debug::print(&std::string::utf8(b"User's Playlist-------------"));
+        print(&user.listening_history);
+
+
 
     }
 }
