@@ -48,7 +48,7 @@ const Profile = (props: any) => {
     };
 
     const { account, signAndSubmitTransaction } = useWallet();
-    const module_address = '0xe04053115104aa71b7f70cd48cd47a19a246dbb09220aa1c7299ec04d526133e';
+    const module_address = '0x150e2fc51e258838b7b7c6944dcb5415b0d359d398e9736f7976168c0220ad22';
 
     // console.log("profile : ", account);
 
