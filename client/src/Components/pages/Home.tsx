@@ -15,7 +15,8 @@ const Home = () => {
 
     const [tranasactionID, setTransactionID] = useState(0);
     const [topSongs, setTopSongs] = useState({});
-
+    const [randomSongs, setRandomSongs] = useState({});
+    const [recentSongs, setRecentSongs] = useState({});
 
     type EntryFunctionId = string;
     type MoveType = string;
@@ -36,6 +37,32 @@ const Home = () => {
         const topSongsResponse = await provider.view(payload);
         setTopSongs(topSongsResponse);
         // console.log(topSongsResponse);
+    };
+
+    const fetchRandomSongs = async () => {
+        if (!account) return [];
+        const payload: ViewRequest = {
+            function: `${module_address}::Profile::randomsongs`,
+            type_arguments: [],
+            arguments: [],
+        };
+
+        const randomSongsResponse = await provider.view(payload);
+        setRandomSongs(randomSongsResponse);
+        // console.log(randomSongsResponse);
+    };
+
+    const fetchRecentSongs = async () => {
+        if (!account) return [];
+        const payload: ViewRequest = {
+            function: `${module_address}::Profile::recentsongs`,
+            type_arguments: [],
+            arguments: [],
+        };
+
+        const recentSongsResponse = await provider.view(payload);
+        setRecentSongs(recentSongsResponse);
+        console.log(recentSongsResponse);
     };
 
     const transferAmt = async (toAddress: string, amount: number) => {
@@ -108,6 +135,8 @@ const Home = () => {
     return (
         <div className="page">
             <button onClick={fetchTopSongs}>Fetch Top Songs</button>
+            <button onClick={fetchRandomSongs}>Fetch Random Songs</button>
+            <button onClick={fetchRecentSongs}>Fetch Recent Songs</button>
             <div className="home-page">
                 {api.map((apimusic, index) => {
                     return (
