@@ -195,7 +195,7 @@ module profile_addr::Profile {
     public entry fun create_song(
                                 account: &signer,
                                 album_id: u64,
-                                song_id: u64,
+                                // song_id: u64,
                                 name: String,
                                 duration: u64,
                                 current_price: u64,
@@ -225,25 +225,25 @@ module profile_addr::Profile {
 
         // creates a new song
         let new_song = Song {
-            album_id,
-            song_id,
-            artist_address,
-            name,
-            duration,
+            album_id: album_id,
+            song_id: counter,
+            artist_address: artist_address,
+            name: name,
+            duration: duration,
             num_likes: 0,
-            current_price,
-            date,
-            cid,
+            current_price: current_price,
+            date: date,
+            cid: cid,
             num_streams: 0,
-            genre,
-            previewStart,
-            previewEnd
+            genre: genre,
+            previewStart: previewStart,
+            previewEnd : previewEnd
         };
 
         // adds the new task into the songs table
-        table::upsert(&mut song_table.songs, song_id, new_song);
+        table::upsert(&mut song_table.songs, counter, new_song);
 
-        assert!(table::contains(&song_table.songs, song_id), SAMPLE_ERROR);
+        assert!(table::contains(&song_table.songs, counter), SAMPLE_ERROR);
 
         // assert!(counter > 0 , SAAMPLE_ERROR);
         
@@ -254,10 +254,11 @@ module profile_addr::Profile {
 
         let  artist_var: &mut Artist = borrow_global_mut(artist_address);
 
-        vector::push_back(&mut artist_var.uploaded_songs, song_id);
+        vector::push_back(&mut artist_var.uploaded_songs, counter);
 
         // print(&artist_var.uploaded_songs);
     }
+
     public entry fun create_transaction(
         account: &signer,
         price: u64,
@@ -284,16 +285,16 @@ module profile_addr::Profile {
         // creates a new transaction
         let new_transaction = Transaction {
             price,
-            transaction_id,
+            transaction_id: counter,
             song_id,
             from_address,
             to_address,
         };
 
         // adds the new transaction into the transactions table
-        table::upsert(&mut transaction_table.transactions, transaction_id, new_transaction);
+        table::upsert(&mut transaction_table.transactions, counter, new_transaction);
 
-        assert!(table::contains(&transaction_table.transactions, transaction_id), SAMPLE_ERROR);
+        assert!(table::contains(&transaction_table.transactions, counter), SAMPLE_ERROR);
 
         print(&transaction_table.transactions);
 
@@ -308,7 +309,6 @@ module profile_addr::Profile {
     }
     
     public entry fun create_playlist(account: &signer, 
-                                    playlistID: u64, 
                                     playlistName: String,
                                     dateAdded: String)acquires User, Playlists_Table{
 
@@ -325,7 +325,7 @@ module profile_addr::Profile {
         let counter = playlist_table.playlist_counter + 1;
 
         let newPlaylist= Playlist {
-            playlist_id :playlistID,
+            playlist_id :counter,
             playlist_name : playlistName, 
             songs : vector::empty<u64>(),
             date_added : dateAdded, 
@@ -335,11 +335,11 @@ module profile_addr::Profile {
         std::debug::print(&std::string::utf8(b"Playlist created"));
         print(&newPlaylist);
 
-        table::upsert(&mut playlist_table.playlists, playlistID, newPlaylist);
+        table::upsert(&mut playlist_table.playlists, counter, newPlaylist);
 
         let user: &mut User = borrow_global_mut(user_address);
 
-        vector::push_back(&mut user.playlist, playlistID);
+        vector::push_back(&mut user.playlist, counter);
 
         std::debug::print(&std::string::utf8(b"Playlist added to user"));
         print(&user.playlist);
@@ -352,6 +352,8 @@ module profile_addr::Profile {
     public entry fun add_songs_to_playlist(account: &signer,
                                     playlistID: u64,
                                     songIDs: vector<u64>) acquires Playlists_Table{
+
+        std::debug::print(&std::string::utf8(b"ENTERED ADD SONGS TO PLAYLIST-------------"));
 
         // gets the signer address
         let signer_address = signer::address_of(account);
@@ -389,9 +391,9 @@ module profile_addr::Profile {
         print(&playlist.songs);
         
     }
+
     #[view]
     public fun getTransactionHistory(account: &signer) : vector<Transaction> acquires User, TransactionTable {
-
         std::debug::print(&std::string::utf8(b"Getting Transaction History-------------"));
 
         let transaction_table = borrow_global_mut<TransactionTable>(ADMIN_ADDRESS);
@@ -421,6 +423,8 @@ module profile_addr::Profile {
 
     #[view]
     public fun retrieveSong(song_to_find: u64) : Song acquires Songs_Table {
+
+        std::debug::print(&std::string::utf8(b"retrieveSong Initialized -------------"));
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
@@ -463,6 +467,8 @@ module profile_addr::Profile {
 
     #[view]
     public fun retrieveSongs(songs_to_find: vector<u64>) : vector<Song> acquires Songs_Table {
+
+        std::debug::print(&std::string::utf8(b"retrieveSongs Initialized -------------"));
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
@@ -523,7 +529,9 @@ module profile_addr::Profile {
     }
     
         //Function to get songs with likes more than 1000 from the universal song vector
-    public fun getTopSongs() acquires  Songs_Table{
+    public fun getTopSongs() : vector<u64> acquires  Songs_Table{
+
+        std::debug::print(&std::string::utf8(b"getTopSongs Initialized -------------"));
         
         // gets the signer address
             // let _signer_address = signer::address_of(account);
@@ -551,7 +559,7 @@ module profile_addr::Profile {
                 std::debug::print(&std::string::utf8(b"Song match"));
                 
                 // accesssing the song likes
-                if (song_match.num_likes > 1000) {
+                if (song_match.num_likes > 1000 || vector::length(&top_songvector) < 5) {
                     vector::push_back(&mut top_songvector,i);
 
                     std::debug::print(&std::string::utf8(b"Song added to top song vector"));
@@ -560,10 +568,10 @@ module profile_addr::Profile {
                 i = i + 1
             };
 
-            print(&top_songvector);
 
+            // print(&top_songvector);
 
-    
+            top_songvector
 
     }
 
@@ -571,6 +579,8 @@ module profile_addr::Profile {
     //function to get the  randomsongs on basis of streams
     #[view]
    public fun randomsongs():vector<u64> acquires Songs_Table{
+
+        std::debug::print(&std::string::utf8(b"randomsongs Initialized -------------"));
 
         // gets the signer address
         // let _signer_address = signer::address_of(account);
@@ -589,7 +599,7 @@ module profile_addr::Profile {
           let song_match1=table::borrow_mut(&mut song_table.songs,i);
          
          // accesssing the song streams
-         if (song_match1.num_streams < 100) {
+         if (song_match1.num_streams < 100 || vector::length(&random_songs) < 5) {
             vector::push_back(&mut random_songs,i);
         };
     
@@ -603,6 +613,8 @@ module profile_addr::Profile {
     //get recent songs
     #[view]
     public fun recentsongs():vector<u64>  acquires Songs_Table {
+
+        std::debug::print(&std::string::utf8(b"recentsongs Initialized -------------"));
 
          // gets the signer address
         // let _signer_address = signer::address_of(account);
@@ -623,13 +635,6 @@ module profile_addr::Profile {
 
         while (i>0) {
 
-
-          //assert statement so that song not found
-         // assert!(exists<Songs_Table>(signer_address), E_NOT_INITIALIZED);
-
-          //get the song that match with i
-          
-            // assert!(exists<Songs_Table>(table::borrow_mut(&mut song_table.songs,i)), E_NOT_INITIALIZED);
           let song_match2=table::borrow_mut(&mut song_table.songs,i);
 
           std::debug::print(&std::string::utf8(b"ID of the matched song"));
@@ -677,7 +682,6 @@ module profile_addr::Profile {
         create_song(
             &user1,
             1, // album_id
-            1, // song_id
             string::utf8(b"Song name"), // name
             180, // duration
             101, // current_price
@@ -691,7 +695,6 @@ module profile_addr::Profile {
         create_song(
             &user1,
             1, // album_id
-            2, // song_id
             string::utf8(b"Song name"), // name
             180, // duration
             101, // current_price
@@ -709,19 +712,16 @@ module profile_addr::Profile {
         // Create a playlist
         create_playlist(
                         &user1, 
-                        1, 
                         string::utf8(b"Playlist name 1"), 
                         string::utf8(b"2021-04-01"));
 
         create_playlist(
                         &user1, 
-                        2, 
                         string::utf8(b"Playlist name 2"), 
                         string::utf8(b"2021-04-01"));
 
         create_playlist(
                         &user1, 
-                        3, 
                         string::utf8(b"Playlist name 3"), 
                         string::utf8(b"2021-04-01"));
 
@@ -739,15 +739,20 @@ module profile_addr::Profile {
 
 
         // Retrieve songs
-        getTopSongs();
-        randomsongs();
-        recentsongs();
+        let topsongs = getTopSongs();
+        print(&topsongs);
+
+        let randoms = randomsongs();
+        print(&randoms);
+
+        let recently_added_songs = recentsongs();
+        print(&recently_added_songs);
+
         let songs_to_find = vector<u64>[1,2];
         let songs_found = retrieveSong(1);
         let songs_found2 = retrieveSongs(songs_to_find);
         print(&songs_found);
         print(&songs_found2);
-
 
         // Create a transaction
         create_transaction(
