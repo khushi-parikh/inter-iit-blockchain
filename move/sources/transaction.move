@@ -2,6 +2,8 @@
 // This module defines a minimal Coin and Balance.
 module transaction_addr::basic_coin {
     use std::signer;
+    use aptos_framework::aptos_account::transfer_coins;
+    use aptos_framework::aptos_coin::AptosCoin;
 
     // Address of the owner of this module
     const MODULE_OWNER: address = @transaction_addr;
@@ -47,18 +49,9 @@ module transaction_addr::basic_coin {
     }
 
     // Transfers `amount` of tokens from addr -> to addr
-    public fun transfer(from: &signer, to: address, amount: u64) acquires Balance {
-        let check = withdraw(signer::address_of(from), amount);
-         
-        //using the address of a current song that is buied
-        /*
-         // gets the Songs Table struct resource 
-        let song_table = borrow_global_mut<Songs_Table>(signer_address);
-
-        //get the song that match with i
-        let song_match=table::borrow_mut(&mut song_table.song,i)
-        */
-        deposit(to, check);
+    public entry fun transfer(from: &signer, to: address, amount: u64){
+        // 
+        transfer_coins<AptosCoin>(from, to, amount);
     }
 
     // Withdraw `amount` number of tokens from the balance under `addr`.
