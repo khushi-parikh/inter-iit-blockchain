@@ -10,7 +10,7 @@ import {
 } from "react-icons/io5";
 import { IoMdVolumeHigh, IoMdVolumeOff, IoMdVolumeLow } from "react-icons/io";
 interface Track {
-  src: any;
+  url: string;
   title: string;
   author: string;
 }
@@ -100,15 +100,15 @@ const Controls: React.FC<props> = ({
   return (
     <div className="controls-wrapper">
       <div className="controls">
-        <IoPlaySkipBackSharp />
-        <IoPlayBackSharp />
+        <IoPlaySkipBackSharp onClick={handlePrevious} />
+        <IoPlayBackSharp onClick={skipBackward } />
 
         <span onClick={togglePlayPause}>
           {isPlaying ? <IoPauseSharp /> : <IoPlaySharp />}
         </span>
 
-        <IoPlayForwardSharp />
-        <IoPlaySkipForwardSharp />
+        <IoPlayForwardSharp onClick={skipForward} />
+        <IoPlaySkipForwardSharp onClick={handleNext} />
       </div>
       <div className="volume">
         <button onClick={() => setMuteVolume((prev) => !prev)}>

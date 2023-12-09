@@ -24,21 +24,21 @@ const AudioPlayer:React.FC = () => {
         progressBarRef={progressBarRef}
         />
         </div>
-        <div className="middlebox">
-        <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef}
-        timeProgress ={timeProgress}  duration ={duration}
-        />
-        </div>
-       <div className="rightbox">
-       <Controls
+       <div className="middlebox">
+       {/* <Controls
         audioRef={audioRef}
         progressBarRef={progressBarRef}
         setTimeProgress ={setTimeProgress}  duration ={duration}
         tracks={tracks} trackIndex={trackIndex} setTrackIndex={setTrackIndex} 
         setCurrentTrack={setCurrentTrack}
-        />
+        
+        /> */}
        </div>
-       
+        <div className="rightbox">
+        <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef}
+        timeProgress ={timeProgress}  duration ={duration}
+        />
+        </div>
         
         {/* <audio src={currentTrack.src}></audio> */}
     </div>
