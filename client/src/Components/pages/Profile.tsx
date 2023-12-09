@@ -48,7 +48,7 @@ const Profile = (props: any) => {
     };
 
     const { account, signAndSubmitTransaction } = useWallet();
-    const module_address = '0xe04053115104aa71b7f70cd48cd47a19a246dbb09220aa1c7299ec04d526133e';
+    const module_address = '0x4bb4d95ba6ff482924084bbfea2af98c634638a77a0c91b909ab9da53a802660';
 
     // console.log("profile : ", account);
 
@@ -59,37 +59,50 @@ const Profile = (props: any) => {
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
+    const createUser = async () => {
+        if (!account) return [];
+        const payload = {
+            type: "entry_function_payload",
+            function: `${module_address}::Profile::create_artist`,
+            type_arguments: [],
+            arguments: [],
+        };
+        try {
+            // sign and submit transaction to chain
+            const response = await signAndSubmitTransaction(payload);
+            console.log("response", response)
+            await provider.waitForTransaction(response.hash);
+            setAccountHasUser(true);
+            console.log("Completed adding User")
+        }
+        catch (error: any) {
+            setAccountHasUser(false);
+        }
+    }
+
     const createResource = async () => {
         if (!account) return [];
-        // setTransactionInProgress(true);
-        console.log("entered add resource", account.address)
         const payload = {
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_resource`,
             type_arguments: [],
             arguments: [],
         };
-        console.log("payload 1", payload)
         try {
             // sign and submit transaction to chain
             const response = await signAndSubmitTransaction(payload);
-            console.log("response", response)
             await provider.waitForTransaction(response.hash);
             setAccountHasResource(true);
             console.log("Completed adding resource")
         }
         catch (error: any) {
-            setAccountHasPlaylist(false);
+            setAccountHasResource(false);
             console.log("ERROR-----", error)
         }
-        // finally {
-        //     setTransactionInProgress(false);
-        // }
     }
 
     const addNewPlaylist = async () => {
         if (!account) return [];
-        // setTransactionInProgress(true);
         console.log("entered add new playlist", account.address)
         const payload = {
             type: "entry_function_payload",
@@ -114,33 +127,9 @@ const Profile = (props: any) => {
         // }
     }
     
-    const createUser=async()=>{
-        if (!account) return [];
-        // setTransactionInProgress(true);
-        console.log("entered create User", account.address)
-        const payload = {
-            type: "entry_function_payload",
-            function: `${module_address}::Profile::create_user`,
-            type_arguments: [],
-            arguments: [],
-        };
-        try {
-            // sign and submit transaction to chain
-            console.log("entered try loop", payload)
-            const response = await signAndSubmitTransaction(payload);
-            console.log("response", response)
-            await provider.waitForTransaction(response.hash);
-            setAccountHasUser(true);
-            console.log("Completed")
-        }
-        catch (error: any) {
-            setAccountHasPlaylist(false);
-        }
-        // finally {
-        //     setTransactionInProgress(false);
-        // }
-    }
+    
     const fetchPlaylists = async () => {
+        console.log("Entered fetch playlists")
         if (!account) return [];
         // console.log(module_address)
         try {
@@ -168,7 +157,7 @@ const Profile = (props: any) => {
             //     counter++;
             // }
             // setTasks(tasks);
-        } 
+        }
         catch (e: any) {
             setAccountHasPlaylist(false);
         }
@@ -202,7 +191,7 @@ const Profile = (props: any) => {
               {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div> }
                 {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
-                {!accountHasUser && <button onClick={createUser}>Create User</button>}
+                {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
                 <h1>kasbdfaskdfkasdfb</h1>
                 <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
