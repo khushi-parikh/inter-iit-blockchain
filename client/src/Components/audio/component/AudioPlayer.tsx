@@ -4,7 +4,7 @@ import Controls from './Controls'
 import ProgressBar from './ProgressBar '
 import {tracks} from '../data/tracks'
 import { useRef} from 'react';
-
+import'./audio.css'
 
 const AudioPlayer:React.FC = () => {
     const audioRef = useRef();
@@ -17,21 +17,29 @@ const AudioPlayer:React.FC = () => {
   return (
     <div className="audio-player">
     <div className="inner">
+        <div className='leftbpx'>
         <DisplayTrack currentTrack={currentTrack}
         audioRef={audioRef}
         setDuration={setDuration}
         progressBarRef={progressBarRef}
         />
-        <Controls
-        audioRef={audioRef}
-        progressBarRef={progressBarRef}
-        setTimeProgress ={setTimeProgress}  duration ={duration}
-        // tracks={tracks} trackIndex={trackIndex} setTrackIndex={setTrackIndex} 
-        // setCurrentTrack={setCurrentTrack}
-        />
+        </div>
+        <div className="middlebox">
         <ProgressBar progressBarRef={progressBarRef} audioRef={audioRef}
         timeProgress ={timeProgress}  duration ={duration}
         />
+        </div>
+       <div className="rightbox">
+       <Controls
+        audioRef={audioRef}
+        progressBarRef={progressBarRef}
+        setTimeProgress ={setTimeProgress}  duration ={duration}
+        tracks={tracks} trackIndex={trackIndex} setTrackIndex={setTrackIndex} 
+        setCurrentTrack={setCurrentTrack}
+        />
+       </div>
+       
+        
         {/* <audio src={currentTrack.src}></audio> */}
     </div>
   </div>

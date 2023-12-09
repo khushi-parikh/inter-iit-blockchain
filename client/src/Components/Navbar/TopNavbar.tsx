@@ -7,6 +7,7 @@ import { IoIosSearch } from "react-icons/io";
 import Searchreasult from './Searchreasult';
 import { IoMdClose } from "react-icons/io";
 
+
 type Props = {
 	sidenav: Boolean;
 };
@@ -42,8 +43,8 @@ const TopNavbar: React.FC<Props> = () => {
                     }
 					</div>
 					
-					<div className="wallet">
-						<WalletSelector />
+					<div className="wallet" onClick={(e)=>console.log(e.target)}>
+						<WalletSelector  />
 					</div>
 				</div>
 			</div>
