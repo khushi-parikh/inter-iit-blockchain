@@ -21,34 +21,14 @@ const Searchsugg: React.FC<Props> = ({ searchText }) => {
   return (
     <div className="searchreasult">
       {filteredData.length > 0 ? (
-        <div>
+        <div className="search-name">
           {filteredData.map((Details, index) => {
             return (
               <>
-              <div key={index} className="search-name">
-                <div>
-                  <h3>Album</h3>
-                  <div className="search-list">
-                    <SlPlaylist />
-                    <h5>{Details.AlbumName}</h5>
-                  </div>
-                </div>
-                <div>
-                  <h3>Artist</h3>
-                  <div className="search-list">
-                    <SlPlaylist />
-                    <h5>{Details.ArtistName}</h5>
-                  </div>
-                </div>
-                <div>
-                  <h3>SongTitle</h3>
-                  <div className="search-list">
-                    <SlPlaylist />
-                    <h5>{Details.SongTitle}</h5>
-                  </div>
-                </div>
-
-               <hr /> 
+              <div key={index}>
+                  <p>Album : {Details.AlbumName}</p>
+                  <p>Artist : {Details.ArtistName}</p>
+                  <p>SongTitle : {Details.SongTitle}</p>
               </div>
               </>
             );

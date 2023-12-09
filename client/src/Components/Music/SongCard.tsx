@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPlay } from "react-icons/fa";
 import { LiaCoinsSolid } from "react-icons/lia";
+import deva from '../images/deva-deva.jpg';
 
 type Props = {
  SongName: string;
@@ -21,6 +22,7 @@ const [isHovered, setIsHovered] = useState(false);
     {isHovered ? (
       <>
        <div className='playlist-image'>
+       <img src={deva} alt='song-image' className='card-image'/>
         <center className="show-button">
             <FaPlay className='play-button'/>
         </center>
@@ -29,6 +31,7 @@ const [isHovered, setIsHovered] = useState(false);
     ) :
     <>
     <div className='playlist-image'>
+    <img src={deva} alt='song-image' className='card-image'/>
     </div>
     </> 
     }

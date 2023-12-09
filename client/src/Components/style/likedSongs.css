@@ -1,6 +1,6 @@
 .Liked-card{
-    width: 250px;
-    height: 240px;
+    width: 245px;
+    height: 250px;
     color: white;
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.418) 11.2%, rgba(82, 70, 70, 0.44) 78.9%);
     /* background-color: black; */
@@ -15,18 +15,23 @@
 
 .Liked-card:hover{
     box-shadow: 0px 10px 30px black;
-    width: 254px;
-    height: 244px;
+    width: 248px;
+    height: 254px;
 }
 
 .playlist-image{
     position: relative;
     margin-top: 0;
-    height: 70%;
+    height: 68%;
     background-color: rgb(241, 70, 70);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
+}
+
+.card-image{
+    height: 100%;
+    width: 100%;
 }
 .show-button{
     width: 50px;
@@ -65,6 +70,7 @@
     display: flex;
     flex-direction: row;
     row-gap: 20px;
+    padding-bottom: 5px;
 }
 
 .songs{
