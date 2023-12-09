@@ -1,6 +1,6 @@
 .Liked-card{
-    width: 250px;
-    height: 240px;
+    width: 245px;
+    height: 250px;
     color: white;
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.418) 11.2%, rgba(82, 70, 70, 0.44) 78.9%);
     /* background-color: black; */
@@ -15,24 +15,30 @@
 
 .Liked-card:hover{
     box-shadow: 0px 10px 30px black;
-    width: 254px;
-    height: 244px;
+    width: 248px;
+    height: 254px;
 }
 
 .playlist-image{
     position: relative;
     margin-top: 0;
-    height: 70%;
+    height: 68%;
     background-color: rgb(241, 70, 70);
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 
 }
+
+.card-image{
+    height: 100%;
+    width: 100%;
+}
 .show-button{
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%);
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%)  rgb(0, 255, 0);
+    /* background: linear-gradient(109.6deg, rgb(0, 204, 130) 11.2%, rgb(58, 181, 46) 91.7%); */
     /* background-color: rgb(37, 233, 37); */
     align-items: center;
     position:absolute;
@@ -64,6 +70,7 @@
     display: flex;
     flex-direction: row;
     row-gap: 20px;
+    padding-bottom: 5px;
 }
 
 .songs{

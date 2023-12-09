@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../style/profile.css'
 import api from '../API/Playlist.json'
 import PlaylistCard from '../Music/PlayList'
@@ -8,9 +8,12 @@ import likedSongsApi from '../API/LikedSong.json'
 import LikedSongCard from '../Music/LikedSongs'
 import Transaction from '../API/Transaction.json'
 import TransactionCard from '../Music/TransactionCard'
-import { useState } from 'react';
-import { useWallet } from '@aptos-labs/wallet-adapter-react'
+import {useState} from 'react';
 import { Network, Provider } from 'aptos'
+import { useWallet } from "@aptos-labs/wallet-adapter-react"
+
+ 
+
 
 type Song = {
     album_id: BigInteger,
@@ -45,7 +48,7 @@ const Profile = (props: any) => {
     };
 
     const { account, signAndSubmitTransaction } = useWallet();
-    const module_address = '0x5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652';
+    const module_address = '0x150e2fc51e258838b7b7c6944dcb5415b0d359d398e9736f7976168c0220ad22';
 
     // console.log("profile : ", account);
 
@@ -56,37 +59,50 @@ const Profile = (props: any) => {
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
 
+    const createUser = async () => {
+        if (!account) return [];
+        const payload = {
+            type: "entry_function_payload",
+            function: `${module_address}::Profile::create_artist`,
+            type_arguments: [],
+            arguments: [],
+        };
+        try {
+            // sign and submit transaction to chain
+            const response = await signAndSubmitTransaction(payload);
+            console.log("response", response)
+            await provider.waitForTransaction(response.hash);
+            setAccountHasUser(true);
+            console.log("Completed adding User")
+        }
+        catch (error: any) {
+            setAccountHasUser(false);
+        }
+    }
+
     const createResource = async () => {
         if (!account) return [];
-        // setTransactionInProgress(true);
-        console.log("entered add resource", account.address)
         const payload = {
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_resource`,
             type_arguments: [],
             arguments: [],
         };
-        console.log("payload 1", payload)
         try {
             // sign and submit transaction to chain
             const response = await signAndSubmitTransaction(payload);
-            console.log("response", response)
             await provider.waitForTransaction(response.hash);
             setAccountHasResource(true);
             console.log("Completed adding resource")
         }
         catch (error: any) {
-            setAccountHasPlaylist(false);
+            setAccountHasResource(false);
             console.log("ERROR-----", error)
         }
-        // finally {
-        //     setTransactionInProgress(false);
-        // }
     }
 
     const addNewPlaylist = async () => {
         if (!account) return [];
-        // setTransactionInProgress(true);
         console.log("entered add new playlist", account.address)
         const payload = {
             type: "entry_function_payload",
@@ -110,33 +126,9 @@ const Profile = (props: any) => {
         //     setTransactionInProgress(false);
         // }
     }
-    const createUser=async()=>{
-        if (!account) return [];
-        // setTransactionInProgress(true);
-        console.log("entered create User", account.address)
-        const payload = {
-            type: "entry_function_payload",
-            function: `${module_address}::Profile::create_user`,
-            type_arguments: [],
-            arguments: [],
-        };
-        try {
-            // sign and submit transaction to chain
-            console.log("entered try loop", payload)
-            const response = await signAndSubmitTransaction(payload);
-            console.log("response", response)
-            await provider.waitForTransaction(response.hash);
-            setAccountHasUser(true);
-            console.log("Completed")
-        }
-        catch (error: any) {
-            setAccountHasPlaylist(false);
-        }
-        // finally {
-        //     setTransactionInProgress(false);
-        // }
-    }
+
     const fetchPlaylists = async () => {
+        console.log("Entered fetch playlists")
         if (!account) return [];
         // console.log(module_address)
         try {
@@ -164,23 +156,41 @@ const Profile = (props: any) => {
             //     counter++;
             // }
             // setTasks(tasks);
-        } 
+        }
         catch (e: any) {
             setAccountHasPlaylist(false);
         }
     }
+ const create_Song=async()=>{
+    if(!account) return [];
 
-    useEffect(() => {
-        fetchPlaylists();
-    }, [account?.address]);
+    const payload={
+        type:"entry_function_payload",
+        function:`${module_address}::Profile::create_song`,
+        type_arguments:[],
+        arguments:[1,1,"Song1",180,101,20231231,"onasdolflsandflknsadf","genre",0,120],
+    };
+    try{
+        const response=await signAndSubmitTransaction(payload);
+        await provider.waitForTransaction(response.hash);
+
+        console.log(response);
+        console.log("completed")
+    }
+    catch(error:any){
+        console.log("error",error)
+    }
 
 
+ }
     const playlistContent = () => {
         return (
             <div className='Playlists'>
                 {!accountHasResource && <button onClick={createResource}>Create resource</button>}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
-                {!accountHasUser && <button onClick={createUser}>Create User</button>}
+                {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
+                <h1>kasbdfaskdfkasdfb</h1>
+                <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
                     return (
                         <div className="pc">
@@ -285,10 +295,9 @@ const Profile = (props: any) => {
 
         </div>
     )
-}
 
-export default Profile
 
-function setTransactionInProgress(arg0: boolean) {
-    throw new Error('Function not implemented.')
 }
+export default Profile;
+
+

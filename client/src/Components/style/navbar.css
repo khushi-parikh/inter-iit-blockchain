@@ -1,10 +1,14 @@
                   /* top navbar */
+.app-logo{
+    height: 20px;
+    /* width: 30px; */
+}
 .top-navbar{
-    background-color: rgb(68, 61, 61);
+  background: linear-gradient(to bottom, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
     position: fixed;
     top: 0%;
     right: 0;
-    left: 18%;
+    left: 16.8%;
     width: 100%;
     height: 4rem;
     border-radius: 6px 0px;
@@ -13,7 +17,6 @@
 .top-inside{
     padding: 15px;
 }
-
 .search-bar{
     height: 34px;
     border-radius: 6px;
@@ -42,13 +45,20 @@
     color: black;
     height: 25px;
     padding: 10px 5px 10px 10px;
+
+}
+.search-icon-close{
+    color: black;
+    height: 25px;
+    padding: 10px 5px 10px 10px;
+    cursor: pointer; 
 }
 .wallet{
     width: 70px;
     height: 40px;
     right: 7%;
     position: fixed;
-    top: 1%;
+    top: 1.5%;
 }
 
 .wallet button{
@@ -70,45 +80,90 @@
     position: fixed;
     bottom: 0%;
     right: 0;
-    left: 21%;
-    width: 100%;
-    height: 60px;
+    left: 16.5%;
+    /* width: 100%; */
+    /* height: 200px; */
     border-radius: 10px ;
     display: flex;
     flex-direction: row;
     gap: 200px;
-    /* z-index: 1; */
-}
-
-
-.Song-artist{
-    display: flex;
-    flex-direction: column;
-}
-
-.icons .pause-button{
-    height: 30px;
-    width: 30px;
-    padding-left: 10px;
-}
-
-
-.icons{
-    display: flex;
-    flex-direction: row;
-    size: 40px;
+    z-index: 1;
 }
 
               
 
                  /* side navbar */
+
+.logo-items{
+    padding-left: 1.5%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    height: 4rem;
+    background: radial-gradient(circle at 10% 20%, rgb(28, 27, 27) 0%, rgb(64, 64, 64) 90.2%);
+    width: calc(100% - 1.5%);
+}
+
+.logo-items p{
+    font-size: 18px;
+}
+
+.app-logo{
+    height: 35px;
+    border-radius: 50%;
+}
+
 .side-navbar{
-    background-color: rgb(42, 37, 37);
+  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
     position: fixed;
     top: 0%;
     left: 0%;
     width: 16.5%;
     height: 100vh;
     border-radius: 5px ;
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    border-right: 5px solid black;
+
+}
+.menu-tab{
+    width: 100%;
+    /* background-color: red; */
+}
+.menu-item{
+    margin-left: 0px;
+    position: relative;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    /* background-color: rgb(96, 94, 94); */
+    border-bottom: 1px rgb(121, 119, 119) solid;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    width:100%;
+    height: 40px;
+    transition: all 150ms ease-in-out
+}
+
+.menu-item:hover{
+    background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+    /* background-color: grey; */
+    height: 42px;
+}
+
+.menu-icon{
+    width: 40px;
+    height: 20px;
+    color: white;
+}
+
+.menu-item a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.menu-head{
+    color: rgb(177, 169, 169);
+    padding-left: 10px;
 }

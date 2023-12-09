@@ -1,5 +1,7 @@
 import React ,{useState} from 'react';
 import { FaPlay } from "react-icons/fa";
+import deva from '../images/deva-deva.jpg';
+
 type Props = {
   PlaylistName: string;
   NumOfSongs : number;
@@ -16,6 +18,7 @@ const PlayList: React.FC<Props> = ({PlaylistName,NumOfSongs}) => {
       {isHovered ? (
 
         <div className='playlist-image'>
+          <img src={deva} alt='song-image' className='card-image'/>
           <center className="show-button">
             <FaPlay className='play-button'/>
         </center>
@@ -23,6 +26,7 @@ const PlayList: React.FC<Props> = ({PlaylistName,NumOfSongs}) => {
       ) : 
       (
         <div className='playlist-image'>
+          <img src={deva} alt='song-image' className='card-image'/>
         </div>
       )}
       <div className='playlist-details'>

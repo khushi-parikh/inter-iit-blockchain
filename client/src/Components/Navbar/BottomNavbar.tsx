@@ -1,32 +1,23 @@
-import React from 'react'
-import '../style/navbar.css';
-import { Link} from 'react-router-dom';
-import { MdOutlinePauseCircleFilled } from "react-icons/md";
-import { FaFastBackward } from "react-icons/fa";
-import { FaForwardFast } from "react-icons/fa6";
-
+import React from "react";
+import "../style/navbar.css";  
+import AudioPlayer from "../audio/component/AudioPlayer";
 type Props = {
   sidenav: Boolean;
+  
 };
+
+let qala = require("./qala.mp3");
 
 const BottomNavbar : React.FC<Props>= () => {
   return (
-    <div className= 'bottom-navbar'>
-
-            <div className='Song-artist'>
-                Song name 
-                <br />
-                Artist name - Artist 1
-            </div>
-
-            <div className='icons'>
-                <FaFastBackward className='pause-button'/>
-                <MdOutlinePauseCircleFilled className='pause-button'/>
-                <FaForwardFast className='pause-button'/>
-            </div>
-        
+    <div className="bottom-inside">
+      <div className="bottom-navbar">
+        <audio src="https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.nftstorage.link/drive-breakbeat-173062.mp3">d</audio>
+        {/* <AudioPlayer/> */}
+        <audio src={qala}></audio>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default BottomNavbar
+export default BottomNavbar;

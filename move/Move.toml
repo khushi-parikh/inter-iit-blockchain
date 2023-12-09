@@ -4,7 +4,9 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-profile_addr='0x5297b8228d13d0252dfc1acb4348d606338fe5d4fbb7e4c2a8ae4b65ad387652'
+profile_addr='0x4c4865348f30d4f8c9e1e21d37f8ee7fd8eb4ac3c25e67b39ef230db03a6d254'
+transaction_addr ='0x4c4865348f30d4f8c9e1e21d37f8ee7fd8eb4ac3c25e67b39ef230db03a6d254'
+
 
 [dev-addresses]
 
