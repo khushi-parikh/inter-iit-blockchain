@@ -11,9 +11,10 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 const Home = () => {
     const { account, signAndSubmitTransaction } = useWallet();
     const provider = new Provider(Network.DEVNET);
-    const module_address = "0x150e2fc51e258838b7b7c6944dcb5415b0d359d398e9736f7976168c0220ad22";
+    const module_address = process.env.REACT_APP_MODULE_ADDRESS;
+    console.log(module_address);
 
-    const [tranasactionID, setTransactionID] = useState(0);
+    const [transactionID, setTransactionID] = useState(0);
     const [topSongs, setTopSongs] = useState({});
     const [randomSongs, setRandomSongs] = useState({});
     const [recentSongs, setRecentSongs] = useState({});
@@ -122,10 +123,10 @@ const Home = () => {
         const response = await transferAmt(artist_address, song_price);
         console.log(response);
         setTransactionID((prev) => prev + 1);
-        console.log(tranasactionID);
+        console.log(transactionID);
         const response2 = await createTransaction(
             2,
-            tranasactionID,
+            transactionID,
             song_id,
             artist_address
         );
