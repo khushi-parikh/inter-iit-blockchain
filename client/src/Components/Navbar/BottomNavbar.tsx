@@ -4,6 +4,8 @@ import image from '../images/deva-deva.jpg'
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css"; // import the styles
 import "../style/audioplayer.css";
+import { FaRegHeart } from "react-icons/fa6";
+
 type Props = {
   songUrl: string | null;
   songname: string | null;
@@ -48,15 +50,16 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname }) => {
   return (
     <div className="bottom-navbar">
       <div className="Song-artist">
-      
         <div className="play-image">
-          <img src={image} alt="image" />
+          <img src={image} alt="image" className="curr-song"/>
         </div>
         <div className="play-name">
-          <div> Song name -{songnameref}</div>
+          <div>Song name - {songnameref}</div>
           <div>Artist name - Artist 1</div>
         </div>
+
       </div>
+
       <div className="play-music">
         <AudioPlayer
           autoPlay
@@ -73,6 +76,8 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname }) => {
           }}
         />
       </div>
+
+      <FaRegHeart className="filled-heart-button"/>
       
     </div>
   );

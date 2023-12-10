@@ -96,8 +96,7 @@ a{
 
 /* .bottom-navbar */
 .bottom-navbar{
-    padding-left: 10px;
-    padding-top: 20px;
+    padding-left: 2%;
     padding-right: 50px;
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
     position: fixed;
@@ -106,14 +105,16 @@ a{
     left: 16.5%;
     display: flex;
     flex-direction: row;
-    gap: 200px;
+    gap: 8%;
     z-index: 5;
+    align-items: center;
+    width: calc(100% - 16.5% - 2%);
 }
 
 .Song-artist{
-    flex-direction: column;
-    columns: 3;
-
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
               
