@@ -1,0 +1,32 @@
+.govern-head{
+    margin-top: 10px;
+    margin-left: 20px;
+    text-align: left;
+    font-size: 30px;
+}
+
+.raise-block{
+    width: 400px;
+    height: 280px;
+    border: 1px solid rgb(129, 129, 129);
+}
+
+.raise-form{
+    text-align: left;
+    padding: 10px;
+}
+
+.raise-heading{
+    padding: 10px;
+    text-align: left;
+    font-size: 30px;
+}
+
+.raise-submit-button{
+    border: none;
+    width: 100px;
+    height: 30px;
+    background: transparent;
+    border: 4px solid #ccc; 
+	color: #ccc; 
+}

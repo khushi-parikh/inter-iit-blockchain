@@ -121,7 +121,6 @@ const Upload = () => {
 						className="login-form"
 					>
 						
-
 						{/*  CHANGE THIS TO DROPDOWN CONTAINING CURRENT ALBUMS OF PERSON */}
 						<label>
 							Album ID*

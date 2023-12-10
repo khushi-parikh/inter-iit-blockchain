@@ -46,6 +46,11 @@ const SideNavbar: React.FC<Props> = () => {
           <MdCreateNewFolder className='menu-icon'/>
           <Link to='/'>Create Playlist</Link><br /><br />
         </div>
+
+        <div className="menu-item">
+          <MdCreateNewFolder className='menu-icon'/>
+          <Link to='/govern'>Govern</Link><br /><br />
+        </div>
       </div>
     </div>
   )

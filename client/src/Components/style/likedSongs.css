@@ -12,12 +12,16 @@
     box-shadow: 0px 3px 3px black;
     transition: all 150ms ease-in-out;
     position: relative;
+    /* z-index: 1; */
+    column-gap: 10px;
+    margin-bottom: 10px;
 }
+
 
 .Liked-card:hover{
     box-shadow: 0px 10px 30px black;
     width: 248px;
-    height: 254px;
+    /* height: 254px; */
 }
 
 .playlist-image{
