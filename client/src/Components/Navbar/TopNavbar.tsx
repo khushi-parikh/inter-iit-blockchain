@@ -10,6 +10,7 @@ import Login from '../pages/Login';
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Network, Provider } from 'aptos'
 
+
 type Props = {
 	sidenav: Boolean;
 };
@@ -137,11 +138,8 @@ const TopNavbar: React.FC<Props> = () => {
                     }
 					</div>
 					
-					
-					<div className="wallet">
-						{account?.address ? <WalletSelector/> : <Link to = '/login'><div className='login-button'>Login</div></Link>}
-						{/* <Link to = '/login'>Login</Link> */}
-						{/* <WalletSelector /> */}
+					<div className="wallet" onClick={(e)=>console.log(e.target)}>
+						<WalletSelector  />
 					</div>
 				</div>
 			</div>

@@ -8,8 +8,25 @@ import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 interface HomeProps {
-    onPlaySong: (url: string) => void;
+
+  onPlaySong: (url: string,songName : string) => void
 }
+type Song = {
+  album_id: BigInt;
+  artist_address: string;
+  cid: string;
+  current_price: BigInt;
+  date: string;
+  duration: BigInteger;
+  genre: string;
+  name: string;
+  num_likes: BigInt;
+  num_streams: BigInt;
+  previewEnd: BigInt;
+  previewStart: BigInt;
+  song_id: BigInt;
+};
+
 
 const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
     const { account, signAndSubmitTransaction } = useWallet();

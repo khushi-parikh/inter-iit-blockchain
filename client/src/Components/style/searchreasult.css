@@ -8,6 +8,7 @@
 }
 .search-name{
     width: 100%;
+    cursor: pointer;
 }
 
 .search-name p{

@@ -6,14 +6,24 @@ import '../style/navbar.css'
 import { IoCloudUploadSharp } from "react-icons/io5";
 import aptosLogo from '../images/Aptos_logo.png';
 import { MdCreateNewFolder } from "react-icons/md";
+import Popupplaylist from '../pages/Popupplaylist';
+import Newplaylist from '../pages/Newplaylist';
 
 type Props = {
   sidenav: Boolean;
   text : string;
-  // sidenav: (val: string) => void;
   handleclose: () => void;
 };
 const SideNavbar: React.FC<Props> = () => {
+  const [open, setOpen] = React.useState(false);
+ 
+    const handleClose = () => {
+        setOpen(false);
+    };
+ 
+    const handleOpen = () => {
+        setOpen(true);
+    };
    
   return (
     <div className='side-navbar'>
@@ -44,8 +54,17 @@ const SideNavbar: React.FC<Props> = () => {
       <div className='menu-tab'>
         <div className="menu-item">
           <MdCreateNewFolder className='menu-icon'/>
-          <Link to='/'>Create Playlist</Link><br /><br />
-        </div>
+          <div onClick={handleOpen}>
+          Create Playlist
+            </div>
+           {open ?<Popupplaylist 
+             isOpen={open} onClose={handleClose} onOpen={handleOpen}
+             />: null } 
+             
+          </div>
+          <div>
+              <Newplaylist/>
+             </div>
       </div>
     </div>
   )

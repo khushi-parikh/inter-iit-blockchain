@@ -14,8 +14,7 @@ type Props = {
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
-  onPlaySong: (url: string) => void;
-    // likeSongHandler: () => void;
+  onPlaySong: (url: string,songName : string) => void;
 };
 
 const SongCard: React.FC<Props> = ({
@@ -38,14 +37,16 @@ if(Purchase_Status){
 }
 }
   const playSong = () => {
-    onPlaySong(SongUrl); // Add this line
+    onPlaySong(SongUrl,SongName); // Add this line
+    
+
   };
   return (
     <center
       className="Liked-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleCardClick}
+      // onClick={handleCardClick}
     >
       {isHovered  ? (
         <>

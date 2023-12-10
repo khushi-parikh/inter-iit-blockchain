@@ -19,19 +19,23 @@ import Upload from './Components/pages/Upload';
 
 type AppProps = {
   songUrl: string | null;
+  songArtist: string | null;
  };
 function App() {
   const [songUrl, setSongUrl] = useState<string | null>(null);
-  const handlePlaySong = (url:string) => {
+  const [songname, setSongName] = useState<string | null>(null)
+  const [songArtist, setSongArtist] = useState<string | null>(null);
+  const handlePlaySong = (url:string,songName:string) => {
     console.log("clicked play song")
     console.log(url)
     setSongUrl(url);
+    setSongName(songName);
    };
 
   return (
     <div>
       <BrowserRouter>
-     <Fixedcomp songUrl={songUrl}/>
+     <Fixedcomp songUrl={songUrl} songname={songname}/>
     <Routes>
       <Route path="/" element={<Home onPlaySong={handlePlaySong}/>} />
       <Route path="/songpage" element={<SongPage/>} />
