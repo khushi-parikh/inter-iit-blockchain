@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Provider, Network } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import './App.css';
+import { PetraWallet } from "petra-plugin-wallet-adapter";
+import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 
 import PageNotFound from './Components/pages/PageNotFound';
 import Home from './Components/pages/Home';

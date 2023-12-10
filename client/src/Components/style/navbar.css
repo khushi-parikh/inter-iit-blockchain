@@ -54,25 +54,47 @@
     cursor: pointer; 
 }
 .wallet{
-    width: 70px;
-    height: 40px;
+    width: 140px;
+    height: 35px;
     right: 7%;
     position: fixed;
     top: 1.5%;
 }
 
-.wallet button{
+.wallet-button{
     background: linear-gradient(25deg, rgb(214, 76, 127), rgb(238, 71, 88) 50%);
     border: none;
     color: white;
+    height: 100%;
+    width: 100%;
+    /* height: 40px;
+    width: 140px; */
 }
 
 .wallet-button{
     color: white !important;
 }
 
+.login-button{
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 10% 20%, rgb(150, 152, 161) 0%, rgb(82, 107, 132) 81.3%);
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    padding-top: 5px;
+    border-radius: 10px;
+}
 
-             /* .bottom-navbar */
+a{
+    text-decoration: none;
+}
+
+.login-button {
+    text-decoration: none;
+}
+
+/* .bottom-navbar */
 .bottom-navbar{
     padding-left: 10px;
     padding-top: 20px;

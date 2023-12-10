@@ -48,7 +48,7 @@ const Profile = (props: any) => {
     };
 
     const { account, signAndSubmitTransaction } = useWallet();
-    const module_address = '0x4bb4d95ba6ff482924084bbfea2af98c634638a77a0c91b909ab9da53a802660';
+    const module_address = process.env.REACT_APP_MODULE_ADDRESS;
 
     // console.log("profile : ", account);
 
@@ -127,6 +127,26 @@ const Profile = (props: any) => {
         // }
     }
 
+    const addLikes = async () => {
+        if (!account) return [];
+        const payload = {
+            type: "entry_function_payload",
+            function: `${module_address}::Profile::addLike`,
+            type_arguments: [],
+            arguments: [1],
+        };
+        try {
+            // sign and submit transaction to chain
+            console.log("entered try loop for addLikes", payload)
+            const response = await signAndSubmitTransaction(payload);
+            await provider.waitForTransaction(response.hash);
+            console.log("Completed")
+        }
+        catch (error: any) {
+            console.log("ERROR-----", error)
+        }
+    }
+
     const fetchPlaylists = async () => {
         console.log("Entered fetch playlists")
         if (!account) return [];
@@ -184,9 +204,11 @@ const Profile = (props: any) => {
 
  }
     const playlistContent = () => {
+      // const [showResource , setResourse] = useState(false);
         return (
             <div className='Playlists'>
-                {!accountHasResource && <button onClick={createResource}>Create resource</button>}
+              {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div> }
+                {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
                 <h1>kasbdfaskdfkasdfb</h1>

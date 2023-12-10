@@ -13,13 +13,12 @@ const Upload = () => {
 	const [songUploaded, setSongUploaded] = React.useState(false);
 
 	const { account, signAndSubmitTransaction } = useWallet();
-	const module_address = '0x4c4865348f30d4f8c9e1e21d37f8ee7fd8eb4ac3c25e67b39ef230db03a6d254'
+	const module_address = process.env.REACT_APP_MODULE_ADDRESS;
 
 	const [photo, setPhoto] = useState()
 	const [audio, setAudio] = useState()
 
-	const token =
-		"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDI0YTg0NzI5MjlhMjlmMDkzOUQwMDQxZWFBODhGRGY0ZENFMzUzMWYiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTcwMDY3Mjc3OTg0MSwibmFtZSI6InRlc3QxIn0.DnTfyOIfpSr2rW-gKpFyVGSWmf3BtMbMCy7dQ59jUuM";
+	const token = process.env.REACT_APP_NFTSTORAGE_TOKEN;
 	const store = new NFTStorage({ token });
 
 	const handleInputChange = (event) => {
@@ -83,7 +82,6 @@ const Upload = () => {
             type_arguments: [],
             arguments: [
 				formData["albumID"],
-				formData["songID"],
 				formData["songname"],
 				10,
 				formData["Amount"],
