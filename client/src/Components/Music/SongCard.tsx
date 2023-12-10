@@ -14,6 +14,7 @@ type Props = {
   Song_Price: number;
   purchaseHandler: () => void;
   onPlaySong: (url: string) => void;
+    // likeSongHandler: () => void;
 };
 
 const SongCard: React.FC<Props> = ({
@@ -25,6 +26,7 @@ const SongCard: React.FC<Props> = ({
   Song_Price,
   purchaseHandler,
   onPlaySong,
+    // likeSongHandler
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isLiked , setIsLiked] = useState(false);
@@ -49,7 +51,7 @@ if(Purchase_Status){
             <div className="unliked-heart">
                 {!isLiked ? 
                 (<div className="unliked-heart">
-                    <FaRegHeart className="heart-unliked"/>
+                    <FaRegHeart className="heart-unliked" onClick={likeSongHandler}/>
                     </div>
                     ) : 
                     (<div className="unliked-heart">
