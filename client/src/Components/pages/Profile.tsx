@@ -16,7 +16,27 @@ import SongCard from '../Music/SongCard'
 interface ProfileProps {
     onPlaySong: (url: string,songName : string, photourl:string,albumname:string) => void
 }
+type Song = {
+    album_id: BigInteger,
+    song_id: BigInteger,
+    artist_address: string,
+    name: String,
+    duration: BigInteger,
+    num_likes: BigInteger,
+    current_price: BigInteger,
+    date: BigInteger,
+    cid: String,
+    num_streams: BigInteger,
+    genre: String,
+    preview_info: [],
+}
 
+type Playlist = {
+    playlist_id: BigInteger,
+    playlist_name: string,
+    songs: [],
+    date_added: string,
+}
 const provider = new Provider(Network.DEVNET);
 
 const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
@@ -26,8 +46,9 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
     const handleTabChange = (args: number) => {
         setActiveTab(args);
     };
-
+    
     const { account, signAndSubmitTransaction } = useWallet();
+    const userkey = account?.address.slice(0,20)+'....';
     const module_address = process.env.REACT_APP_MODULE_ADDRESS;
 
     const [likedSongs, setLikedSongs] = useState();
@@ -48,11 +69,14 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
     const [accountHasResource, setAccountHasResource] = useState(false);
     const [accountHasPlaylist, setAccountHasPlaylist] = useState(false);
     const [accountHasUser, setAccountHasUser] = useState(false);
-    // const [playlists, setPlaylists] = useState<Playlist[]>([]);
-
+    const [playlists, setPlaylists] = useState<Playlist[]>([]);
+   
     const createUser = async () => {
+        // console.log('account name',account?.address)
+
         if (!account) return [];
         const payload = {
+            
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_artist`,
             type_arguments: [],
@@ -62,6 +86,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
             // sign and submit transaction to chain
             const response = await signAndSubmitTransaction(payload);
             console.log("response", response)
+        // setUserkey(account?.address)
             await provider.waitForTransaction(response.hash);
             setAccountHasUser(true);
             console.log("Completed adding User")
@@ -202,7 +227,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
                 {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
-                <h1>kasbdfaskdfkasdfb</h1>
+                {/* <h1>kasbdfaskdfkasdfb</h1> */}
                 <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
                     return (
@@ -318,7 +343,8 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
                     <p>Profile Details</p>
                 </div>
                 <div className='profile-header-start-h1'>
-                    <h1>User key : 123ABCD</h1>
+    
+                    <h1>User key :{userkey}</h1>
                 </div>
                 <div className='profile-header-start'>
                     <p>Playlists : {count} </p>
