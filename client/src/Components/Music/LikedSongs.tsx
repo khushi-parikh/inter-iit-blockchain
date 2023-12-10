@@ -23,13 +23,18 @@ const [isLiked , setIsLiked] = useState(false);
     {isHovered ? (
       <div className='playlist-image'>
         <div className="unliked-heart">
-            {!isLiked ? (<div className="unliked-heart">
+            {
+            !isLiked ? 
+            (
+              <div className="unliked-heart">
                 <FaRegHeart className="heart-unliked"/>
-                </div>
-                ) : 
-                (<div className="unliked-heart">
-                <FcLike className="heart-unliked"/>
-                </div>
+              </div>
+            ) : 
+            (
+              <div className="unliked-heart">
+                Hello
+              <FcLike className="heart-unliked"/>
+              </div>
             )
             }
         </div>

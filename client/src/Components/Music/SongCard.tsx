@@ -6,35 +6,47 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FcLike } from "react-icons/fc";
 
 type Props = {
-    SongName: string;
-    ArtistName: string;
-    AlbumName: string;
-    Purchase_Status: boolean;
-    Song_Price: number;
-    purchaseHandler: () => void;
+  SongName: string;
+  ArtistName: string;
+  AlbumName: string;
+  SongUrl: string;
+  PhotoUrl: string;
+  Purchase_Status: boolean;
+  Song_Price: number;
+  purchaseHandler: () => void;
+  onPlaySong: (url: string,songName : string) => void;
 };
 
 const SongCard: React.FC<Props> = ({
-    SongName,
-    ArtistName,
-    AlbumName,
-    Purchase_Status,
-    Song_Price,
-    purchaseHandler,
+  SongName,
+  ArtistName,
+  AlbumName,
+  SongUrl,
+  PhotoUrl,
+  Purchase_Status,
+  Song_Price,
+  purchaseHandler,
+  onPlaySong,
+    // likeSongHandler
 }) => {
-const [isHovered, setIsHovered] = useState(false);
-const [isLiked , setIsLiked] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isLiked , setIsLiked] = useState(false);
 const handleCardClick = () => {
 if(Purchase_Status){
     purchaseHandler();
 }
 }
+  const playSong = () => {
+    onPlaySong(SongUrl,SongName); // Add this line
+    
+
+  };
   return (
     <center
       className="Liked-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onClick={handleCardClick}
+      // onClick={handleCardClick}
     >
       {isHovered  ? (
         <>
@@ -51,9 +63,9 @@ if(Purchase_Status){
                     )
                     }
             </div>
-            <img src={deva} alt="song-image" className="card-image" />
+            <img src={PhotoUrl} alt="song-image" className="card-image" />
             <center className="show-button">
-              <FaPlay className="play-button" />
+              <FaPlay className="play-button"onClick={playSong} />
             </center>
           </div>
         </>
@@ -72,7 +84,7 @@ if(Purchase_Status){
                 )
                 }
             </div>
-            <img src={deva} alt="song-image" className="card-image" />
+            <img src={PhotoUrl} alt="song-image" className="card-image" />
           </div>
         </>
       )}

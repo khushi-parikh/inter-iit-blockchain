@@ -19,15 +19,27 @@ import Govern from './Components/pages/Govern';
 
 // import Appdemo from './Components/demo-music/Appdemo';
 
-
+type AppProps = {
+  songUrl: string | null;
+  songArtist: string | null;
+ };
 function App() {
+  const [songUrl, setSongUrl] = useState<string | null>(null);
+  const [songname, setSongName] = useState<string | null>(null)
+  const [songArtist, setSongArtist] = useState<string | null>(null);
+  const handlePlaySong = (url:string,songName:string) => {
+    console.log("clicked play song")
+    console.log(url)
+    setSongUrl(url);
+    setSongName(songName);
+   };
 
   return (
     <div>
       <BrowserRouter>
-     <Fixedcomp/>
+     <Fixedcomp songUrl={songUrl} songname={songname}/>
     <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route path="/" element={<Home onPlaySong={handlePlaySong}/>} />
       <Route path="/songpage" element={<SongPage/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="*" element={<PageNotFound/>} />

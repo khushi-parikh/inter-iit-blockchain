@@ -1,0 +1,18 @@
+.inner {
+    columns: 3;
+    display: flex;
+}
+.leftbox {
+    float: left;
+    width: 25%;
+}
+
+.middlebox {
+    float: left;
+    width: 50%;
+}
+
+.rightbox {
+    float: right;
+    width: 25%;
+}
