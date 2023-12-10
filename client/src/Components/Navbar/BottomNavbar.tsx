@@ -9,32 +9,41 @@ import { FaRegHeart } from "react-icons/fa6";
 type Props = {
   songUrl: string | null;
   songname: string | null;
+  photourl : string ;
+  albumname: string | null;
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl, songname }) => {
+const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname }) => {
   // const [songUrl, setSongUrl] = useState<string | null>(null);
-  console.log("songUrl", songUrl);
+  // console.log("songUrl", songUrl);
+  console.log('photourl', photourl);
   const [songIndex, setSongIndex] = useState(0);
   const [songRef, setSongRef] = useState<string | null>(null);
   const [songnameref, setSongNameRef] = useState<string | null>(null);
+  const [albumnameref, setAlbumNameRef] = useState<string| null>(null)
+  const [photourlref,setPhotourlref] = useState<string>("");
   const songs = [
     "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
     "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
   ];
   const name = ["song1", "song2"];
-
+ console.log("songname",songname)
   useEffect(() => {
     const fetchSong = async () => {
       setSongRef(() => songs[songIndex]);
       setSongNameRef(() => name[songIndex]);
       console.log("inside use Effect of player songUrl", songRef);
+      
     };
     fetchSong();
   }, [songIndex]);
   useEffect(() => {
     setSongRef(songUrl);
+    setSongNameRef(songname);
+    setPhotourlref(photourl)
+    setAlbumNameRef(albumname)
     console.log("inside use Effect of player songUrl", songUrl);
-  }, [songUrl]);
+  }, [songUrl,songname,photourl,albumname]);
 
   const nextSong = () => {
     setSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
@@ -51,11 +60,12 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname }) => {
     <div className="bottom-navbar">
       <div className="Song-artist">
         <div className="play-image">
-          <img src={image} alt="image" className="curr-song"/>
+          <img src={photourlref} alt="image" />
+          {/* {photourlref}  */}
         </div>
         <div className="play-name">
-          <div>Song name - {songnameref}</div>
-          <div>Artist name - Artist 1</div>
+          <div> Song name -{songnameref}</div>
+          <div>Artist name - {albumnameref}</div>
         </div>
 
       </div>

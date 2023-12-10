@@ -8,7 +8,8 @@ import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 interface HomeProps {
-  onPlaySong: (url: string, songName: string) => void;
+
+  onPlaySong: (url: string,songName : string, photourl:string,albumname:string) => void
 }
 type Song = {
   album_id: BigInt;
@@ -274,5 +275,5 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
     </div>
   );
 };
-
+   
 export default Home;

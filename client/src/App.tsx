@@ -26,18 +26,22 @@ type AppProps = {
 function App() {
   const [songUrl, setSongUrl] = useState<string | null>(null);
   const [songname, setSongName] = useState<string | null>(null)
+  const [photourl, setPhotourl] = useState<string>("")
+  const [albumname,setAlbumname] = useState<string| null>(null)
+
   const [songArtist, setSongArtist] = useState<string | null>(null);
-  const handlePlaySong = (url:string,songName:string) => {
+  const handlePlaySong = (url:string,songName:string,photourl:string,albumname:string) => {
     console.log("clicked play song")
     console.log(url)
     setSongUrl(url);
     setSongName(songName);
+    setPhotourl(photourl)
    };
 
   return (
     <div>
       <BrowserRouter>
-     <Fixedcomp songUrl={songUrl} songname={songname}/>
+     <Fixedcomp songUrl={songUrl} songname={songname} photourl={photourl} albumname={albumname}/>
     <Routes>
       <Route path="/" element={<Home onPlaySong={handlePlaySong}/>} />
       <Route path="/songpage" element={<SongPage/>} />
