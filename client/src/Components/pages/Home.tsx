@@ -9,7 +9,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 interface HomeProps {
 
-  onPlaySong: (url: string,songName : string) => void
+  onPlaySong: (url: string,songName : string, photourl:string,albumname:string) => void
 }
 type Song = {
   album_id: BigInt;
@@ -183,6 +183,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                                             PhotoUrl={song.photoLink}
                                             Song_Price={song.current_price}
                                             purchaseHandler={() =>
+
                                                 purchaseSong(
                                                     song.artist_address,
                                                     song.current_price,

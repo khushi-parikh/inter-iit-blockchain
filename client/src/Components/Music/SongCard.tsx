@@ -14,7 +14,7 @@ type Props = {
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
-  onPlaySong: (url: string,songName : string) => void;
+  onPlaySong: (url: string,songName : string,photourl:string,AlbumName:string) => void;
 };
 
 const SongCard: React.FC<Props> = ({
@@ -37,7 +37,7 @@ if(Purchase_Status){
 }
 }
   const playSong = () => {
-    onPlaySong(SongUrl,SongName); // Add this line
+    onPlaySong(SongUrl,SongName,PhotoUrl,AlbumName); // Add this line
     
 
   };

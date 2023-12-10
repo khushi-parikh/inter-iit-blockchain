@@ -7,8 +7,11 @@ import BottomNavbar from '../Navbar/BottomNavbar'
 interface FixedcompProps {
   songUrl: string | null;
   songname: string | null;
+  photourl : string;
+  albumname: string | null;
  }
-const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname}) => {
+const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname,photourl,albumname}) => {
+  // console.log('nasnksd',photourl)
     const [sidenav,setSidenav] = useState(true)
   const [text,setText] = useState('close')
   function handleclose(){
@@ -20,7 +23,7 @@ const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname}) => {
         {/* <Home/> */}
         <SideNavbar sidenav={sidenav} text={text} handleclose={handleclose} />
         <TopNavbar sidenav={sidenav}/>
-        <BottomNavbar songUrl={songUrl} songname={songname}/>
+        <BottomNavbar songUrl={songUrl} songname={songname} photourl={photourl} albumname={albumname}/>
     </div>
   )
 }
