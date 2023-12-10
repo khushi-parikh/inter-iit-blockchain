@@ -54,7 +54,7 @@ if(Purchase_Status){
             <div className="unliked-heart">
                 {!isLiked ? 
                 (<div className="unliked-heart">
-                    {/* <FaRegHeart className="heart-unliked" onClick={likeSongHandler}/> */}
+                    <FaRegHeart className="heart-unliked"/>
                     </div>
                     ) : 
                     (<div className="unliked-heart">

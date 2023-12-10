@@ -1,0 +1,51 @@
+.Vote-card{
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 95%;   
+    background: linear-gradient(to left, rgba(48, 48, 48, 0.418) 11.2%, rgba(100, 97, 97, 0.44) 78.9%);
+    height: 90px;
+    /* border: 1px white solid; */
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    padding: 0px;
+    border-radius: 6px;
+    text-align: left;
+    transition: all 300ps ease-in-out;
+    box-shadow: 0px 3px 3px black;
+    align-items: center;
+}
+
+.left-side{
+    padding: 10px 0px 15px 10px;
+    flex-direction: column;
+    width: 85%;
+}
+
+.Transaction-card:hover{
+    height: 102px;
+    width: calc(100%-19%);
+    background: linear-gradient(to right, #434343 0%, black 100%);
+}
+
+.transac-details{
+    display: flex;
+    gap: 10px;
+}
+
+.key-transac{
+    width: 125px;
+    color: wheat;
+}
+
+.vote-button{
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+    background: radial-gradient(465px at -15.1% -25%, rgb(17, 130, 193) 0%, rgb(67, 166, 238) 49%, rgb(126, 203, 244) 90.2%);
+    /* background: linear-gradient(rgb(52, 102, 174) 0%, rgb(83, 144, 241) 100%); */
+    /* background: none; */
+    border: none;
+    border-radius: 8px;
+    color: white;
+}

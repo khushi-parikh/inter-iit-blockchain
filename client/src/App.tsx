@@ -15,6 +15,8 @@ import Fixedcomp from './Components/fixed/Fixedcomp';
 import SongPage from './Components/Music/SongPage';
 import PlayList from './Components/Music/PlayList';
 import Upload from './Components/pages/Upload';
+import Govern from './Components/pages/Govern';
+
 // import Appdemo from './Components/demo-music/Appdemo';
 
 type AppProps = {
@@ -44,6 +46,8 @@ function App() {
       <Route path="/profile" element={<Profile/>} />
       <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
       <Route path="/upload" element={<Upload/>} />
+      <Route path='/govern' element = {<Govern/>}/>
+      {/* <Route path="/feedback" element = {<Feedback/>}/> */}
       {/* <Route path="/App" element={<Appdemo/>} /> */}
 
 

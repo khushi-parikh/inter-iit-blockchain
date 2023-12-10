@@ -19,5 +19,5 @@ body::-webkit-scrollbar {
   column-gap: 10px;
   display: flex;
   flex-direction: column;
-  /* z-index: -1; */
+  z-index: -1;
 }

@@ -62,9 +62,15 @@ const SideNavbar: React.FC<Props> = () => {
              />: null } 
              
           </div>
+
           <div>
               <Newplaylist/>
-             </div>
+          </div>
+
+          <div className="menu-item">
+          <IoCloudUploadSharp className='menu-icon'/>
+          <Link to='/govern'>Govern</Link><br /><br />
+        </div>
       </div>
     </div>
   )
