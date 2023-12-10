@@ -7,21 +7,27 @@ type Props = {
   SongName: string;
   ArtistName: string;
   AlbumName: string;
+  SongUrl: string;
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
+  onPlaySong: (url: string) => void;
 };
 
 const SongCard: React.FC<Props> = ({
   SongName,
   ArtistName,
   AlbumName,
+  SongUrl,
   Purchase_Status,
   Song_Price,
   purchaseHandler,
+  onPlaySong,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
+  const playSong = () => {
+    onPlaySong(SongUrl); // Add this line
+  };
   return (
     <center
       className="Liked-card"
@@ -33,7 +39,7 @@ const SongCard: React.FC<Props> = ({
           <div className="playlist-image">
             <img src={deva} alt="song-image" className="card-image" />
             <center className="show-button">
-              <FaPlay className="play-button" />
+              <FaPlay className="play-button"onClick={playSong} />
             </center>
           </div>
         </>

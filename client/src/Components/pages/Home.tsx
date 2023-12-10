@@ -8,7 +8,10 @@ import { useState } from "react";
 import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
-const Home = () => {
+interface HomeProps {
+  onPlaySong: (url: string) => void;
+ }
+const Home : React.FC<HomeProps>= ({ onPlaySong }) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const provider = new Provider(Network.DEVNET);
   const [tranasactionID, setTransactionID] = useState(0);
@@ -118,6 +121,7 @@ const Home = () => {
                         ArtistName={musicDetails.Artist_name}
                         AlbumName={musicDetails.Song_Album}
                         Purchase_Status={musicDetails.Purchase_Status}
+                        SongUrl={musicDetails.song_url}
                         Song_Price={musicDetails.Song_price}
                         purchaseHandler={() =>
                           purchaseSong(
@@ -126,6 +130,7 @@ const Home = () => {
                             index
                           )
                         }
+                        onPlaySong={onPlaySong}
                       />
                     </>
                   );
