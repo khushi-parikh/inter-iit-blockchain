@@ -162,9 +162,9 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
 
     return (
         <div className="page">
-            <button onClick={fetchTopSongs}>Fetch Top Songs</button>
+            {/* <button onClick={fetchTopSongs}>Fetch Top Songs</button>
             <button onClick={fetchRandomSongs}>Fetch Random Songs</button>
-            <button onClick={fetchRecentSongs}>Fetch Recent Songs</button>
+            <button onClick={fetchRecentSongs}>Fetch Recent Songs</button> */}
             <div className="home-page">
                 {api.map((apimusic, index) => {
                     return (
