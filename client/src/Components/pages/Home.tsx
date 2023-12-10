@@ -49,7 +49,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
     };
 
     useEffect(() => {
-        if (!isTopSongsFetched) {
+        if (account  || !isTopSongsFetched) {
           fetchTopSongs();
           setIsTopSongsFetched(true);
         }
@@ -65,7 +65,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
 
         const topSongsResponse = await provider.view(payload);
         setTopSongs(JSON.parse(JSON.stringify(topSongsResponse)));
-        // console.log("Top Songs : ", topSongs);
+        console.log("Top Songs : ", topSongs);
     };
 
     const fetchRandomSongs = async () => {
