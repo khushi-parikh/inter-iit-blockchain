@@ -6,8 +6,9 @@ import "../style/navbar.css";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import aptosLogo from "../images/Aptos_logo.png";
 import { MdCreateNewFolder } from "react-icons/md";
-import Popupplaylist from "../pages/Popupplaylist";
-import Newplaylist from "../pages/Newplaylist";
+import Popupplaylist from '../pages/Popupplaylist';
+import Newplaylist from '../pages/Newplaylist';
+import { VscFeedback } from "react-icons/vsc";
 
 type Props = {
   sidenav: Boolean;
@@ -75,11 +76,9 @@ const SideNavbar: React.FC<Props> = () => {
           <Newplaylist />
         </div>
 
-        <div className="menu-item">
-          <IoCloudUploadSharp className="menu-icon" />
-          <Link to="/govern">Govern</Link>
-          <br />
-          <br />
+          <div className="menu-item">
+          <VscFeedback className='menu-icon'/>
+          <Link to='/govern'>Govern</Link><br /><br />
         </div>
       </div>
     </div>
