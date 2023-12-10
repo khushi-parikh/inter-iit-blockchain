@@ -9,8 +9,11 @@ interface FixedcompProps {
   songname: string | null;
   photourl : string;
   albumname: string | null;
+  songUrlArray: string[];
+  songNameArray: string[];
+  photoUrlArray: string[];
  }
-const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname,photourl,albumname}) => {
+const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray}) => {
   // console.log('nasnksd',photourl)
     const [sidenav,setSidenav] = useState(true)
   const [text,setText] = useState('close')
@@ -23,7 +26,7 @@ const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname,photourl,albumname
         {/* <Home/> */}
         <SideNavbar sidenav={sidenav} text={text} handleclose={handleclose} />
         <TopNavbar sidenav={sidenav}/>
-        <BottomNavbar songUrl={songUrl} songname={songname} photourl={photourl} albumname={albumname}/>
+        <BottomNavbar songUrl={songUrl} songname={songname} photourl={photourl} albumname={albumname} songUrlArray={songUrlArray}songNameArray={songNameArray} photoUrlArray={photoUrlArray}/>
     </div>
   )
 }
