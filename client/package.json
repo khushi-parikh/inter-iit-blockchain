@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@aptos-labs/wallet-adapter-ant-design": "^1.0.0",
-    "@aptos-labs/wallet-adapter-react": "^1.0.2",
+    "@aptos-labs/wallet-adapter-react": "^1.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@syncfusion/ej2-react-navigations": "^23.2.7",

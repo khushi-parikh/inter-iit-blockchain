@@ -2,35 +2,55 @@ import React, { useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { LiaCoinsSolid } from "react-icons/lia";
 import deva from "../images/deva-deva.jpg";
+import { FaRegHeart } from "react-icons/fa6";
+import { FcLike } from "react-icons/fc";
 
 type Props = {
-  SongName: string;
-  ArtistName: string;
-  AlbumName: string;
-  Purchase_Status: boolean;
-  Song_Price: number;
-  purchaseHandler: () => void;
+    SongName: string;
+    ArtistName: string;
+    AlbumName: string;
+    Purchase_Status: boolean;
+    Song_Price: number;
+    purchaseHandler: () => void;
 };
 
 const SongCard: React.FC<Props> = ({
-  SongName,
-  ArtistName,
-  AlbumName,
-  Purchase_Status,
-  Song_Price,
-  purchaseHandler,
+    SongName,
+    ArtistName,
+    AlbumName,
+    Purchase_Status,
+    Song_Price,
+    purchaseHandler,
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
+const [isHovered, setIsHovered] = useState(false);
+const [isLiked , setIsLiked] = useState(false);
+const handleCardClick = () => {
+if(Purchase_Status){
+    purchaseHandler();
+}
+}
   return (
     <center
       className="Liked-card"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
-      {isHovered ? (
+      {isHovered  ? (
         <>
           <div className="playlist-image">
+            <div className="unliked-heart">
+                {!isLiked ? 
+                (<div className="unliked-heart">
+                    <FaRegHeart className="heart-unliked"/>
+                    </div>
+                    ) : 
+                    (<div className="unliked-heart">
+                    <FcLike className="heart-unliked"/>
+                    </div>
+                    )
+                    }
+            </div>
             <img src={deva} alt="song-image" className="card-image" />
             <center className="show-button">
               <FaPlay className="play-button" />
@@ -40,6 +60,18 @@ const SongCard: React.FC<Props> = ({
       ) : (
         <>
           <div className="playlist-image">
+            <div className="unliked-heart">
+                {!isLiked ? (<div className="unliked-heart">
+                    <FaRegHeart className="heart-unliked"/>
+                    {/* <span className="num-of-likes">100</span> */}
+                    </div>
+                    ) : 
+                    (<div className="unliked-heart">
+                    <FcLike className="heart-unliked"/>
+                    </div>
+                )
+                }
+            </div>
             <img src={deva} alt="song-image" className="card-image" />
           </div>
         </>
@@ -69,11 +101,6 @@ const SongCard: React.FC<Props> = ({
             {Song_Price}
           </div>
         </div>
-        {Purchase_Status && (
-          <button className="btn btn-primary" onClick={purchaseHandler}>
-            Buy
-          </button>
-        )}
       </div>
     </center>
   );

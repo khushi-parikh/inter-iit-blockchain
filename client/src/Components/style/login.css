@@ -1,0 +1,18 @@
+.wallet-connect-tab{
+    background-color: black;
+    color: white;
+    background: none;
+}
+
+.create-button{
+    background-color: black;
+    color: white;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 16px;
+}
+
+.login-note{
+    padding: 20px 0px 0px 20px;
+    color: white;
+}
