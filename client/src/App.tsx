@@ -36,6 +36,7 @@ function App() {
     setSongUrl(url);
     setSongName(songName);
     setPhotourl(photourl)
+    setAlbumname(albumname)
    };
 
   return (

@@ -185,7 +185,8 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                   JSON.parse(JSON.stringify(topSongs[0])).map((song: any) => {
                     return (
                       <SongCard
-                        SongName={song.name}
+                        SongName={song.name.slice(0, 15) +
+                          "...."}
                         ArtistName={
                           song.artist_address.slice(0, 5) +
                           "...." +
@@ -213,7 +214,8 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                     JSON.parse(JSON.stringify(randomSongs[0])).map((song: any) => {
                         return (
                         <SongCard
-                            SongName={song.name}
+                            SongName={song.name.slice(0, 15) +
+                              "...."}
                             ArtistName={
                             song.artist_address.slice(0, 5) +
                             "...." +
@@ -241,7 +243,8 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                     JSON.parse(JSON.stringify(recentSongs[0])).map((song: any) => {
                         return (
                         <SongCard
-                            SongName={song.name}
+                            SongName={song.name.slice(0, 15) +
+                              "...." }
                             ArtistName={
                             song.artist_address.slice(0, 5) +
                             "...." +

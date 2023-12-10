@@ -40,14 +40,15 @@ type Playlist = {
 const provider = new Provider(Network.DEVNET);
 
 const Profile = (props: any) => {
-
+    //    const [userkey,setUserkey] =useState("not conection")
     var count = Object.keys(api).length;
     const [activeTab, setActiveTab] = useState(0);
     const handleTabChange = (args: number) => {
         setActiveTab(args);
     };
-
+    
     const { account, signAndSubmitTransaction } = useWallet();
+    const userkey = account?.address.slice(0,20)+'....';
     const module_address = process.env.REACT_APP_MODULE_ADDRESS;
 
     // console.log("profile : ", account);
@@ -58,10 +59,13 @@ const Profile = (props: any) => {
     const [accountHasPlaylist, setAccountHasPlaylist] = useState(false);
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
-
+   
     const createUser = async () => {
+        // console.log('account name',account?.address)
+
         if (!account) return [];
         const payload = {
+            
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_artist`,
             type_arguments: [],
@@ -71,6 +75,7 @@ const Profile = (props: any) => {
             // sign and submit transaction to chain
             const response = await signAndSubmitTransaction(payload);
             console.log("response", response)
+        // setUserkey(account?.address)
             await provider.waitForTransaction(response.hash);
             setAccountHasUser(true);
             console.log("Completed adding User")
@@ -183,7 +188,7 @@ const Profile = (props: any) => {
     }
  const create_Song=async()=>{
     if(!account) return [];
-
+  
     const payload={
         type:"entry_function_payload",
         function:`${module_address}::Profile::create_song`,
@@ -211,7 +216,7 @@ const Profile = (props: any) => {
                 {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
-                <h1>kasbdfaskdfkasdfb</h1>
+                {/* <h1>kasbdfaskdfkasdfb</h1> */}
                 <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
                     return (
@@ -291,7 +296,8 @@ const Profile = (props: any) => {
                     <p>Profile Details</p>
                 </div>
                 <div className='profile-header-start-h1'>
-                    <h1>User key : 123ABCD</h1>
+    
+                    <h1>User key :{userkey}</h1>
                 </div>
                 <div className='profile-header-start'>
                     <p>Playlists : {count} </p>
