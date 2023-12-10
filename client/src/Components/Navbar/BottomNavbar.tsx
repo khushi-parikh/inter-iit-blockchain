@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../style/navbar.css";
+import image from '../images/deva-deva.jpg'
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css"; // import the styles
-import '../style/audioplayer.css'
+import "../style/audioplayer.css";
 type Props = {
   songUrl: string | null;
   songname: string | null;
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl,songname }) => {
+const BottomNavbar: React.FC<Props> = ({ songUrl, songname }) => {
   // const [songUrl, setSongUrl] = useState<string | null>(null);
   console.log("songUrl", songUrl);
   const [songIndex, setSongIndex] = useState(0);
@@ -18,10 +19,7 @@ const BottomNavbar: React.FC<Props> = ({ songUrl,songname }) => {
     "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
     "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
   ];
-  const name=[
-    'song1',
-    'song2'
-  ]
+  const name = ["song1", "song2"];
 
   useEffect(() => {
     const fetchSong = async () => {
@@ -48,31 +46,34 @@ const BottomNavbar: React.FC<Props> = ({ songUrl,songname }) => {
     }
   };
   return (
-    <div className="bottom-inside">
-      <div className="bottom-navbar">
-        <div className="Song-artist">
-          {songnameref}
-          <br />
-          Artist name - Artist 1
+    <div className="bottom-navbar">
+      <div className="Song-artist">
+      
+        <div className="play-image">
+          <img src={image} alt="image" />
         </div>
-        <div className="">
-          <AudioPlayer
-          // className="rhap_loop--off rhap_time"
-            autoPlay
-            src={songRef ? songRef : undefined}
-            onPlay={(e) => console.log("onPlay")}
-            showSkipControls={true}
-            onClickNext={nextSong}
-            onClickPrevious={prevSong}
-            style={{
-              background:'transparent',
-              width: '350%',
-              outline:'none',
-              color: 'white'
-            }}
-          />
+        <div className="play-name">
+          <div> Song name -{songnameref}</div>
+          <div>Artist name - Artist 1</div>
         </div>
       </div>
+      <div className="play-music">
+        <AudioPlayer
+          autoPlay
+          src={songRef ? songRef : undefined}
+          onPlay={(e) => console.log("onPlay")}
+          showSkipControls={true}
+          onClickNext={nextSong}
+          onClickPrevious={prevSong}
+          style={{
+            background: "transparent",
+            width: "200%",
+            outline: "none",
+            color: "white",
+          }}
+        />
+      </div>
+      
     </div>
   );
 };
