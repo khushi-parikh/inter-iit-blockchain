@@ -43,7 +43,6 @@
     position: relative;
     /* right: 10px; */
     color: red;
-    z-index: 1;
     flex-direction: row;
     /* margin-top: -5%; */
 }
@@ -59,7 +58,6 @@
     position: absolute;
     right: 10px;
     top: 5px;
-    z-index: 1;
 }
 
 .card-image{

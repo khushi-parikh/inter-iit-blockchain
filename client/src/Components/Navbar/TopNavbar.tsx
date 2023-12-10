@@ -138,16 +138,8 @@ const TopNavbar: React.FC<Props> = () => {
                     }
 					</div>
 					
-<<<<<<< HEAD
 					<div className="wallet" onClick={(e)=>console.log(e.target)}>
 						<WalletSelector  />
-=======
-					
-					<div className="wallet">
-						{account?.address ? <WalletSelector/> : <Link to = '/login'><div className='login-button'>Login</div></Link>}
-						{/* <Link to = '/login'>Login</Link> */}
-						{/* <WalletSelector /> */}
->>>>>>> 4557e0172cc228a7df56e0d585d57579d1f4d97c
 					</div>
 				</div>
 			</div>
