@@ -61,9 +61,10 @@ const Upload = () => {
 		try {
 			const cid = await store.storeDirectory([photo, audio]);
 			const status = await store.status(cid);
-			console.log(status);
+			console.log("completed uploading", status);
 			return cid;
 		} catch (error) {
+			console.log("Uploading error : ", error)
 			setOutput(`Error: ${error.message}`);
 		}
 	};
@@ -85,7 +86,7 @@ const Upload = () => {
 				formData["songname"],
 				10,
 				formData["Amount"],
-				20243112,
+				"2024-12-12",
 				cid,
 				formData["genre"],
 				15,
@@ -129,20 +130,6 @@ const Upload = () => {
 								name="albumID"
 								id="albumID"
 								placeholder="Enter Album ID"
-								required
-								className="enter-data"
-								onChange={handleInputChange}
-							/>
-							<br />
-						</label>
-
-						<label>
-							Song ID*
-							<input
-								type="number"
-								name="songID"
-								id="songID"
-								placeholder="Enter Song ID"
 								required
 								className="enter-data"
 								onChange={handleInputChange}

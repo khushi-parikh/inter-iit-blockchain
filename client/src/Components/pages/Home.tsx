@@ -10,6 +10,21 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 interface HomeProps {
   onPlaySong: (url: string) => void;
  }
+type Song = {
+    album_id : BigInt;
+    artist_address : string;
+    cid : string;
+    current_price : BigInt;
+    date : string;
+    duration : BigInteger;
+    genre : string;
+    name : string;
+    num_likes : BigInt;
+    num_streams : BigInt;
+    previewEnd : BigInt;
+    previewStart : BigInt;
+    song_id : BigInt;
+};
 const Home : React.FC<HomeProps>= ({ onPlaySong }) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const provider = new Provider(Network.DEVNET);
@@ -29,30 +44,31 @@ const Home : React.FC<HomeProps>= ({ onPlaySong }) => {
     arguments: Array<any>;
   };
 
-	const fetchTopSongs = async () => {
-		if (!account) return [];
-		const payload: ViewRequest = {
-			function: `${module_address}::Profile::getTopSongs`,
-			type_arguments: [],
-			arguments: [],
-		};
+  const fetchTopSongs = async () => {
+        if (!account) return [];
+        const payload: ViewRequest = {
+            function: `${module_address}::Profile::getTopSongs`,
+            type_arguments: [],
+            arguments: [],
+        };
 
-		const topSongsResponse = await provider.view(payload);
-		setTopSongs(topSongsResponse);
-	// console.log(topSongsResponse);
-	};
-	const fetchRandomSongs = async () => {
-		if (!account) return [];
-		const payload: ViewRequest = {
-			function: `${module_address}::Profile::randomsongs`,
-			type_arguments: [],
-			arguments: [],
-		};
-		const randomSongsResponse = await provider.view(payload);
-		setRandomSongs(randomSongsResponse);
-		// console.log(randomSongsResponse);
-	};
+        const topSongsResponse = await provider.view(payload);
+        setTopSongs(topSongsResponse);
+        console.log("Top Songs : ", topSongsResponse)
+    };
 
+  const fetchRandomSongs = async () => {
+        if (!account) return [];
+        const payload: ViewRequest = {
+            function: `${module_address}::Profile::randomsongs`,
+            type_arguments: [],
+            arguments: [],
+        };
+
+   const randomSongsResponse = await provider.view(payload);
+        setRandomSongs(randomSongsResponse);
+        console.log("Random Songs : ", randomSongsResponse);
+    };
     const fetchRecentSongs = async () => {
         if (!account) return [];
         const payload: ViewRequest = {
@@ -63,7 +79,7 @@ const Home : React.FC<HomeProps>= ({ onPlaySong }) => {
 
         const recentSongsResponse = await provider.view(payload);
         setRecentSongs(recentSongsResponse);
-        console.log(recentSongsResponse);
+        console.log("Recent Songs : ", recentSongsResponse);
     };
 
     const transferAmt = async (toAddress: string, amount: number) => {
