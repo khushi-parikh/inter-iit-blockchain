@@ -11,9 +11,13 @@ type Props = {
   songname: string | null;
   photourl : string ;
   albumname: string | null;
+  songUrlArray: string[];
+  songNameArray: string[];
+  photoUrlArray: string[];
+
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname }) => {
+const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray }) => {
   // const [songUrl, setSongUrl] = useState<string | null>(null);
   // console.log("songUrl", songUrl);
   console.log('photourl', photourl);
@@ -22,16 +26,17 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname })
   const [songnameref, setSongNameRef] = useState<string | null>(null);
   const [albumnameref, setAlbumNameRef] = useState<string| null>(null)
   const [photourlref,setPhotourlref] = useState<string>("");
-  const songs = [
-    "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
-    "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
-  ];
-  const name = ["song1", "song2"];
+  // const songs = [
+  //   "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
+  //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
+  // ];
+  // const name = ["song1", "song2"];
  console.log("songname",songname)
   useEffect(() => {
     const fetchSong = async () => {
-      setSongRef(() => songs[songIndex]);
-      setSongNameRef(() => name[songIndex]);
+      setSongRef(() => songUrlArray[songIndex]);            
+      setSongNameRef(() => songNameArray[songIndex]);
+      setPhotourlref(() => photoUrlArray[songIndex]);
       console.log("inside use Effect of player songUrl", songRef);
       
     };
@@ -46,12 +51,12 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname })
   }, [songUrl,songname,photourl,albumname]);
 
   const nextSong = () => {
-    setSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    setSongIndex((prevIndex) => (prevIndex + 1) % songUrlArray.length);
   };
   const prevSong = () => {
     const nextIndex = songIndex - 1;
     if (nextIndex < 0) {
-      setSongIndex(songs.length - 1);
+      setSongIndex(songUrlArray.length - 1);
     } else {
       setSongIndex(nextIndex);
     }
