@@ -70,20 +70,21 @@ function App() {
           songNameArray={songNameArray}
           photoUrlArray={photoUrlArray}
         />
-        <Routes>
-          <Route path="/" element={<Home onPlaySong={handlePlaySong}  onPlaySongArray={handlePlaySOngArray}/>} />
-          <Route path="/songpage" element={<SongPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route
-            path="/Playlist"
-            element={<PlayList PlaylistName={""} NumOfSongs={0} />}
-          />
-          <Route path="/upload" element={<Upload />} />
-          <Route path="/govern" element={<Govern />} />
-          {/* <Route path="/feedback" element = {<Feedback/>}/> */}
-          {/* <Route path="/App" element={<Appdemo/>} /> */}
+    <Routes>
+      <Route path="/" element={<Home onPlaySong={handlePlaySong} onPlaySongArray={handlePlaySOngArray}/>} />
+      <Route path="/songpage" element={<SongPage/>} />
+      <Route path="/login" element={<Login/>} />
+      <Route path="*" element={<PageNotFound/>} />
+      <Route path="/profile" element={<Profile onPlaySong={handlePlaySong}/>} />
+      <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
+      <Route path="/upload" element={<Upload/>} />
+      <Route path='/govern' element = {<Govern/>}/>
+      {/* <Route path="/feedback" element = {<Feedback/>}/> */}
+      {/* <Route path="/App" element={<Appdemo/>} /> */}
+
+
+      
+
         </Routes>
       </BrowserRouter>
     </div>
