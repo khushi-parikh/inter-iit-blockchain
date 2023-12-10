@@ -39,7 +39,7 @@ module profile_addr::Profile {
         duration: u64,
         num_likes: u64,
         current_price: u64,
-        date: u64, // ? How is date stored
+        date: String, // ? How is date stored
         cid: String, //removed file
         num_streams: u64,
         genre: String,
@@ -127,6 +127,7 @@ module profile_addr::Profile {
         // 
         transfer_coins<AptosCoin>(from, to, amount);
     }
+
     // Function to create a new user
     public entry fun create_user(account: &signer) {
 
@@ -158,7 +159,6 @@ module profile_addr::Profile {
         };
         move_to(account, artist);
     }
-    
     
     public entry fun createGlobalResources(account : &signer){
 
@@ -199,7 +199,7 @@ module profile_addr::Profile {
                                 name: String,
                                 duration: u64,
                                 current_price: u64,
-                                date: u64,
+                                date: String,
                                 cid: String,
                                 genre: String,
                                 previewStart:u64,
@@ -360,6 +360,8 @@ module profile_addr::Profile {
 
         assert!(exists<User>(signer_address), 2);
 
+        assert!(exists<Playlists_Table>(signer_address), 3);
+
         // gets the playlist resource
         let playlist_table = borrow_global_mut<Playlists_Table>(signer_address);
 
@@ -396,6 +398,10 @@ module profile_addr::Profile {
     public fun getTransactionHistory(account: &signer) : vector<Transaction> acquires User, TransactionTable {
         std::debug::print(&std::string::utf8(b"Getting Transaction History-------------"));
 
+        assert!(exists<User>(signer::address_of(account)), USER_NOT_INITIALIZED);
+
+        assert!(exists<TransactionTable>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
+
         let transaction_table = borrow_global_mut<TransactionTable>(ADMIN_ADDRESS);
 
         let transaction_history = vector::empty<Transaction>();
@@ -427,39 +433,39 @@ module profile_addr::Profile {
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
-            let song = table::borrow(&songs_table.songs, song_to_find);
+        let song = table::borrow(&songs_table.songs, song_to_find);
 
-            print(&song.album_id);
+        print(&song.album_id);
 
-            let albumID = song.album_id;
-            let songID = song.song_id;
-            let artistAddress = song.artist_address;
-            let name = song.name;
-            let duration = song.duration;
-            let numLikes = song.num_likes;
-            let currentPrice = song.current_price;
-            let date = song.date;
-            let cid = song.cid;
-            let numStreams = song.num_streams;
-            let genre = song.genre;
-            let previewStart=song.previewStart;
-            let previewEnd=song.previewEnd;
+        let albumID = song.album_id;
+        let songID = song.song_id;
+        let artistAddress = song.artist_address;
+        let name = song.name;
+        let duration = song.duration;
+        let numLikes = song.num_likes;
+        let currentPrice = song.current_price;
+        let date = song.date;
+        let cid = song.cid;
+        let numStreams = song.num_streams;
+        let genre = song.genre;
+        let previewStart=song.previewStart;
+        let previewEnd=song.previewEnd;
 
-            let new_song = Song {
-                album_id: albumID,
-                song_id: songID,
-                artist_address: artistAddress,
-                name: name,
-                duration: duration,
-                num_likes: numLikes,
-                current_price: currentPrice,
-                date: date,
-                cid: cid,
-                num_streams: numStreams,
-                genre: genre,
-                previewStart:previewStart,
-                previewEnd:previewEnd
-            };
+        let new_song = Song {
+            album_id: albumID,
+            song_id: songID,
+            artist_address: artistAddress,
+            name: name,
+            duration: duration,
+            num_likes: numLikes,
+            current_price: currentPrice,
+            date: date,
+            cid: cid,
+            num_streams: numStreams,
+            genre: genre,
+            previewStart:previewStart,
+            previewEnd:previewEnd
+        };
 
         new_song
     }
@@ -574,7 +580,8 @@ module profile_addr::Profile {
 
     }
 
-    public entry fun addLike (account: &signer, song_id: u64) acquires Songs_Table, User {
+    public entry fun addLike (account: &signer, 
+                                song_id: u64) acquires Songs_Table, User {
         std::debug::print(&std::string::utf8(b"like_song Initialized -------------"));
 
         let user_address = signer::address_of(account);
@@ -596,15 +603,27 @@ module profile_addr::Profile {
 
     }
 
+    #[view]
 
 
+    public fun viewLikedSongs(account: &signer) : vector<Song> acquires User, Songs_Table{
 
+        std::debug::print(&std::string::utf8(b"viewLikedSongs Initialized -------------"));
 
+        let user_address = signer::address_of(account);
 
+        assert!(exists<User>(user_address), USER_NOT_INITIALIZED);
+
+        let user: &mut User = borrow_global_mut(user_address);
+
+        let likedSongs = retrieveSongs(user.liked_songs);
+
+        likedSongs
+    }
 
     //function to get the  randomsongs on basis of streams
     #[view]
-   public fun randomsongs():vector<u64> acquires Songs_Table{
+   public fun randomsongs():vector<Song> acquires Songs_Table{
 
         std::debug::print(&std::string::utf8(b"randomsongs Initialized -------------"));
 
@@ -632,13 +651,13 @@ module profile_addr::Profile {
             i = i + 1
         };
         //returning the random song vector
-        random_songs
+        profile_addr::Profile::retrieveSongs(random_songs)
         //print(&random_songs)
    }
 
     //get recent songs
     #[view]
-    public fun recentsongs():vector<u64>  acquires Songs_Table {
+    public fun recentsongs():vector<Song>  acquires Songs_Table {
 
         std::debug::print(&std::string::utf8(b"recentsongs Initialized -------------"));
 
@@ -678,7 +697,8 @@ module profile_addr::Profile {
         };
 
         //returning the recent song vector
-        recent_songs
+
+        profile_addr::Profile::retrieveSongs(recent_songs)
     }
 
 
@@ -711,7 +731,7 @@ module profile_addr::Profile {
             string::utf8(b"Song name"), // name
             180, // duration
             101, // current_price
-            20231231, // date
+            string::utf8(b"20231231"), // date
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"),
             0,
@@ -724,7 +744,7 @@ module profile_addr::Profile {
             string::utf8(b"Song name"), // name
             180, // duration
             101, // current_price
-            20231231, // date
+            string::utf8(b"20231231"), // date
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"), // genre
             0,
@@ -836,8 +856,5 @@ module profile_addr::Profile {
 
         std::debug::print(&std::string::utf8(b"User's Playlist-------------"));
         print(&user.listening_history);
-
-
-
     }
 }
