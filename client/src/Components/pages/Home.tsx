@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import "../style/home.css";
 import SongCard from "../Music/SongCard";
 import api from "../API/Songcard.json";
-import "../style/songcard.css";
 import { useState } from "react";
 import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
