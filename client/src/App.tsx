@@ -61,6 +61,7 @@ function App() {
   return (
     <div>
       <BrowserRouter>
+<<<<<<< Updated upstream
         <Fixedcomp
           songUrl={songUrl}
           songname={songname}
@@ -84,6 +85,24 @@ function App() {
           <Route path="/govern" element={<Govern />} />
           {/* <Route path="/feedback" element = {<Feedback/>}/> */}
           {/* <Route path="/App" element={<Appdemo/>} /> */}
+=======
+     <Fixedcomp songUrl={songUrl} songname={songname} photourl={photourl} albumname={albumname}/>
+    <Routes>
+      <Route path="/" element={<Home onPlaySong={handlePlaySong}/>} />
+      <Route path="/songpage" element={<SongPage/>} />
+      <Route path="/login" element={<Login/>} />
+      <Route path="*" element={<PageNotFound/>} />
+      <Route path="/profile" element={<Profile onPlaySong={handlePlaySong}/>} />
+      <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
+      <Route path="/upload" element={<Upload/>} />
+      <Route path='/govern' element = {<Govern/>}/>
+      {/* <Route path="/feedback" element = {<Feedback/>}/> */}
+      {/* <Route path="/App" element={<Appdemo/>} /> */}
+
+
+      
+
+>>>>>>> Stashed changes
         </Routes>
       </BrowserRouter>
     </div>
