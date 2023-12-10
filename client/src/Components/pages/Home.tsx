@@ -7,11 +7,27 @@ import { useState } from "react";
 import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
+type Song = {
+    album_id : BigInt;
+    artist_address : string;
+    cid : string;
+    current_price : BigInt;
+    date : string;
+    duration : BigInteger;
+    genre : string;
+    name : string;
+    num_likes : BigInt;
+    num_streams : BigInt;
+    previewEnd : BigInt;
+    previewStart : BigInt;
+    song_id : BigInt;
+};
+
 const Home = () => {
     const { account, signAndSubmitTransaction } = useWallet();
     const provider = new Provider(Network.DEVNET);
     const module_address = process.env.REACT_APP_MODULE_ADDRESS;
-    console.log(module_address);
+    // console.log(module_address);
 
     const [transactionID, setTransactionID] = useState(0);
     const [topSongs, setTopSongs] = useState({});
@@ -36,7 +52,7 @@ const Home = () => {
 
         const topSongsResponse = await provider.view(payload);
         setTopSongs(topSongsResponse);
-        // console.log(topSongsResponse);
+        console.log("Top Songs : ", topSongsResponse)
     };
 
     const fetchRandomSongs = async () => {
@@ -49,7 +65,7 @@ const Home = () => {
 
         const randomSongsResponse = await provider.view(payload);
         setRandomSongs(randomSongsResponse);
-        // console.log(randomSongsResponse);
+        console.log("Random Songs : ", randomSongsResponse);
     };
 
     const fetchRecentSongs = async () => {
@@ -62,7 +78,7 @@ const Home = () => {
 
         const recentSongsResponse = await provider.view(payload);
         setRecentSongs(recentSongsResponse);
-        console.log(recentSongsResponse);
+        console.log("Recent Songs : ", recentSongsResponse);
     };
 
     const transferAmt = async (toAddress: string, amount: number) => {
