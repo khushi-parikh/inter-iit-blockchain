@@ -10,6 +10,7 @@ type Props = {
   ArtistName: string;
   AlbumName: string;
   SongUrl: string;
+  PhotoUrl: string;
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
@@ -22,6 +23,7 @@ const SongCard: React.FC<Props> = ({
   ArtistName,
   AlbumName,
   SongUrl,
+  PhotoUrl,
   Purchase_Status,
   Song_Price,
   purchaseHandler,
@@ -60,7 +62,7 @@ if(Purchase_Status){
                     )
                     }
             </div>
-            <img src={deva} alt="song-image" className="card-image" />
+            <img src={PhotoUrl} alt="song-image" className="card-image" />
             <center className="show-button">
               <FaPlay className="play-button"onClick={playSong} />
             </center>
@@ -81,7 +83,7 @@ if(Purchase_Status){
                 )
                 }
             </div>
-            <img src={deva} alt="song-image" className="card-image" />
+            <img src={PhotoUrl} alt="song-image" className="card-image" />
           </div>
         </>
       )}
