@@ -99,15 +99,11 @@ a{
     padding-left: 10px;
     padding-top: 20px;
     padding-right: 50px;
-
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
     position: fixed;
     bottom: 0%;
     right: 0;
     left: 16.5%;
-    /* width: 100%; */
-    /* height: 200px; */
-    border-radius: 10px ;
     display: flex;
     flex-direction: row;
     gap: 200px;
@@ -115,21 +111,9 @@ a{
 }
 
 .Song-artist{
-    display: flex;
     flex-direction: column;
-}
+    columns: 3;
 
-.icons .pause-button{
-    height: 30px;
-    width: 30px;
-    padding-left: 10px;
-}
-
-
-.icons{
-    display: flex;
-    flex-direction: row;
-    size: 40px;
 }
 
               
@@ -212,31 +196,3 @@ a{
 }
 
 /* Example styles for the custom audio player */
-.custom-audio-player {
-    background-color: #f2f2f2;
-    padding: 2px;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Additional styles as needed */
-  
-
-  .audioplay{
-    /* background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%); */
-    outline: none;
-    position: relative;
-    bottom: 0;
-    right: 0;
-  }
-  .rhap_loop--off{
-    /* background-color: rgb(41, 32, 32); */
-    color: white;
-
-  }
-  .rhap_time {
-    color: #ffffff;
-    font-size: 16px;
-    user-select: none;
-    -webkit-user-select: none;
-}

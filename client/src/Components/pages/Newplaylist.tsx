@@ -3,10 +3,9 @@ import React from 'react'
 const Newplaylist = () => {
   return (
     <div className=''>
-      <li>1</li>
-      <li>2</li>
-
-      <li>3</li>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
 
     </div>
   )
