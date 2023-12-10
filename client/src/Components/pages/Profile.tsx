@@ -127,6 +127,26 @@ const Profile = (props: any) => {
         // }
     }
 
+    const addLikes = async () => {
+        if (!account) return [];
+        const payload = {
+            type: "entry_function_payload",
+            function: `${module_address}::Profile::addLike`,
+            type_arguments: [],
+            arguments: [1],
+        };
+        try {
+            // sign and submit transaction to chain
+            console.log("entered try loop for addLikes", payload)
+            const response = await signAndSubmitTransaction(payload);
+            await provider.waitForTransaction(response.hash);
+            console.log("Completed")
+        }
+        catch (error: any) {
+            console.log("ERROR-----", error)
+        }
+    }
+
     const fetchPlaylists = async () => {
         console.log("Entered fetch playlists")
         if (!account) return [];

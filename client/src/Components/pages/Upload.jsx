@@ -82,7 +82,6 @@ const Upload = () => {
             type_arguments: [],
             arguments: [
 				formData["albumID"],
-				formData["songID"],
 				formData["songname"],
 				10,
 				formData["Amount"],
