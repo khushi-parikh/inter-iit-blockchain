@@ -534,7 +534,7 @@ module profile_addr::Profile {
     }
     
     #[view]  //Function to get songs with likes more than 1000 from the universal song vector
-    public fun getTopSongs() : vector<u64> acquires  Songs_Table{
+    public fun getTopSongs() : vector<Song> acquires  Songs_Table{
 
         std::debug::print(&std::string::utf8(b"getTopSongs Initialized -------------"));
         
@@ -564,7 +564,7 @@ module profile_addr::Profile {
                 std::debug::print(&std::string::utf8(b"Song match"));
                 
                 // accesssing the song likes
-                if (song_match.num_likes > 1000 || vector::length(&top_songvector) < 5) {
+                if (song_match.num_likes > 2 || vector::length(&top_songvector) < 5) {
                     vector::push_back(&mut top_songvector,i);
 
                     std::debug::print(&std::string::utf8(b"Song added to top song vector"));
@@ -576,7 +576,7 @@ module profile_addr::Profile {
 
             // print(&top_songvector);
 
-            top_songvector
+            profile_addr::Profile::retrieveSongs(top_songvector)
 
     }
 
