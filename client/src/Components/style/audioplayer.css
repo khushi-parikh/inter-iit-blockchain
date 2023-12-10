@@ -1,3 +1,57 @@
+.play-image{
+  flex-direction: row;
+  display: flex;
+}
+
+.play-image img{
+  height: 70px;
+}
+
+.play-name{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.play-music{
+  display: grid;
+
+}
+
+.filled-heart-button{
+  position: fixed;
+  left: 93%;
+  color: red;
+  font-size: 20px;
+}
+
 .rhap_time{
     color: antiquewhite;
   }
+  .custom-audio-player {
+    background-color: #972424;
+    padding: 2px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Additional styles as needed */
+  
+
+  .audioplay{
+    /* background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%); */
+    outline: none;
+    position: relative;
+    bottom: 0;
+    right: 0;
+  }
+  .rhap_loop--off{
+    /* background-color: rgb(41, 32, 32); */
+    color: white;
+
+  }
+  .rhap_time {
+    color: #ffffff;
+    font-size: 16px;
+    user-select: none;
+    -webkit-user-select: none;
+}

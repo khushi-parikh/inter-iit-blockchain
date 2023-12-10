@@ -1,10 +1,10 @@
 .popup{
-    position: absolute;
-    top:0 ;
-    left: 200px;
-    z-index: 3;
+    /* position: absolute; */
+    /* top:0 ; */
+    /* left: 200px; */
+    /* z-index: 3; */
     /* width: 100%; */
-    height: 100%;
+    /* height: 100%; */
     /* background-color:rgba(0, 0, 0, 0.5) ;
     display: flex;
     align-items: center;
@@ -12,17 +12,40 @@
     z-index: 10000;
     cursor:auto; */
 }
-.popup div{
-    padding: 20px;
+.popup-inside{
     background: linear-gradient(to left, #515151 20%, rgb(20, 19, 19) 80% );
-    height: 200px;
-    width: 240px;
     margin: auto;
-    padding:2%;
+    padding:3% ;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+
+}
+.popup-inside button {
+    background: linear-gradient(25deg, rgb(214, 76, 127), rgb(238, 71, 88) 50%);
+    border: none;
+    padding: 1%;
+    height: 100%;
+    width: 90%;
+    margin-left: 8%;
+    border-radius: 5px;
+}
+.popup-inside input {
+    /* background: linear-gradient(25deg, rgb(214, 76, 127), rgb(238, 71, 88) 50%); */
+    padding: 1%;
+    border: none;
+    height: 100%;
+    margin-left: 8%;
+    width: 89%;
+    margin-bottom:2%;
+    border-radius: 5px;
 
 }
 .closepopup{
-    position: absolute;
-    top: 1%;
-    right: 1%;
+    position: relative;
+    /* top: 0%; */
+    left: 0%;
+}
+.menu-item-list{
+    margin-left: 8%;
 }
