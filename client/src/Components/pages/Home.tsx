@@ -7,6 +7,9 @@ import { useState } from "react";
 import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
+interface HomeProps {
+  onPlaySong: (url: string) => void;
+ }
 type Song = {
     album_id : BigInt;
     artist_address : string;
@@ -22,27 +25,26 @@ type Song = {
     previewStart : BigInt;
     song_id : BigInt;
 };
+const Home : React.FC<HomeProps>= ({ onPlaySong }) => {
+  const { account, signAndSubmitTransaction } = useWallet();
+  const provider = new Provider(Network.DEVNET);
+  const module_address = process.env.REACT_APP_MODULE_ADDRESS;
+  console.log(module_address);
 
-const Home = () => {
-    const { account, signAndSubmitTransaction } = useWallet();
-    const provider = new Provider(Network.DEVNET);
-    const module_address = process.env.REACT_APP_MODULE_ADDRESS;
-    // console.log(module_address);
+  const [transactionID, setTransactionID] = useState(0);
+  const [topSongs, setTopSongs] = useState({});
+  const [randomSongs, setRandomSongs] = useState({});
+  const [recentSongs, setRecentSongs] = useState({});
 
-    const [transactionID, setTransactionID] = useState(0);
-    const [topSongs, setTopSongs] = useState({});
-    const [randomSongs, setRandomSongs] = useState({});
-    const [recentSongs, setRecentSongs] = useState({});
+  type EntryFunctionId = string;
+  type MoveType = string;
+  type ViewRequest = {
+    function: EntryFunctionId;
+    type_arguments: Array<MoveType>;
+    arguments: Array<any>;
+  };
 
-    type EntryFunctionId = string;
-    type MoveType = string;
-    type ViewRequest = {
-        function: EntryFunctionId;
-        type_arguments: Array<MoveType>;
-        arguments: Array<any>;
-    };
-
-    const fetchTopSongs = async () => {
+  const fetchTopSongs = async () => {
         if (!account) return [];
         const payload: ViewRequest = {
             function: `${module_address}::Profile::getTopSongs`,
@@ -55,7 +57,7 @@ const Home = () => {
         console.log("Top Songs : ", topSongsResponse)
     };
 
-    const fetchRandomSongs = async () => {
+  const fetchRandomSongs = async () => {
         if (!account) return [];
         const payload: ViewRequest = {
             function: `${module_address}::Profile::randomsongs`,
@@ -63,11 +65,10 @@ const Home = () => {
             arguments: [],
         };
 
-        const randomSongsResponse = await provider.view(payload);
+   const randomSongsResponse = await provider.view(payload);
         setRandomSongs(randomSongsResponse);
         console.log("Random Songs : ", randomSongsResponse);
     };
-
     const fetchRecentSongs = async () => {
         if (!account) return [];
         const payload: ViewRequest = {
@@ -147,37 +148,38 @@ const Home = () => {
         );
         console.log(response2);
     };
+  return (
+    <div className="page">
+      <button onClick={fetchTopSongs}>Fetch Top Songs</button>
+      <button onClick={fetchRandomSongs}>Fetch Random Songs</button>
+      <button onClick={fetchRecentSongs}>Fetch Recent Songs</button>
+      <div className="home-page">
+        {api.map((apimusic, index) => {
+          return (
+            <div className="temp">
+              <p>{apimusic.title}</p>
+              <div className="pc">
+                {apimusic.music.map((musicDetails, index) => {
+                  return (
+						<SongCard
+						SongName={musicDetails.Song_name}
+						ArtistName={musicDetails.Artist_name}
+						AlbumName={musicDetails.Song_Album}
+						Purchase_Status={musicDetails.Purchase_Status}
+						SongUrl={musicDetails.song_url}
+						Song_Price={musicDetails.Song_price}
+						purchaseHandler={() =>
+							purchaseSong(
+							"0xd6f998affe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2",
+							musicDetails.Song_price,
+							index
+							)
+						}
+						onPlaySong={onPlaySong}
+						/>
 
-    return (
-        <div className="page">
-            <button onClick={fetchTopSongs}>Fetch Top Songs</button>
-            <button onClick={fetchRandomSongs}>Fetch Random Songs</button>
-            <button onClick={fetchRecentSongs}>Fetch Recent Songs</button>
-            <div className="home-page">
-                {api.map((apimusic, index) => {
-                    return (
-                        <div className="temp">
-                            <p>{apimusic.title}</p>
-                            <div className="pc">
-                                {apimusic.music.map((musicDetails, index) => {
-                                    return (
-                                        <>
-                                            <SongCard
-                                                SongName={musicDetails.Song_name}
-                                                ArtistName={musicDetails.Artist_name}
-                                                AlbumName={musicDetails.Song_Album}
-                                                Purchase_Status={musicDetails.Purchase_Status}
-                                                Song_Price={musicDetails.Song_price}
-                                                purchaseHandler={() =>
-                                                    purchaseSong(
-                                                        "0xd6f998affe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2",
-                                                        musicDetails.Song_price,
-                                                        index
-                                                    )
-                                                }
-                                            />
-                                        </>
-                                    );
+                  );
+
                                 })}
                             </div>
                         </div>

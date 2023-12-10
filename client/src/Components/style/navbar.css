@@ -98,6 +98,8 @@ a{
 .bottom-navbar{
     padding-left: 10px;
     padding-top: 20px;
+    padding-right: 50px;
+
     background: linear-gradient(109.6deg, rgba(0, 0, 0, 0.93) 11.2%, rgb(63, 61, 61) 78.9%);
     position: fixed;
     bottom: 0%;
@@ -208,3 +210,14 @@ a{
     color: rgb(177, 169, 169);
     padding-left: 10px;
 }
+
+/* Example styles for the custom audio player */
+.custom-audio-player {
+    background-color: #f2f2f2;
+    padding: 2px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Additional styles as needed */
+  

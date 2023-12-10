@@ -17,15 +17,23 @@ import PlayList from './Components/Music/PlayList';
 import Upload from './Components/pages/Upload';
 // import Appdemo from './Components/demo-music/Appdemo';
 
-
+type AppProps = {
+  songUrl: string | null;
+ };
 function App() {
+  const [songUrl, setSongUrl] = useState<string | null>(null);
+  const handlePlaySong = (url:string) => {
+    console.log("clicked play song")
+    console.log(url)
+    setSongUrl(url);
+   };
 
   return (
     <div>
       <BrowserRouter>
-     <Fixedcomp/>
+     <Fixedcomp songUrl={songUrl}/>
     <Routes>
-      <Route path="/" element={<Home/>} />
+      <Route path="/" element={<Home onPlaySong={handlePlaySong}/>} />
       <Route path="/songpage" element={<SongPage/>} />
       <Route path="/login" element={<Login/>} />
       <Route path="*" element={<PageNotFound/>} />

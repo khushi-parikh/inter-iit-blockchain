@@ -1,80 +1,92 @@
 [
-    {
-        "id" : 1,
-        "title":"Trending Songs",
-       "music":[
-        {
-           "Song_name" : "Song-9",
-           "Artist_name" :"as",
-           "Song_Album": "maslk",
-           "Purchase_Status" : false,
-           "Song_price" : 123
-        },{
-            "Song_name" : "Song-8",
-            "Artist_name" :"as",
-            "Song_Album": "maslk",
-            "Purchase_Status" : true,
-            "Song_price" : 123
-         },{
-            "Song_name" : "Song-7",
-            "Artist_name" :"as",
-            "Song_Album": "maslk",
-            "Purchase_Status" : true,
-            "Song_price" : 123
-         }
-       ]   
-    },{
-        "id" : 1,
-        "title":"for you",
-       "music":[
-        {
-           "Song_name" : "Song-6",
-           "Artist_name" :"as",
-           "Song_Album": "maslk",
-           "Purchase_Status" :true,
-           "Song_price" : 123
-        },{
-            "Song_name" : "Song-5",
-            "Artist_name" :"as",
-            "Song_Album": "maslk",
-            "Purchase_Status" : true,
-            "Song_price" : 123
-         },{
-            "Song_name" : "Song-4",
-            "Artist_name" :"as",
-            "Song_Album": "maslk",
-            "Purchase_Status" : true,
-            "Song_price" : 123
-         }
+   {
+       "id": 1,
+       "title": "Trending Songs",
+       "music": [
+           {
+               "Song_name": "Song-9",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": false,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-9.mp3"
+           },
+           {
+               "Song_name": "Song-8",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": true,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-8.mp3"
+           },
+           {
+               "Song_name": "Song-7",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": true,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-7.mp3"
+           }
        ]
-        
-    },
-    {
-      "id" : 1,
-        "title":"Recently played",
-       "music":[
-        {
-           "Song_name" : "Song-3",
-           "Artist_name" :"as",
-           "Song_Album": "maslk",
-           "Purchase_Status" : false,
-           "Song_price" : 123
-        },{
-            "Song_name" : "Song-2",
-            "Artist_name" :"as",
-            "Song_Album": "maslk",
-            "Purchase_Status" : false,
-            "Song_price" : 123
-         },{
-            "Song_name" : "Song-1",
-            "Artist_name" :"as",
-            "Song_Album": "maslk",
-            "Purchase_Status" : false,
-            "Song_price" : 123
-         }
+   },
+   {
+       "id": 1,
+       "title": "for you",
+       "music": [
+           {
+               "Song_name": "Song-6",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": true,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-6.mp3"
+           },
+           {
+               "Song_name": "Song-5",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": true,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-5.mp3"
+           },
+           {
+               "Song_name": "Song-4",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": true,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-4.mp3"
+           }
        ]
-
-    }
-   
-
+   },
+   {
+       "id": 1,
+       "title": "Recently played",
+       "music": [
+           {
+               "Song_name": "Song-3",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": false,
+               "Song_price": 123,
+               "song_url": "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3"
+           },
+           {
+               "Song_name": "Song-2",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": false,
+               "Song_price": 123,
+               "song_url": "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/"
+           },
+           {
+               "Song_name": "Song-1",
+               "Artist_name": "as",
+               "Song_Album": "maslk",
+               "Purchase_Status": false,
+               "Song_price": 123,
+               "song_url": "https://example.com/song-1.mp3"
+           }
+       ]
+   }
 ]
