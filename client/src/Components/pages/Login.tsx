@@ -3,6 +3,7 @@ import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Network, Provider } from 'aptos'
 import { Link } from 'react-router-dom';
+import '../style/login.css';
 
 const Login = () => {
     const provider = new Provider(Network.DEVNET);
@@ -127,10 +128,9 @@ const Login = () => {
   return (
     <div className='page'>
       
-      {account?.address ? <Link to = '/'>Home-page</Link> : <WalletSelector/>}
-      {accountHasUser ? <div></div> : <button onClick={createUser}>Create User</button>}
-      {accountHasResource ? <div></div> : <button onClick={createResource}>Create Resource</button>}
-
+      {account?.address ? <Link to = '/'><div className='login-note'>Click here to move to Home-page</div></Link> : <div className='create-button'><WalletSelector /></div>}
+      {accountHasUser ? <div></div> : <button onClick={createUser} className='create-button'>Create User</button>}
+      {accountHasResource ? <div></div> : <button onClick={createResource} className='create-button'>Create Resource</button>}
 
     </div>
   )

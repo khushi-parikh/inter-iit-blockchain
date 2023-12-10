@@ -139,7 +139,7 @@ const TopNavbar: React.FC<Props> = () => {
 					
 					
 					<div className="wallet">
-						{account?.address ? <WalletSelector/> : <Link to = '/login'>Login</Link>}
+						{account?.address ? <WalletSelector/> : <Link to = '/login'><div className='login-button'>Login</div></Link>}
 						{/* <Link to = '/login'>Login</Link> */}
 						{/* <WalletSelector /> */}
 					</div>
