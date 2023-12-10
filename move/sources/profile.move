@@ -40,7 +40,8 @@ module profile_addr::Profile {
         num_likes: u64,
         current_price: u64,
         date: String, // ? How is date stored
-        cid: String, //removed file
+        photoLink: String,
+        videoLink:String, //removed file
         num_streams: u64,
         genre: String,
         previewStart:u64,
@@ -118,7 +119,7 @@ module profile_addr::Profile {
 
     const RESOURCE_NOT_INITIALIZED: u64 = 7;
 
-    const PROFILE_ADDRESS: address = @0x4bb4d95ba6ff482924084bbfea2af98c634638a77a0c91b909ab9da53a802660;
+    const PROFILE_ADDRESS: address = @0xebf8d1e95f4ea8977ad4a67c271284fb8b9c712738af19c2c1d932a77030513f;
 
     const ADMIN_ADDRESS: address = @0x979d4265f6807742b5351f80fc5a0b360a9cb18f8cefe2b3c58fec3f9b6a7ba0;
 
@@ -200,7 +201,8 @@ module profile_addr::Profile {
                                 duration: u64,
                                 current_price: u64,
                                 date: String,
-                                cid: String,
+                                photoLink: String,
+                                videoLink:String,
                                 genre: String,
                                 previewStart:u64,
                                 previewEnd:u64
@@ -233,7 +235,8 @@ module profile_addr::Profile {
             num_likes: 0,
             current_price: current_price,
             date: date,
-            cid: cid,
+            photoLink: photoLink,
+            videoLink:videoLink,
             num_streams: 0,
             genre: genre,
             previewStart: previewStart,
@@ -445,7 +448,8 @@ module profile_addr::Profile {
         let numLikes = song.num_likes;
         let currentPrice = song.current_price;
         let date = song.date;
-        let cid = song.cid;
+        let photoLink = song.photoLink;
+        let videoLink = song.videoLink;
         let numStreams = song.num_streams;
         let genre = song.genre;
         let previewStart=song.previewStart;
@@ -460,7 +464,8 @@ module profile_addr::Profile {
             num_likes: numLikes,
             current_price: currentPrice,
             date: date,
-            cid: cid,
+            photoLink:photoLink,
+            videoLink:videoLink,
             num_streams: numStreams,
             genre: genre,
             previewStart:previewStart,
@@ -499,7 +504,8 @@ module profile_addr::Profile {
             let numLikes = song.num_likes;
             let currentPrice = song.current_price;
             let date = song.date;
-            let cid = song.cid;
+            let photoLink = song.photoLink;
+            let videoLink = song.videoLink;
             let numStreams = song.num_streams;
             let genre = song.genre;
             let previewStart=song.previewStart;
@@ -517,7 +523,8 @@ module profile_addr::Profile {
                 num_likes: numLikes,
                 current_price: currentPrice,
                 date: date,
-                cid: cid,
+                photoLink:photoLink,
+                videoLink:videoLink,
                 num_streams: numStreams,
                 genre: genre,
                 previewStart:previewStart,
@@ -557,6 +564,8 @@ module profile_addr::Profile {
 
             print(&len);
 
+            // bool foundSongs=false;
+
             while (i <= len) {
                 //get the song that match with i
                 let song_match=table::borrow_mut(&mut song_table.songs,i);
@@ -564,7 +573,7 @@ module profile_addr::Profile {
                 std::debug::print(&std::string::utf8(b"Song match"));
                 
                 // accesssing the song likes
-                if (song_match.num_likes > 2 || vector::length(&top_songvector) < 5) {
+                if (song_match.num_likes > 2 ) {
                     vector::push_back(&mut top_songvector,i);
 
                     std::debug::print(&std::string::utf8(b"Song added to top song vector"));
@@ -573,7 +582,25 @@ module profile_addr::Profile {
                 i = i + 1
             };
 
+            if(vector::length(&top_songvector) == 0){
+                let i = 1;
 
+
+                while (i <= len) {
+
+
+                    std::debug::print(&std::string::utf8(b"Song match"));
+                    
+                    // accesssing the song likes
+                    if (vector::length(&top_songvector) < 5 ) {
+                        vector::push_back(&mut top_songvector,i);
+                    };
+                    i = i + 1
+                };
+                
+                
+            };
+               
             // print(&top_songvector);
 
             profile_addr::Profile::retrieveSongs(top_songvector)
@@ -732,6 +759,7 @@ module profile_addr::Profile {
             180, // duration
             101, // current_price
             string::utf8(b"20231231"), // date
+            string::utf8(b"cid"),
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"),
             0,
@@ -745,6 +773,7 @@ module profile_addr::Profile {
             180, // duration
             101, // current_price
             string::utf8(b"20231231"), // date
+            string::utf8(b"cid"),
             string::utf8(b"cid"), // cid
             string::utf8(b"Rock"), // genre
             0,

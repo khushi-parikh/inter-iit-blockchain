@@ -67,47 +67,47 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
             arguments: [],
         };
 
-        const recentSongsResponse = await provider.view(payload);
-        setRecentSongs(recentSongsResponse);
-        console.log("Recent Songs : ", recentSongsResponse);
+    const recentSongsResponse = await provider.view(payload);
+    setRecentSongs(recentSongsResponse);
+    console.log("Recent Songs : ", recentSongsResponse);
+  };
+
+  const transferAmt = async (toAddress: string, amount: number) => {
+    if (!account) return null;
+    amount = amount * 1000000;
+    const payload = {
+      type: "entry_function_payload",
+      function: `${module_address}::Profile::transfer`,
+      type_arguments: [],
+      arguments: [toAddress, amount],
     };
 
-    const transferAmt = async (toAddress: string, amount: number) => {
-        if (!account) return null;
-        amount = amount * 1000000;
-        const payload = {
-            type: "entry_function_payload",
-            function: `${module_address}::Profile::transfer`,
-            type_arguments: [],
-            arguments: [toAddress, amount],
-        };
+    try {
+      const response = await signAndSubmitTransaction(payload);
+      await provider.waitForTransaction(response.hash);
+      console.log(`Transferred ${amount} to ${toAddress}`);
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.error("Transfer error:", error);
+      return null;
+    }
+  };
 
-        try {
-            const response = await signAndSubmitTransaction(payload);
-            await provider.waitForTransaction(response.hash);
-            console.log(`Transferred ${amount} to ${toAddress}`);
-            console.log(response);
-            return response;
-        } catch (error) {
-            console.error("Transfer error:", error);
-            return null;
-        }
+  const createTransaction = async (
+    price: number,
+    transactionId: number,
+    songId: number,
+    toAddress: string
+  ) => {
+    if (!account) return null;
+
+    const payload = {
+      type: "entry_function_payload",
+      function: `${module_address}::Profile::create_transaction`,
+      type_arguments: [],
+      arguments: [price, transactionId, songId, toAddress],
     };
-
-    const createTransaction = async (
-        price: number,
-        transactionId: number,
-        songId: number,
-        toAddress: string
-    ) => {
-        if (!account) return null;
-
-        const payload = {
-            type: "entry_function_payload",
-            function: `${module_address}::Profile::create_transaction`,
-            type_arguments: [],
-            arguments: [price, transactionId, songId, toAddress],
-        };
 
         try {
             const response = await signAndSubmitTransaction(payload);
