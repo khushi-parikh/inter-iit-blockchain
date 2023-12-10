@@ -2,7 +2,13 @@ import React from 'react'
 
 const Newplaylist = () => {
   return (
-    <div>Newplaylist</div>
+    <div className=''>
+      <li>1</li>
+      <li>2</li>
+
+      <li>3</li>
+
+    </div>
   )
 }
 

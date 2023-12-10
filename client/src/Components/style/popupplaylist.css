@@ -1,21 +1,28 @@
 .popup{
-    position: fixed;
+    position: absolute;
     top:0 ;
-    left: 0;
-    width: 100%;
+    left: 200px;
+    z-index: 3;
+    /* width: 100%; */
     height: 100%;
-    background-color:rgba(0, 0, 0, 0.5) ;
+    /* background-color:rgba(0, 0, 0, 0.5) ;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10000;
-    cursor:auto;
+    cursor:auto; */
 }
 .popup div{
-    background-color: black;
+    padding: 20px;
+    background: linear-gradient(to left, #515151 20%, rgb(20, 19, 19) 80% );
     height: 200px;
     width: 240px;
     margin: auto;
     padding:2%;
 
+}
+.closepopup{
+    position: absolute;
+    top: 1%;
+    right: 1%;
 }

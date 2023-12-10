@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdClose } from "react-icons/io";
 import "../style/popupplaylist.css";
 type prop = {
   isOpen: boolean;
@@ -15,7 +16,7 @@ const Popupplaylist: React.FC<prop> = ({ isOpen, onClose, onOpen }) => {
         <input type="text" required placeholder="type new playlist name"/> <br />
         <button type="submit">done</button>
         </form>
-        <button onClick={onClose}>close</button>
+        <IoMdClose onClick={onClose} className="closepopup"/>
       </div>
     </div>
   );

@@ -11,7 +11,7 @@
     color: rgb(213, 211, 211);
     box-shadow: 0px 3px 3px black;
     transition: all 150ms ease-in-out;
-    position: relative;
+    /* position: relative; */
 }
 
 .Liked-card:hover{
@@ -21,9 +21,10 @@
 }
 
 .playlist-image{
-    position: relative;
+    /* position: relative; */
     margin-top: 0;
     height: 70%;
+    z-index: 1;
     /* background-color: rgb(241, 70, 70); */
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
@@ -63,6 +64,7 @@
 .card-image{
     height: 100%;
     width: 100%;
+    z-index: 1;
 }
 .show-button{
     width: 50px;

@@ -4,7 +4,11 @@ import TopNavbar from '../Navbar/TopNavbar'
 import SideNavbar from '../Navbar/SideNavbar'
 import BottomNavbar from '../Navbar/BottomNavbar'
 
-const Fixedcomp:React.FC = () => {
+interface FixedcompProps {
+  songUrl: string | null;
+  songname: string | null;
+ }
+const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname}) => {
     const [sidenav,setSidenav] = useState(true)
   const [text,setText] = useState('close')
   function handleclose(){
@@ -16,7 +20,7 @@ const Fixedcomp:React.FC = () => {
         {/* <Home/> */}
         <SideNavbar sidenav={sidenav} text={text} handleclose={handleclose} />
         <TopNavbar sidenav={sidenav}/>
-        <BottomNavbar sidenav={sidenav}/>
+        <BottomNavbar songUrl={songUrl} songname={songname}/>
     </div>
   )
 }

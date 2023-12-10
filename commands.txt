@@ -1,0 +1,4 @@
+cd move
+aptos move init --name onChainRadio
+y
+aptos init --network devnet

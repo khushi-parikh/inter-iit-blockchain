@@ -7,6 +7,7 @@ import { IoCloudUploadSharp } from "react-icons/io5";
 import aptosLogo from '../images/Aptos_logo.png';
 import { MdCreateNewFolder } from "react-icons/md";
 import Popupplaylist from '../pages/Popupplaylist';
+import Newplaylist from '../pages/Newplaylist';
 
 type Props = {
   sidenav: Boolean;
@@ -59,7 +60,11 @@ const SideNavbar: React.FC<Props> = () => {
            {open ?<Popupplaylist 
              isOpen={open} onClose={handleClose} onOpen={handleOpen}
              />: null } 
+             
           </div>
+          <div>
+              <Newplaylist/>
+             </div>
       </div>
     </div>
   )
