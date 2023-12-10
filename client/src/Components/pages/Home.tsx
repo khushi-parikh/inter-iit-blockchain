@@ -36,6 +36,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
 
     const [transactionID, setTransactionID] = useState(0);
     const [topSongs, setTopSongs] = useState();
+    const [isTopSongsFetched, setIsTopSongsFetched] = useState(false);
     const [randomSongs, setRandomSongs] = useState({});
     const [recentSongs, setRecentSongs] = useState({});
 
@@ -47,9 +48,12 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
         arguments: Array<any>;
     };
 
-    useEffect(()=>{
-        fetchTopSongs()
-    },[])
+    useEffect(() => {
+        if (!isTopSongsFetched) {
+          fetchTopSongs();
+          setIsTopSongsFetched(true);
+        }
+      }, [account, isTopSongsFetched]);
 
     const fetchTopSongs = async () => {
         if (!account) return [];
@@ -167,7 +171,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                         <div className="temp">
                             <p>{apimusic.title}</p>
                             <div className="pc">
-                                {topSongs && console.log("topppp", topSongs[0][0], typeof(topSongs[0]))}
+                                {/* {topSongs && console.log("topppp", topSongs[0][0], typeof(topSongs[0]))} */}
                                 {topSongs && JSON.parse(JSON.stringify(topSongs[0])).map((song :any) => {
                                     return (
                                         <SongCard
@@ -175,7 +179,8 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                                             ArtistName={song.artist_address.slice(0, 5) + '....' + song.artist_address.substring(song.artist_address.length - 3)}
                                             AlbumName={song.album_id}
                                             Purchase_Status={false}
-                                            SongUrl={song.cid}
+                                            SongUrl={song.videoLink}
+                                            PhotoUrl={song.photoLink}
                                             Song_Price={song.current_price}
                                             purchaseHandler={() =>
                                                 purchaseSong(
