@@ -21,11 +21,14 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
   // const [songUrl, setSongUrl] = useState<string | null>(null);
   // console.log("songUrl", songUrl);
   console.log('photourl', photourl);
-  const [songIndex, setSongIndex] = useState(0);
+  const [songIndex, setSongIndex] = useState<number>(0);
   const [songRef, setSongRef] = useState<string | null>(null);
   const [songnameref, setSongNameRef] = useState<string | null>(null);
   const [albumnameref, setAlbumNameRef] = useState<string| null>(null)
   const [photourlref,setPhotourlref] = useState<string>("");
+  const [songRefArray, setSongRefArray] = useState<string[]>([]);
+  const [photourlrefArray, setPhotourlrefArray] =useState<string[] >([]);
+  const [songNameRefArray, setSongNameRefArray] = useState<string[]>([]);
   // const songs = [
   //   "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
   //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
@@ -34,29 +37,46 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
  console.log("songname",songname)
   useEffect(() => {
     const fetchSong = async () => {
-      setSongRef(() => songUrlArray[songIndex]);            
-      setSongNameRef(() => songNameArray[songIndex]);
-      setPhotourlref(() => photoUrlArray[songIndex]);
+      console.log("fetching song")
+      console.log(songUrlArray)
+      console.log("setting song url to: " + songRefArray[songIndex])
+      if (songRefArray.length > 0) {
+        setSongRef(() => songRefArray[songIndex]);           
+        setSongNameRef(() => songNameRefArray[songIndex]);
+        setPhotourlref(() => photourlrefArray[songIndex]);
+      }
       console.log("inside use Effect of player songUrl", songRef);
       
     };
     fetchSong();
-  }, [songIndex]);
+  }, [songIndex,songRefArray]);
   useEffect(() => {
-    setSongRef(songUrl);
-    setSongNameRef(songname);
-    setPhotourlref(photourl)
-    setAlbumNameRef(albumname)
-    console.log("inside use Effect of player songUrl", songUrl);
-  }, [songUrl,songname,photourl,albumname]);
+
+      setSongRef(songUrl);
+      setSongNameRef(songname);
+      setPhotourlref(photourl)
+      setAlbumNameRef(albumname)
+      if (songUrlArray.length > 0) {
+      setSongRefArray(songUrlArray);
+      setSongNameRefArray(songNameArray);
+      setPhotourlrefArray(photoUrlArray);
+    }
+
+  }, [songUrl,songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray]);
 
   const nextSong = () => {
-    setSongIndex((prevIndex) => (prevIndex + 1) % songUrlArray.length);
+    console.log("inside use Effect of nextSong");
+    console.log(songRefArray)
+    console.log("ref array length: " + songRefArray.length)
+    console.log("index no",songIndex);
+    if (songRefArray.length > 0) {
+      setSongIndex((prevIndex) => (prevIndex + 1) % songRefArray.length);
+    }
   };
   const prevSong = () => {
     const nextIndex = songIndex - 1;
     if (nextIndex < 0) {
-      setSongIndex(songUrlArray.length - 1);
+      setSongIndex(songRefArray.length - 1);
     } else {
       setSongIndex(nextIndex);
     }
