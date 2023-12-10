@@ -138,7 +138,7 @@ module profile_addr::Profile {
 
     const RESOURCE_NOT_INITIALIZED: u64 = 7;
 
-    const PROFILE_ADDRESS: address = @0xc7bc45497872fcae59a6aa9613ac6614ff2b0d7c4dccf232e37c958600fb5635; 
+    const PROFILE_ADDRESS: address = @0x193ff6541a12736da5ecf9debc700f49d1c07902de9c57d8e345f5e598cdc21a; 
 
     const ADMIN_ADDRESS: address = @0x948360774544eb680c1214082633a63805bc231bc9cf6e8d2e12cdbc5872d7c0;
     
@@ -152,6 +152,7 @@ module profile_addr::Profile {
     const EINSUFFICIENT_VOTES:u64=15;
     
     public entry fun transfer(from: &signer, to: address, amount: u64){
+        amount = amount * 100000000;
         // 
         transfer_coins<AptosCoin>(from, to, amount);
     }
@@ -274,6 +275,16 @@ module profile_addr::Profile {
         let requiredVotes = event.minimum_votes;
 
         requiredVotes
+        }
+        #[view]
+        public fun getTotalStake(proposal_id:u64) : u64 acquires Fullevent{
+        let eventTable = borrow_global_mut<Fullevent>(ADMIN_ADDRESS);
+
+        let event = table::borrow_mut(&mut eventTable.events, proposal_id);
+
+        let totalStake = event.total_stake;
+
+        totalStake
         }
 /////////////////////////////////////////////END///////////////////////////////////////////////
     // Function to create a new user
