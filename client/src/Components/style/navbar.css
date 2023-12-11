@@ -17,6 +17,12 @@
 .top-inside{
     padding: 15px;
 }
+.project-name{
+    font-size: 2rem;
+    background: -webkit-linear-gradient(rgb(188, 12, 241), rgb(212, 4, 4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
 .search-bar{
     height: 34px;
     border-radius: 6px;

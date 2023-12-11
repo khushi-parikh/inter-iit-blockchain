@@ -121,13 +121,14 @@ const TopNavbar: React.FC<Props> = () => {
 		<div className='top-navbar' >
 			<div className='top-inside'>
 				<div>
-					<div className="search-bar">
+                    <div className='project-name'>On-chain Radio </div>
+					{/* <div className="search-bar">
 						<IoIosSearch className='search-icon'/>
 						<input  className='search-bar-input' type="text" value={searchText} onChange={handleInputText} placeholder='search.........' />
 						{searchText.length >0 ? 
 					<IoMdClose className='search-icon-close' onClick={handleClick}/>:null }
 					    
-					</div>
+					</div> */}
 					<div className='search-reasult'>
 					{searchText.length >0 ? 
 					<div>
