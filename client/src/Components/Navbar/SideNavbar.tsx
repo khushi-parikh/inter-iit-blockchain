@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
@@ -18,27 +18,64 @@ type Props = {
   handleclose: () => void;
 };
 const provider = new Provider(Network.DEVNET);
-
+type EntryFunctionId = string;
+type MoveType = string;
+type ViewRequest = {
+  function: EntryFunctionId;
+  type_arguments: Array<MoveType>;
+  arguments: Array<any>;
+};
 const SideNavbar: React.FC<Props> = () => {
   const [accountHasUser, setAccountHasUser] = useState(false);
   
   const [open, setOpen] = React.useState(false);
+  const [isCreate, setIsCreate] = React.useState(false);
   const [showupload,setShowUpload] = React.useState(false);
+  const [playlists, setPlaylists] = useState([]);
+  
   const { account, signAndSubmitTransaction } = useWallet();
   const module_address = process.env.REACT_APP_MODULE_ADDRESS;
+
+  useEffect(() => {
+    fetchPlaylist();
+  },[isCreate]);
+
+  useEffect(() => {
+    fetchPlaylist();
+  },[]);
+
   const handledisplay =() => {
     setShowUpload(true);
     createArtist();
   }
+
+  const fetchPlaylist = async () =>{
+    if (!account) return [];
+    const payload: ViewRequest = {
+      function: `${module_address}::Profile::fetchPlaylists`,
+      type_arguments: [],
+      arguments: [account.address],
+    };
+    try {
+      const response = await provider.view(payload);
+      let playlistDetails = JSON.parse(JSON.stringify(response));
+      setPlaylists(playlistDetails[0]);
+    } catch (error: any) {
+      console.error("Error getting song details:", error);
+    }
+
+  }
+
   const handleClose = () => {
     setOpen(false);
   };
-
+  const handleCreate = () => {
+    setIsCreate(true);
+  }
   const handleOpen = () => {
     setOpen(!open);
   };
   const createArtist = async () => {
-    // console.log('account name',account?.address)
     console.log('createArtist function call ho gya')
 
     if (!account) return [];
@@ -53,7 +90,6 @@ const SideNavbar: React.FC<Props> = () => {
         // sign and submit transaction to chain
         const response = await signAndSubmitTransaction(payload);
         console.log("response", response)
-    // setUserkey(account?.address)
         await provider.waitForTransaction(response.hash);
         setAccountHasUser(true);
         console.log("Completed adding User")
@@ -110,17 +146,18 @@ const SideNavbar: React.FC<Props> = () => {
         <div>
           {open ? (
             <Popupplaylist
+            onCreate={handleCreate}
               isOpen={open}
               onClose={handleClose}
               onOpen={handleOpen}
             />
           ) : null}
         </div>
-
-        {/* <div className="menu-item-list">
-          <Newplaylist />
-        </div> */}
-
+          {playlists.map((music:any)=>{
+            return(
+              <div>{music.playlist_name}</div>
+            )
+          })}
         <div className="menu-item">
           <VscFeedback className="menu-icon" />
           <Link to="/govern">Govern</Link>
