@@ -8,8 +8,17 @@ import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 interface HomeProps {
-
-  onPlaySong: (url: string,songName : string, photourl:string,albumname:string) => void
+  onPlaySong: (
+    url: string,
+    songName: string,
+    photourl: string,
+    albumname: string
+  ) => void;
+  onPlaySongArray: (
+    url: string[],
+    songName: string[],
+    photourl: string[]
+  ) => void;
 }
 type Song = {
   album_id: BigInt;
@@ -27,7 +36,7 @@ type Song = {
   song_id: BigInt;
 };
 
-const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
+const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
   const { account, signAndSubmitTransaction } = useWallet();
   const provider = new Provider(Network.DEVNET);
   const module_address = process.env.REACT_APP_MODULE_ADDRESS;
@@ -48,6 +57,13 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
     type_arguments: Array<MoveType>;
     arguments: Array<any>;
   };
+
+useEffect(() => {
+    if(recentSongs && recentSongs[0]){
+        sendRecentSongs(recentSongs);
+    }
+}
+, [recentSongs])
 
   useEffect(() => {
     if (account || !isTopSongsFetched) {
@@ -99,8 +115,26 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
 
     const recentSongsResponse = await provider.view(payload);
     setRecentSongs(JSON.parse(JSON.stringify(recentSongsResponse)));
+    sendRecentSongs(recentSongs);
     console.log("Recent Songs : ", recentSongsResponse);
   };
+const sendRecentSongs = async (recentSongs:any) => {
+    if (!account) return [];
+    if (recentSongs && recentSongs[0]) {
+        onPlaySongArray(
+          JSON.parse(JSON.stringify(recentSongs[0])).map(
+            (song: any) => song.videoLink
+          ),
+          JSON.parse(JSON.stringify(recentSongs[0])).map(
+            (song: any) => song.name
+          ),
+          JSON.parse(JSON.stringify(recentSongs[0])).map(
+            (song: any) => song.photoLink
+          )
+        );
+      }
+}
+
 
   const transferAmt = async (toAddress: string, amount: number) => {
     if (!account) return null;
@@ -171,9 +205,9 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
 
   return (
     <div className="page">
-{/* <!--       <button onClick={fetchTopSongs}>Fetch Top Songs</button>
+      <button onClick={fetchTopSongs}>Fetch Top Songs</button>
       <button onClick={fetchRandomSongs}>Fetch Random Songs</button>
-      <button onClick={fetchRecentSongs}>Fetch Recent Songs</button> --> */}
+      <button onClick={fetchRecentSongs}>Fetch Recent Songs</button>
       <div className="home-page">
         {api.map((apimusic, index) => {
           return (
@@ -181,11 +215,13 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
               <p>{apimusic.title}</p>
               <div className="pc">
                 {/* {topSongs && console.log("topppp", topSongs[0][0], typeof(topSongs[0]))} */}
-                {apimusic.title==="Trending Songs"&&topSongs &&
+                {apimusic.title === "Trending Songs" &&
+                  topSongs &&
                   JSON.parse(JSON.stringify(topSongs[0])).map((song: any) => {
                     return (
                       <SongCard
-                        SongName={song.name}
+                        SongName={song.name.slice(0, 15) +
+                          "...."}
                         ArtistName={
                           song.artist_address.slice(0, 5) +
                           "...." +
@@ -209,64 +245,74 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
                       />
                     );
                   })}
-                {apimusic.title==="for you"&&randomSongs &&
-                    JSON.parse(JSON.stringify(randomSongs[0])).map((song: any) => {
-                        return (
+                {apimusic.title === "for you" &&
+                  randomSongs &&
+                  JSON.parse(JSON.stringify(randomSongs[0])).map(
+                    (song: any) => {
+                      return (
                         <SongCard
-                            SongName={song.name}
+                        SongName={song.name.slice(0, 15) +
+                          "...."}
+                          
+                           
                             ArtistName={
                             song.artist_address.slice(0, 5) +
                             "...." +
                             song.artist_address.substring(
-                                song.artist_address.length - 3
+                              song.artist_address.length - 3
                             )
-                            }
-                            AlbumName={song.album_id}
-                            Purchase_Status={false}
-                            SongUrl={song.videoLink}
-                            PhotoUrl={song.photoLink}
-                            Song_Price={song.current_price}
-                            purchaseHandler={() =>
+                          }
+                          AlbumName={song.album_id}
+                          Purchase_Status={false}
+                          SongUrl={song.videoLink}
+                          PhotoUrl={song.photoLink}
+                          Song_Price={song.current_price}
+                          purchaseHandler={() =>
                             purchaseSong(
-                                song.artist_address,
-                                song.current_price,
-                                song.song_id
+                              song.artist_address,
+                              song.current_price,
+                              song.song_id
                             )
-                            }
-                            onPlaySong={onPlaySong}
+                          }
+                          onPlaySong={onPlaySong}
                         />
-                        );
-                    })}
-                {apimusic.title==="Recently played"&&recentSongs &&
-                    JSON.parse(JSON.stringify(recentSongs[0])).map((song: any) => {
-                        return (
+                      );
+                    }
+                  )}
+                {apimusic.title === "Recently played" &&
+                  recentSongs &&
+                  JSON.parse(JSON.stringify(recentSongs[0])).map(
+                    (song: any) => {
+                      return (
                         <SongCard
-                            SongName={song.name}
+                         
+                         
+                            SongName={song.name.slice(0, 15) +
+                              "...." }
                             ArtistName={
                             song.artist_address.slice(0, 5) +
                             "...." +
                             song.artist_address.substring(
-                                song.artist_address.length - 3
+                              song.artist_address.length - 3
                             )
-                            }
-                            AlbumName={song.album_id}
-                            Purchase_Status={false}
-                            SongUrl={song.videoLink}
-                            PhotoUrl={song.photoLink}
-                            Song_Price={song.current_price}
-                            purchaseHandler={() =>
+                          }
+                          AlbumName={song.album_id}
+                          Purchase_Status={false}
+                          SongUrl={song.videoLink}
+                          PhotoUrl={song.photoLink}
+                          Song_Price={song.current_price}
+                          purchaseHandler={() =>
                             purchaseSong(
-                                song.artist_address,
-                                song.current_price,
-                                song.song_id
+                              song.artist_address,
+                              song.current_price,
+                              song.song_id
                             )
-                            }
-                            onPlaySong={onPlaySong}
+                          }
+                          onPlaySong={onPlaySong}
                         />
-                        );
-                    })}
-
-
+                      );
+                    }
+                  )}
               </div>
             </div>
           );
@@ -275,5 +321,5 @@ const Home: React.FC<HomeProps> = ({ onPlaySong }) => {
     </div>
   );
 };
-   
+
 export default Home;

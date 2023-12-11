@@ -14,9 +14,21 @@ type Props = {
   songname: string | null;
   photourl : string ;
   albumname: string | null;
+  songUrlArray: string[];
+  songNameArray: string[];
+  photoUrlArray: string[];
+
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname }) => {
+const BottomNavbar: React.FC<Props> = ({
+  songUrl,
+  songname,
+  photourl,
+  albumname,
+  songUrlArray: initialSongUrlArray,
+  songNameArray: initialSongNameArray,
+  photoUrlArray: initialPhotoUrlArray,
+}) => {
   // const [songUrl, setSongUrl] = useState<string | null>(null);
   // console.log("songUrl", songUrl);
   const provider = new Provider(Network.DEVNET);
@@ -24,43 +36,64 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname })
   const { account, signAndSubmitTransaction } = useWallet();
 
   console.log('photourl', photourl);
-  const [songIndex, setSongIndex] = useState(0);
+  const [songIndex, setSongIndex] = useState<number>(0);
   const [songRef, setSongRef] = useState<string | null>(null);
   const [songnameref, setSongNameRef] = useState<string | null>(null);
   const [albumnameref, setAlbumNameRef] = useState<string| null>(null)
   const [photourlref,setPhotourlref] = useState<string>("");
   const [liked , setLiked] = useState(false);
-
-  const songs = [
-    "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
-    "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
-  ];
-  const name = ["song1", "song2"];
  console.log("songname",songname)
+  const [songUrlArray, setSongUrlArray] = useState<string[]>(initialSongUrlArray || []);
+  const [songNameArray, setSongNameArray] = useState<string[]>(initialSongNameArray || []);
+  const [photoUrlArray, setPhotoUrlArray] = useState<string[]>(initialPhotoUrlArray || []);
+
+  // const songs = [
+  //   "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
+  //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
+  // ];
+  // const name = ["song1", "song2"];
+  useEffect(() => {
+    setSongUrlArray(initialSongUrlArray || []);
+    setSongNameArray(initialSongNameArray || []);
+    setPhotoUrlArray(initialPhotoUrlArray || []);
+    console.log("inside FIRST use Effect of player songUrlArray", songUrlArray);
+  }, [initialSongUrlArray, initialSongNameArray, initialPhotoUrlArray]);
   useEffect(() => {
     const fetchSong = async () => {
-      setSongRef(() => songs[songIndex]);
-      setSongNameRef(() => name[songIndex]);
+
+      if (songUrlArray.length > 0) {
+        setSongRef(() => songUrlArray[songIndex]);           
+        setSongNameRef(() => songNameArray[songIndex]);
+        setPhotourlref(() => photoUrlArray[songIndex]);
+      }
       console.log("inside use Effect of player songUrl", songRef);
       
     };
     fetchSong();
-  }, [songIndex]);
+  }, [songIndex,songUrlArray]);
   useEffect(() => {
-    setSongRef(songUrl);
-    setSongNameRef(songname);
-    setPhotourlref(photourl)
-    setAlbumNameRef(albumname)
-    console.log("inside use Effect of player songUrl", songUrl);
-  }, [songUrl,songname,photourl,albumname]);
+
+      setSongRef(songUrl);
+      setSongNameRef(songname);
+      setPhotourlref(photourl)
+      setAlbumNameRef(albumname)
+      if (songUrlArray.length > 0) {
+      setSongUrlArray(songUrlArray);
+      setSongNameArray(songNameArray);
+      setPhotoUrlArray(photoUrlArray);
+    }
+
+  }, [songUrl,songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray]);
 
   const nextSong = () => {
-    setSongIndex((prevIndex) => (prevIndex + 1) % songs.length);
+    if (songUrlArray.length > 0) {
+      setSongIndex((prevIndex) => (prevIndex + 1) % songUrlArray.length);
+    }
   };
   const prevSong = () => {
     const nextIndex = songIndex - 1;
     if (nextIndex < 0) {
-      setSongIndex(songs.length - 1);
+      setSongIndex(songUrlArray.length - 1);
     } else {
       setSongIndex(nextIndex);
     }
