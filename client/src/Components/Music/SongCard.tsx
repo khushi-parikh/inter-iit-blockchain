@@ -4,18 +4,35 @@ import { LiaCoinsSolid } from "react-icons/lia";
 import deva from "../images/deva-deva.jpg";
 import { FaRegHeart } from "react-icons/fa6";
 import { FcLike } from "react-icons/fc";
+import { Network, Provider } from "aptos";
+import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 type Props = {
   SongName: string;
   ArtistName: string;
-  SongID : number;
+  SongID: number;
   AlbumName: string;
   SongUrl: string;
   PhotoUrl: string;
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
-  onPlaySong: (songID: number,url: string,songName : string,photourl:string,ArtistName:string) => void;
+  onPlaySong: (
+    songID: number,
+    url: string,
+    songName: string,
+    photourl: string,
+    ArtistName: string
+  ) => void;
+};
+
+const provider = new Provider(Network.DEVNET);
+type EntryFunctionId = string;
+type MoveType = string;
+type ViewRequest = {
+  function: EntryFunctionId;
+  type_arguments: Array<MoveType>;
+  arguments: Array<any>;
 };
 
 const SongCard: React.FC<Props> = ({
@@ -29,19 +46,24 @@ const SongCard: React.FC<Props> = ({
   Song_Price,
   purchaseHandler,
   onPlaySong,
-    // likeSongHandler
+  // likeSongHandler
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isLiked , setIsLiked] = useState(false);
-const handleCardClick = () => {
-if(Purchase_Status){
-    purchaseHandler();
-}
-}
-  const playSong = () => {
-    onPlaySong(SongID,SongUrl,SongName,PhotoUrl,ArtistName); // Add this line
-    
+  const [isLiked, setIsLiked] = useState(false);
+  const [isPurchased, setIsPurchased] = useState(false);
+  const [isPaid, setIsPaid] = useState(false);
+  const module_address = process.env.REACT_APP_MODULE_ADDRESS;
 
+
+
+
+  const handleCardClick = () => {
+    if (Purchase_Status) {
+      purchaseHandler();
+    }
+  };
+  const playSong = () => {
+    onPlaySong(SongID, SongUrl, SongName, PhotoUrl, ArtistName); // Add this line
   };
   return (
     <center
@@ -50,18 +72,41 @@ if(Purchase_Status){
       onMouseLeave={() => setIsHovered(false)}
       // onClick={handleCardClick}
     >
-      {isHovered  ? (
+      {isHovered ? (
         <>
           <div className="playlist-image">
+            <div className="unliked-heart">
+              {!isLiked ? (
+                <div className="unliked-heart">
+                  <FaRegHeart className="heart-unliked" />
+                </div>
+              ) : (
+                <div className="unliked-heart">
+                  <FcLike className="heart-unliked" />
+                </div>
+              )}
+            </div>
             <img src={PhotoUrl} alt="song-image" className="card-image" />
             <center className="show-button">
-              <FaPlay className="play-button"onClick={playSong} />
+              <FaPlay className="play-button" onClick={playSong} />
             </center>
           </div>
         </>
       ) : (
         <>
           <div className="playlist-image">
+            <div className="unliked-heart">
+              {!isLiked ? (
+                <div className="unliked-heart">
+                  <FaRegHeart className="heart-unliked" />
+                  {/* <span className="num-of-likes">100</span> */}
+                </div>
+              ) : (
+                <div className="unliked-heart">
+                  <FcLike className="heart-unliked" />
+                </div>
+              )}
+            </div>
             <img src={PhotoUrl} alt="song-image" className="card-image" />
           </div>
         </>
@@ -74,7 +119,7 @@ if(Purchase_Status){
         </div>
         <div className={Purchase_Status == true ? "purchase" : "not-purchase"}>
           <LiaCoinsSolid
-          onClick={handleCardClick}
+            onClick={handleCardClick}
             className={
               Purchase_Status == true ? "image-show" : "image-not-show"
             }

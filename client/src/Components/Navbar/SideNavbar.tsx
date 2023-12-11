@@ -27,6 +27,7 @@ type ViewRequest = {
 };
 const SideNavbar: React.FC<Props> = () => {
   const [accountHasUser, setAccountHasUser] = useState(false);
+  const[isArtist,setIsArtist] = useState(false);
   
   const [open, setOpen] = React.useState(false);
   const [isCreate, setIsCreate] = React.useState(false);
@@ -45,8 +46,11 @@ const SideNavbar: React.FC<Props> = () => {
   },[]);
 
   const handledisplay =() => {
-    setShowUpload(true);
-    createArtist();
+    if(!isArtist){
+      setShowUpload(true);
+      createArtist();
+    }
+
   }
 
   const fetchPlaylist = async () =>{
@@ -91,8 +95,9 @@ const SideNavbar: React.FC<Props> = () => {
         const response = await signAndSubmitTransaction(payload);
         console.log("response", response)
         await provider.waitForTransaction(response.hash);
+        setIsArtist(true);
         setAccountHasUser(true);
-        console.log("Completed adding User")
+        console.log("Completed addingArtist");
     }
     catch (error: any) {
         setAccountHasUser(false);
