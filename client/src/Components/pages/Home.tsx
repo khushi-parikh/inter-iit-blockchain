@@ -12,7 +12,7 @@ interface HomeProps {
     url: string,
     songName: string,
     photourl: string,
-    albumname: string
+    artistname: string
   ) => void;
   onPlaySongArray: (
     url: string[],
@@ -57,6 +57,14 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
     type_arguments: Array<MoveType>;
     arguments: Array<any>;
   };
+
+
+useEffect(() => {
+    if(recentSongs && recentSongs[0]){
+        sendRecentSongs(recentSongs);
+    }
+}
+, [recentSongs])
 
 useEffect(() => {
     if(recentSongs && recentSongs[0]){
@@ -121,20 +129,20 @@ useEffect(() => {
 const sendRecentSongs = async (recentSongs:any) => {
     if (!account) return [];
     if (recentSongs && recentSongs[0]) {
-        onPlaySongArray(
-          JSON.parse(JSON.stringify(recentSongs[0])).map(
-            (song: any) => song.videoLink
-          ),
-          JSON.parse(JSON.stringify(recentSongs[0])).map(
-            (song: any) => song.name
-          ),
-          JSON.parse(JSON.stringify(recentSongs[0])).map(
-            (song: any) => song.photoLink
-          )
-        );
-      }
-}
-
+      console.log("addding recentSongs to array")
+      onPlaySongArray(
+        JSON.parse(JSON.stringify(recentSongs[0])).map(
+          (song: any) => song.videoLink
+        ),
+        JSON.parse(JSON.stringify(recentSongs[0])).map(
+          (song: any) => song.name
+        ),
+        JSON.parse(JSON.stringify(recentSongs[0])).map(
+          (song: any) => song.photoLink
+        )
+      );
+    }
+  };
 
   const transferAmt = async (toAddress: string, amount: number) => {
     if (!account) return null;
@@ -212,7 +220,7 @@ const sendRecentSongs = async (recentSongs:any) => {
         {api.map((apimusic, index) => {
           return (
             <div className="temp">
-              <p>{apimusic.title}</p>
+              <h1>{apimusic.title}</h1>
               <div className="pc">
                 {/* {topSongs && console.log("topppp", topSongs[0][0], typeof(topSongs[0]))} */}
                 {apimusic.title === "Trending Songs" &&
@@ -245,7 +253,7 @@ const sendRecentSongs = async (recentSongs:any) => {
                       />
                     );
                   })}
-                {apimusic.title === "for you" &&
+                {apimusic.title === "Recently played" &&
                   randomSongs &&
                   JSON.parse(JSON.stringify(randomSongs[0])).map(
                     (song: any) => {
@@ -279,7 +287,7 @@ const sendRecentSongs = async (recentSongs:any) => {
                       );
                     }
                   )}
-                {apimusic.title === "Recently played" &&
+                {apimusic.title === "for you" &&
                   recentSongs &&
                   JSON.parse(JSON.stringify(recentSongs[0])).map(
                     (song: any) => {

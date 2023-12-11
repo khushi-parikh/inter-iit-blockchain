@@ -41,7 +41,7 @@
     width: 100%;
     display: flex;
     background-color: rgb(255, 236, 236);
-    color: white;
+    color: rgb(255, 255, 255);
     right: 0px;
     position: relative;
     color: red;
@@ -59,7 +59,7 @@
     position: absolute;
     right: 10px;
     top: 5px;
-    color: red;
+    color: rgb(10, 217, 72);
 }
 
 .card-image{

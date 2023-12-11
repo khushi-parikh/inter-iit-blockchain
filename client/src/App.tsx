@@ -16,6 +16,7 @@ import SongPage from "./Components/Music/SongPage";
 import PlayList from "./Components/Music/PlayList";
 import Upload from "./Components/pages/Upload";
 import Govern from "./Components/pages/Govern";
+import Newplaylist from "./Components/pages/Newplaylist";
 
 // import Appdemo from './Components/demo-music/Appdemo';
 
@@ -27,7 +28,7 @@ function App() {
   const [songUrl, setSongUrl] = useState<string | null>(null);
   const [songname, setSongName] = useState<string | null>(null);
   const [photourl, setPhotourl] = useState<string>("");
-  const [albumname, setAlbumname] = useState<string | null>(null);
+  const [artistname, setArtistname] = useState<string | null>(null);
   const [songUrlArray, setSongUrlArray] = useState<string[]>([]);
   const [songNameArray, setSongNameArray] = useState<string[]>([]);
   const [photoUrlArray, setPhotourlArray] = useState<string[]>([]);
@@ -37,13 +38,14 @@ function App() {
     url: string,
     songName: string,
     photourl: string,
-    albumname: string
+    artistname: string
   ) => {
     console.log("clicked play song");
     console.log(url);
     setSongUrl(url);
     setSongName(songName);
     setPhotourl(photourl);
+    setArtistname(artistname);
   };
 
   const handlePlaySOngArray = (
@@ -65,7 +67,7 @@ function App() {
           songUrl={songUrl}
           songname={songname}
           photourl={photourl}
-          albumname={albumname}
+          artistname={artistname}
           songUrlArray={songUrlArray}
           songNameArray={songNameArray}
           photoUrlArray={photoUrlArray}

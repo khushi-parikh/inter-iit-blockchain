@@ -6,8 +6,8 @@ import "../style/navbar.css";
 import { IoCloudUploadSharp } from "react-icons/io5";
 import aptosLogo from "../images/Aptos_logo.png";
 import { MdCreateNewFolder } from "react-icons/md";
-import Popupplaylist from '../pages/Popupplaylist';
-import Newplaylist from '../pages/Newplaylist';
+import Popupplaylist from "../pages/Popupplaylist";
+import Newplaylist from "../pages/Newplaylist";
 import { VscFeedback } from "react-icons/vsc";
 
 type Props = {
@@ -60,7 +60,7 @@ const SideNavbar: React.FC<Props> = () => {
       <div className="menu-tab">
         <div className="menu-item">
           <MdCreateNewFolder className="menu-icon" />
-          <div onClick={handleOpen} >Create Playlist</div>
+          <div onClick={handleOpen}>Create Playlist</div>
         </div>
         <div>
           {open ? (
@@ -72,14 +72,19 @@ const SideNavbar: React.FC<Props> = () => {
           ) : null}
         </div>
 
-        <div className="menu-item-list">
+        {/* <div className="menu-item-list">
           <Newplaylist />
-        </div>
+        </div> */}
 
-          <div className="menu-item">
-          <VscFeedback className='menu-icon'/>
-          <Link to='/govern'>Govern</Link><br /><br />
+        <div className="menu-item">
+          <VscFeedback className="menu-icon" />
+          <Link to="/govern">Govern</Link>
+          <br />
+          <br />
         </div>
+      </div>
+      <div>
+        <button className="become_artist">Become Artist</button>
       </div>
     </div>
   );
