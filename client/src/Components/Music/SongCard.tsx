@@ -96,6 +96,7 @@ if(Purchase_Status){
         </div>
         <div className={Purchase_Status == true ? "purchase" : "not-purchase"}>
           <LiaCoinsSolid
+          onClick={handleCardClick}
             className={
               Purchase_Status == true ? "image-show" : "image-not-show"
             }

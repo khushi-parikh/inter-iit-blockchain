@@ -87,6 +87,7 @@ module profile_addr::Profile {
         liked_songs: vector<u64>,
         playlist : vector<u64>,
         transaction_history: vector<u64>,
+        bought_songs: vector<u64>,
         listening_history: vector<u64>,
     }
 
@@ -153,7 +154,7 @@ module profile_addr::Profile {
     /// Not enough votes
     const EINSUFFICIENT_VOTES:u64=15;
     const SONGDOESNOTEXIST:u64=16;
-    const PROFILE_ADDRESS: address = @0xc739387c9d59bcb22e2887559f73ebbf19cb2f68c6e07a864d27d2432daa6fb5; 
+    const PROFILE_ADDRESS: address = @0xa0bc4c2aecb79781c72990d2cd5aa3fdc7e523ca42ce2c314b82c28d0e182d56; 
 
     const ADMIN_ADDRESS: address = @0x948360774544eb680c1214082633a63805bc231bc9cf6e8d2e12cdbc5872d7c0;
 
@@ -353,6 +354,7 @@ module profile_addr::Profile {
             liked_songs: vector::empty<u64>(),
             playlist: vector::empty<u64>(),
             transaction_history: vector::empty<u64>(),
+            bought_songs: vector::empty<u64>(),
             listening_history: vector::empty<u64>(),
         };
         move_to(account, user);
@@ -526,6 +528,7 @@ module profile_addr::Profile {
 
         vector::push_back(&mut artist_var.transaction_history, transaction_id);
         vector::push_back(&mut user_var.transaction_history, transaction_id);
+        vector::push_back(&mut user_var.bought_songs, song_id);
     }
     
     public entry fun create_playlist(account: &signer, 
@@ -668,7 +671,20 @@ module profile_addr::Profile {
 
         table::remove(&mut playlist_table.playlists, playlistID);
     }
+    #[view]
+    public fun isPurchasedMain(account:&signer, song_id:u64) : bool acquires User{
+        let user_address = signer::address_of(account);
 
+        assert!(exists<User>(user_address), USER_NOT_INITIALIZED);
+
+        let user: &mut User = borrow_global_mut(user_address);
+        let isPurchased = false;
+        if(vector::contains(&user.bought_songs, &song_id)){
+            isPurchased = true;
+        };
+
+        isPurchased
+    }
 
     #[view]
     public fun getSongsOfPlaylist(account:address,
@@ -1271,6 +1287,45 @@ module profile_addr::Profile {
         likedSongs
         }
 
+    #[view]
+    public fun isSongPurchased(account:&signer,songId:u64) : bool acquires User, Songs_Table, TransactionTable{
+        std::debug::print(&std::string::utf8(b"Checking if song is purchased-------------"));
+
+        let user_address = signer::address_of(account);
+
+        assert!(exists<User>(user_address), USER_NOT_INITIALIZED);
+        assert!(exists<Songs_Table>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
+        assert!(exists<TransactionTable>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
+
+        let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
+        let transaction_table = borrow_global_mut<TransactionTable>(ADMIN_ADDRESS);
+
+        let songIdInt = songId;
+
+        if(table::contains(&song_table.songs, songIdInt)){
+            
+            // let song = table::borrow_mut(&mut song_table.songs, songIdInt);
+
+            let user: &mut User = borrow_global_mut(user_address);
+
+            let i = 0;
+
+            while (i < vector::length(&user.transaction_history)) {
+
+                let transaction_id = *vector::borrow(&user.transaction_history, i);
+
+                let transaction = *table::borrow_mut(&mut transaction_table.transactions, transaction_id);
+
+                if(transaction.song_id == songIdInt){
+                    return true
+                };
+
+                i = i + 1;
+            };
+        };
+
+        false
+    }
 
     // Test flowd6f998afd6f998affe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2fe8ab2ded891178a09f4aff7be682a56a03a3fdf1cf8bc655cbfcfc2
     #[test(user1 = @0x123,user2 = @0x124, user3 = @0x125,  admin_addr = @0x948360774544eb680c1214082633a63805bc231bc9cf6e8d2e12cdbc5872d7c0 )]

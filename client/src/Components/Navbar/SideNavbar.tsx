@@ -84,7 +84,7 @@ const SideNavbar: React.FC<Props> = () => {
           <br />
           <br />
         </div>
-        {showupload ?  <div className="menu-item ">
+        {true?  <div className="menu-item ">
           <IoCloudUploadSharp className="menu-icon" />
           <Link to="/upload">Upload</Link>
           <br />
