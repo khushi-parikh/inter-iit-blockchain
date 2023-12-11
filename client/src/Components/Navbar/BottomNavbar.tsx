@@ -25,6 +25,7 @@ const BottomNavbar: React.FC<Props> = ({
   songUrl,
   songname,
   photourl,
+  artistname,
   songUrlArray: initialSongUrlArray,
   songNameArray: initialSongNameArray,
   photoUrlArray: initialPhotoUrlArray,
@@ -70,10 +71,6 @@ const BottomNavbar: React.FC<Props> = ({
     setplus(true);
   };
 
-  useEffect(() =>{
-    console.log("bottom navabr inital use Effect")
-    console.log(songRefArray)
-  },[])
   useEffect(() => {
     const fetchSong = async () => {
 
@@ -120,7 +117,7 @@ const BottomNavbar: React.FC<Props> = ({
           <img src={photourlref ? photourlref : song} alt="image" />
         </div>
         <div className="play-name">
-          <div> {songnameref ?songnameref: 'Song Name' }</div>
+          <div> {songnameref ?songnameref.slice(0,10): 'Song Name' }</div>
           <div>{artistnameref ? artistnameref : 'Artist Namer' }</div>
         </div>
 

@@ -197,6 +197,7 @@ a{
 }
 
 .become_artist{
-    
+    bottom: 0%;
+    position: fixed;
 }
 /* Example styles for the custom audio player */
