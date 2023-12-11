@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "../style/navbar.css";
-import image from '../images/deva-deva.jpg'
+import song from '../images/song.jpeg'
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css"; // import the styles
 import "../style/audioplayer.css";
 import { FaRegHeart } from "react-icons/fa6";
-
+import { FaPlus } from "react-icons/fa";
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 type Props = {
   songUrl: string | null;
   songname: string | null;
   photourl : string ;
-  albumname: string | null;
+  artistname: string | null;
   songUrlArray: string[];
   songNameArray: string[];
   photoUrlArray: string[];
 
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray }) => {
+const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,artistname,songUrlArray,songNameArray,photoUrlArray }) => {
 
   const [songIndex, setSongIndex] = useState<number>(0);
   const [songRef, setSongRef] = useState<string | null>(null);
   const [songnameref, setSongNameRef] = useState<string | null>(null);
-  const [albumnameref, setAlbumNameRef] = useState<string| null>(null)
+  const [artistnameref, setArtistmNameRef] = useState<string| null>(null)
   const [photourlref,setPhotourlref] = useState<string>("");
   const [songRefArray, setSongRefArray] = useState<string[]>([]);
   const [photourlrefArray, setPhotourlrefArray] =useState<string[] >([]);
@@ -32,6 +36,24 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
   //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
   // ];
   // const name = ["song1", "song2"];
+  const [open, setOpen] = React.useState(false);
+  const[plus,setplus] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleCloseplus = () => {
+    setplus(false);
+  };
+
+  const handleOpenplus = () => {
+    setplus(true);
+  };
+
   useEffect(() =>{
     console.log("bottom navabr inital use Effect")
     console.log(songRefArray)
@@ -52,14 +74,14 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
       setSongRef(songUrl);
       setSongNameRef(songname);
       setPhotourlref(photourl)
-      setAlbumNameRef(albumname)
+      setArtistmNameRef(artistname)
       if (songUrlArray.length > 0) {
       setSongRefArray(songUrlArray);
       setSongNameRefArray(songNameArray);
       setPhotourlrefArray(photoUrlArray);
     }
 
-  }, [songUrl,songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray]);
+  }, [songUrl,songname,photourl,artistname,songUrlArray,songNameArray,photoUrlArray]);
 
   const nextSong = () => {
     if (songRefArray.length > 0) {
@@ -78,12 +100,11 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
     <div className="bottom-navbar">
       <div className="Song-artist">
         <div className="play-image">
-          <img src={photourlref} alt="image" />
-          {/* {photourlref}  */}
+          <img src={photourlref ? photourlref : song} alt="image" />
         </div>
         <div className="play-name">
-          <div> Song name -{songnameref}</div>
-          <div>Artist name - {albumnameref}</div>
+          <div> {songnameref ?songnameref: 'Song Name' }</div>
+          <div>{artistnameref ? artistnameref : 'Artist Namer' }</div>
         </div>
 
       </div>
@@ -104,9 +125,14 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
           }}
         />
       </div>
-
-      <FaRegHeart className="filled-heart-button"/>
+      <Tooltip open={open} onClose={handleClose} onOpen={handleOpen} title="liked">
+      <FavoriteBorderIcon className="filled-heart-button"/>
       
+    </Tooltip>
+    <Tooltip open={plus} onClose={handleCloseplus} onOpen={handleOpenplus} title="add to playlist">
+      <PlaylistAddIcon className="filled-plus-button" />
+      
+    </Tooltip>
     </div>
   );
 };

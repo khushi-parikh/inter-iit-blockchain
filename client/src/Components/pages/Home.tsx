@@ -12,7 +12,7 @@ interface HomeProps {
     url: string,
     songName: string,
     photourl: string,
-    albumname: string
+    artistname: string
   ) => void;
   onPlaySongArray: (
     url: string[],
@@ -218,7 +218,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
         {api.map((apimusic, index) => {
           return (
             <div className="temp">
-              <p>{apimusic.title}</p>
+              <h1>{apimusic.title}</h1>
               <div className="pc">
                 {/* {topSongs && console.log("topppp", topSongs[0][0], typeof(topSongs[0]))} */}
                 {apimusic.title === "Trending Songs" &&
@@ -251,7 +251,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
                       />
                     );
                   })}
-                {apimusic.title === "for you" &&
+                {apimusic.title === "Recently played" &&
                   randomSongs &&
                   JSON.parse(JSON.stringify(randomSongs[0])).map(
                     (song: any) => {
@@ -285,7 +285,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
                       );
                     }
                   )}
-                {apimusic.title === "Recently played" &&
+                {apimusic.title === "for you" &&
                   recentSongs &&
                   JSON.parse(JSON.stringify(recentSongs[0])).map(
                     (song: any) => {
