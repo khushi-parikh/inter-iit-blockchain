@@ -14,6 +14,7 @@ import {PiCoinVertical} from 'react-icons/pi';
 import {FcLike} from "react-icons/fc"
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import SimplePopup from "./SimplePopup";
 type Props = {
   songUrl: string | null;
   songname: string | null;
@@ -190,6 +191,9 @@ const BottomNavbar: React.FC<Props> = ({
       <PlaylistAddIcon className="filled-plus-button" />
       
     </Tooltip>
+    <div className="popup-button">
+    <SimplePopup/>
+    </div>
     </div>
   );
 };
