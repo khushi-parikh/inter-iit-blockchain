@@ -30,6 +30,7 @@ module profile_addr::Profile {
         required_proposer_stake: u64,
         total_stake:u64,
         message:String,
+        voters:vector<address>,
         
     }
     
@@ -37,6 +38,7 @@ module profile_addr::Profile {
     //events can be retrive using forntend
     struct Fullevent has key,store{
         events:Table<u64,VoteEvent>,
+        table_counter:u64,
         // proposal_id:u64,//event is proposed with perticular id
         
     }
@@ -150,8 +152,8 @@ module profile_addr::Profile {
     const EEVENT_EXIST:u64=14;
     /// Not enough votes
     const EINSUFFICIENT_VOTES:u64=15;
-    
-    const PROFILE_ADDRESS: address = @0xa15f7e4b7abeac3e1923d4cb89d8609737f8c45cb8d87f8033cb1e76691d836a; 
+    const SONGDOESNOTEXIST:u64=16;
+    const PROFILE_ADDRESS: address = @0xc739387c9d59bcb22e2887559f73ebbf19cb2f68c6e07a864d27d2432daa6fb5; 
 
     const ADMIN_ADDRESS: address = @0x948360774544eb680c1214082633a63805bc231bc9cf6e8d2e12cdbc5872d7c0;
 
@@ -180,26 +182,29 @@ module profile_addr::Profile {
             required_proposer_stake:required_proposer_stake,
             total_stake:0,
             message:message,
+            voters:vector::empty<address>(),
         };
 
         table::upsert(&mut eventTable.events , proposal_id, new_voteevent); 
+        eventTable.table_counter = eventTable.table_counter + 1;
 
         // eventTable.proposal_id = proposalID;
 
     }
 
     //function to vote a event with perticular id
-    public entry fun voting(_account:&signer,proposal_id:u64 ) acquires Fullevent {
+    public entry fun voting(account:&signer,proposal_id:u64 ) acquires Fullevent {
         //retrive event of that id and increase the vote
 
         let eventTable = borrow_global_mut<Fullevent>(ADMIN_ADDRESS);
-
+        let user_addr=signer::address_of(account);
         let event = table::borrow_mut(&mut eventTable.events, proposal_id);
-        profile_addr::Profile::transfer(_account,event.stake_pool,event.required_proposer_stake);
+        profile_addr::Profile::transfer(account,event.stake_pool,event.required_proposer_stake);
 
 
         event.total_votes = event.total_votes+1;
         event.total_stake = event.total_stake + event.required_proposer_stake;
+        vector::push_back(&mut event.voters,user_addr);
     }
 
     //function that will delete the perticular song with song id
@@ -239,12 +244,59 @@ module profile_addr::Profile {
 
         assert!(totalVotes >= requiredVotes ,EINSUFFICIENT_VOTES);
 
+
+
         delete_song(proposal_id);
     }
 
     
     
-  
+    #[view]
+    public fun getVoters(proposal_id:u64) : vector<address> acquires Fullevent{
+        let eventTable = borrow_global_mut<Fullevent>(ADMIN_ADDRESS);
+
+        let event = table::borrow_mut(&mut eventTable.events, proposal_id);
+
+        let voters = event.voters;
+
+        voters
+    } 
+
+    #[view]
+    public fun getAllEvents() : vector<VoteEvent> acquires Fullevent{
+        let eventTable = borrow_global_mut<Fullevent>(ADMIN_ADDRESS);
+
+        let events = vector::empty<VoteEvent>();
+        let table_counter = eventTable.table_counter;
+        let i = 1;
+
+        while (i <= table_counter) {
+
+            if(table::contains(&eventTable.events, i)){
+
+                let event = table::borrow_mut(&mut eventTable.events, i);
+
+                let new_event = VoteEvent {
+                    proposal_id: event.proposal_id,
+                    stake_pool: event.stake_pool,
+                    minimum_votes: event.minimum_votes,
+                    total_votes: event.total_votes,
+                    should_pass: event.should_pass,
+                    required_proposer_stake: event.required_proposer_stake,
+                    total_stake: event.total_stake,
+                    message: event.message,
+                    voters: event.voters,
+                };
+
+                vector::push_back(&mut events, new_event);
+            };
+
+            i = i + 1;
+
+        };
+
+        events
+    }
 
     //create a function that checks that a perticular user buied that song or not so he has the voting power
     public entry fun votepower(account: &signer, song_id:u64) acquires User{
@@ -336,7 +388,8 @@ module profile_addr::Profile {
             transaction_counter: 0
         };
         let eventTable = Fullevent{
-            events: table::new() 
+            events: table::new(),
+            table_counter:0, 
         };
 
         move_to(account , eventTable);
@@ -725,10 +778,10 @@ module profile_addr::Profile {
 
 
     #[view]
-    public fun getTransactionHistory(account: &signer) : vector<Transaction> acquires User, TransactionTable {
+    public fun getTransactionHistory(account: address) : vector<Transaction> acquires User, TransactionTable {
         std::debug::print(&std::string::utf8(b"Getting Transaction History-------------"));
 
-        assert!(exists<User>(signer::address_of(account)), USER_NOT_INITIALIZED);
+        assert!(exists<User>(account), USER_NOT_INITIALIZED);
 
         assert!(exists<TransactionTable>(ADMIN_ADDRESS), ESHARED_NOT_EXIST);
 
@@ -736,7 +789,7 @@ module profile_addr::Profile {
 
         let transaction_history = vector::empty<Transaction>();
 
-        let user: &mut User = borrow_global_mut(signer::address_of(account));
+        let user: &mut User = borrow_global_mut(account);
 
         // let all_transaction = borrow_global_mut<User>(signer::address_of(account)).transaction_history;
 
@@ -765,7 +818,7 @@ module profile_addr::Profile {
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
-        assert!(table::contains(&songs_table.songs, song_to_find), SAMPLE_ERROR);
+        assert!(table::contains(&songs_table.songs, song_to_find), SONGDOESNOTEXIST);
 
         let song = table::borrow(&songs_table.songs, song_to_find);
 
@@ -929,14 +982,11 @@ module profile_addr::Profile {
 
                     if(table::contains(&song_table.songs, i)){
 
-                        let song_match=table::borrow_mut(&mut song_table.songs,i);
 
                         std::debug::print(&std::string::utf8(b"Song match"));
                         
                         // accesssing the song likes
-                        if (song_match.num_likes > 1 ) {
                             vector::push_back(&mut top_songvector,i);
-                        };
                     };
                     i = i + 1
 
@@ -950,6 +1000,32 @@ module profile_addr::Profile {
             profile_addr::Profile::retrieveSongs(top_songvector)
 
     }
+
+    #[view]
+    public fun checkEventCompleted(proposal_id:u64) : bool acquires Fullevent{
+        let eventTable = borrow_global_mut<Fullevent>(ADMIN_ADDRESS);
+
+        let event = table::borrow_mut(&mut eventTable.events, proposal_id);
+
+        let requiredVotes = event.minimum_votes;
+
+        let totalVotes = event.total_votes;
+
+        let requiredProposerStake = event.required_proposer_stake;
+
+        let totalStake = event.total_stake;
+
+        let isCompleted = false;
+
+        if(totalStake >= requiredProposerStake && totalVotes >= requiredVotes){
+            isCompleted = true;
+        };
+
+        isCompleted
+    }
+
+
+
 
     public entry fun addLike (account: &signer, 
                                 song_id: u64) acquires Songs_Table, User {
@@ -1363,7 +1439,7 @@ module profile_addr::Profile {
             signer::address_of(&user1), // to_address
         );
 
-        let th = getTransactionHistory(&user2);
+        let th = getTransactionHistory(@0x124);
 
         print(&th);
 
