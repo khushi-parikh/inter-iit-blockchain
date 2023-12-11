@@ -155,7 +155,10 @@ const SideNavbar: React.FC<Props> = () => {
         </div>
           {playlists.map((music:any)=>{
             return(
-              <div>{music.playlist_name}</div>
+              // <div><Newplaylist/></div>
+              <div className="menu-items">
+                {music.playlist_name}
+              </div>
             )
           })}
         <div className="menu-item">

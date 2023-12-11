@@ -15,6 +15,7 @@ import {FcLike} from "react-icons/fc"
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SimplePopup from "./SimplePopup";
+import MenuIntroduction from "./MenuIntroduction";
 type Props = {
   songUrl: string | null;
   songname: string | null;
@@ -65,7 +66,6 @@ const BottomNavbar: React.FC<Props> = ({
     console.log("inside FIRST use Effect of player songUrlArray", songUrlArray);
   }, [initialSongUrlArray, initialSongNameArray, initialPhotoUrlArray]);
   const [open, setOpen] = React.useState(false);
-  const[plus,setplus] = React.useState(false);
 
   const handleClose = () => {
     setOpen(false);
@@ -74,13 +74,7 @@ const BottomNavbar: React.FC<Props> = ({
   const handleOpen = () => {
     setOpen(true);
   };
-  const handleCloseplus = () => {
-    setplus(false);
-  };
 
-  const handleOpenplus = () => {
-    setplus(true);
-  };
 
   useEffect(() => {
     const fetchSong = async () => {
@@ -178,7 +172,7 @@ const BottomNavbar: React.FC<Props> = ({
       <FavoriteBorderIcon className="filled-heart-button"/>
       </Tooltip> */}
 
-      <PiCoinVertical className="tip-artist"/>
+      {/* <PiCoinVertical className="tip-artist"/> */}
       {
         liked ? 
         <><FcLike className="filled-heart-button"/></>
@@ -187,10 +181,9 @@ const BottomNavbar: React.FC<Props> = ({
       }
       
    
-    <Tooltip open={plus} onClose={handleCloseplus} onOpen={handleOpenplus} title="add to playlist">
-      <PlaylistAddIcon className="filled-plus-button" />
-      
-    </Tooltip>
+    
+    <MenuIntroduction/>
+
     <div className="popup-button">
     <SimplePopup/>
     </div>
