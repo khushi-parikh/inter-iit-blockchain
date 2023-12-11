@@ -9,6 +9,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 interface HomeProps {
   onPlaySong: (
+    SongID:number,
     url: string,
     songName: string,
     photourl: string,
@@ -146,7 +147,6 @@ const sendRecentSongs = async (recentSongs:any) => {
 
   const transferAmt = async (toAddress: string, amount: number) => {
     if (!account) return null;
-    amount = amount * 1000000;
     const payload = {
       type: "entry_function_payload",
       function: `${module_address}::Profile::transfer`,
@@ -228,6 +228,7 @@ const sendRecentSongs = async (recentSongs:any) => {
                   JSON.parse(JSON.stringify(topSongs[0])).map((song: any) => {
                     return (
                       <SongCard
+
                         SongName={song.name.slice(0, 15) +
                           "...."}
                         ArtistName={
@@ -237,8 +238,9 @@ const sendRecentSongs = async (recentSongs:any) => {
                             song.artist_address.length - 3
                           )
                         }
+                        SongID={song.song_id}
                         AlbumName={song.album_id}
-                        Purchase_Status={false}
+                        Purchase_Status={true}
                         SongUrl={song.videoLink}
                         PhotoUrl={song.photoLink}
                         Song_Price={song.current_price}
@@ -270,8 +272,9 @@ const sendRecentSongs = async (recentSongs:any) => {
                               song.artist_address.length - 3
                             )
                           }
+                          SongID={song.song_id}
                           AlbumName={song.album_id}
-                          Purchase_Status={false}
+                          Purchase_Status={true}
                           SongUrl={song.videoLink}
                           PhotoUrl={song.photoLink}
                           Song_Price={song.current_price}
@@ -293,8 +296,6 @@ const sendRecentSongs = async (recentSongs:any) => {
                     (song: any) => {
                       return (
                         <SongCard
-                         
-                         
                             SongName={song.name.slice(0, 15) +
                               "...." }
                             ArtistName={
@@ -304,8 +305,9 @@ const sendRecentSongs = async (recentSongs:any) => {
                               song.artist_address.length - 3
                             )
                           }
+                          SongID={song.song_id}
                           AlbumName={song.album_id}
-                          Purchase_Status={false}
+                          Purchase_Status={true}
                           SongUrl={song.videoLink}
                           PhotoUrl={song.photoLink}
                           Song_Price={song.current_price}
