@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import '../style/profile.css'
 import api from '../API/Playlist.json'
 import PlaylistCard from '../Music/PlayList'
 import { Link } from 'react-router-dom'
 import '../style/playlist.css'
-import likedSongsApi from '../API/LikedSong.json'
+// import likedSongsApi from '../API/LikedSong.json'
 import LikedSongCard from '../Music/LikedSongs'
 import Transaction from '../API/Transaction.json'
 import TransactionCard from '../Music/TransactionCard'
@@ -38,12 +38,21 @@ type Playlist = {
 }
 
 const provider = new Provider(Network.DEVNET);
-
+type EntryFunctionId = string;
+type MoveType = string;
+type ViewRequest = {
+  function: EntryFunctionId;
+  type_arguments: Array<MoveType>;
+  arguments: Array<any>;
+};
 const Profile = (props: any) => {
     const [isLikedSongFetched, setIsLikedSongFetched] = useState(false);
     const [isRecentSongFetched, setIsRecentSongFetched] = useState(false);
     const [isTransactionFetched, setIsTransactionFetched] = useState(false);
     const [isPlaylistFetched, setIsPlaylistFetched] = useState(false);
+    const [likedSongsApi, setLikedSongsApi] = useState<Song[]>([]);
+    const [recentSongsApi, setRecentSongsApi] = useState<Song[]>([]);
+
     
     var count = Object.keys(api).length;
     const [activeTab, setActiveTab] = useState(0);
@@ -62,7 +71,18 @@ const Profile = (props: any) => {
     const [accountHasPlaylist, setAccountHasPlaylist] = useState(false);
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
+<<<<<<< Updated upstream
     let accountname= account?.address
+=======
+
+    useEffect(() => {  
+        // fetchPlaylists();
+        fetchLikedSongs();
+        // fetchRecentSongs();
+        // fetchTransactions();
+    }, [accountHasPlaylist, accountHasUser, isLikedSongFetched, isRecentSongFetched, isTransactionFetched]);
+
+>>>>>>> Stashed changes
     const createUser = async () => {
         if (!account) return [];
         const payload = {
@@ -83,7 +103,28 @@ const Profile = (props: any) => {
             setAccountHasUser(false);
         }
     }
+    const fetchLikedSongs = async () => {
 
+        if (!account) return [];
+        const payload:ViewRequest = {
+            function: `${module_address}::Profile::viewLikedSongsMain`,
+            type_arguments: [],
+            arguments: [account?.address],
+        };
+
+        try {
+            const response = await provider.view(payload);
+            let songDetails = JSON.parse(JSON.stringify(response));
+            setLikedSongsApi(songDetails[0]);
+
+            console.log("Liked Songs");
+            console.log(response);
+            setIsLikedSongFetched(true);
+            return response;
+        } catch (error: any) {
+            console.error("Error getting liked songs:", error);
+        }
+    }
     
     const createResource = async () => {
         if (!account) return [];
@@ -231,10 +272,10 @@ const Profile = (props: any) => {
         return (
             <div className='Playlists'>
 
-                {likedSongsApi.map((apimusic, index) => {
+                {JSON.parse(JSON.stringify(likedSongsApi)).map((apimusic:any) => {
                     return (
                         <div className="pc">
-                            <LikedSongCard SongName={apimusic.SongTitle} ArtistName={apimusic.ArtistName} AlbumName={apimusic.AlbumName} />
+                            <LikedSongCard SongName={apimusic.name} ArtistName={apimusic.artist_address} AlbumName={apimusic.album_id} />
                         </div>
                     )
                 })}
@@ -245,10 +286,10 @@ const Profile = (props: any) => {
     const recentSongContent = () => {
         return (
             <div className='Playlists'>
-                {likedSongsApi.map((apimusic, index) => {
+                 {JSON.parse(JSON.stringify(likedSongsApi)).map((apimusic:any) => {
                     return (
                         <div className="pc">
-                            <LikedSongCard SongName={apimusic.SongTitle} ArtistName={apimusic.ArtistName} AlbumName={apimusic.AlbumName} />
+                            <LikedSongCard SongName={apimusic.name} ArtistName={apimusic.artist_address} AlbumName={apimusic.album_id} />
                         </div>
                     )
                 })}

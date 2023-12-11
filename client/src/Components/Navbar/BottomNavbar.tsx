@@ -284,7 +284,7 @@ const BottomNavbar: React.FC<Props> = ({
         <PlaylistAddIcon className="filled-plus-button" />
       </Tooltip>
       <div className="popup-button">
-        <SimplePopup />
+        <SimplePopup SongID={SongID} />
       </div>
     </div>
   );
