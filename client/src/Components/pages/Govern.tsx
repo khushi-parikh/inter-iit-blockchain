@@ -69,8 +69,6 @@ const Govern = () => {
                     <button onClick={() => { handleTabChange(0) }} className={activeTab == 0 ? "active-button" : "non-active-button"}>Vote Song</button>
                     <button onClick={() => { handleTabChange(1) }} className={activeTab == 1 ? "active-button" : "non-active-button"}>Raise Issue</button>
                 </div>
-
-
                 {Tabs({ activeTab })}
         </div>
     )

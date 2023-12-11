@@ -80,7 +80,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_user`,
             type_arguments: [],
-            arguments: [],
+            arguments: [], 
         };
         try {
             // sign and submit transaction to chain

@@ -122,13 +122,6 @@ const TopNavbar: React.FC<Props> = () => {
 			<div className='top-inside'>
 				<div>
                     <div className='project-name'>On-chain Radio </div>
-					{/* <div className="search-bar">
-						<IoIosSearch className='search-icon'/>
-						<input  className='search-bar-input' type="text" value={searchText} onChange={handleInputText} placeholder='search.........' />
-						{searchText.length >0 ? 
-					<IoMdClose className='search-icon-close' onClick={handleClick}/>:null }
-					    
-					</div> */}
 					<div className='search-reasult'>
 					{searchText.length >0 ? 
 					<div>
@@ -140,7 +133,10 @@ const TopNavbar: React.FC<Props> = () => {
 					</div>
 					
 					<div className="wallet" onClick={(e)=>console.log(e.target)}>
-						<WalletSelector  />
+						{/* <WalletSelector  /> */}
+                        {account?.address ? <WalletSelector/> : 
+                        <Link to = '/login'><div className="login-button">Login</div></Link>
+                        }
 					</div>
 				</div>
 			</div>
