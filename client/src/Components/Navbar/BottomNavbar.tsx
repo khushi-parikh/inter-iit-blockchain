@@ -49,16 +49,13 @@ const BottomNavbar: React.FC<Props> = ({
     setPhotoUrlArray(initialPhotoUrlArray || []);
     console.log("inside FIRST use Effect of player songUrlArray", songUrlArray);
   }, [initialSongUrlArray, initialSongNameArray, initialPhotoUrlArray]);
- console.log("songname",songname)
   useEffect(() => {
     const fetchSong = async () => {
-      console.log("fetching song")
-      console.log(songUrlArray)
-      console.log("setting song url to: " + songRefArray[songIndex])
-      if (songRefArray.length > 0) {
-        setSongRef(() => songRefArray[songIndex]);           
-        setSongNameRef(() => songNameRefArray[songIndex]);
-        setPhotourlref(() => photourlrefArray[songIndex]);
+
+      if (songUrlArray.length > 0) {
+        setSongRef(() => songUrlArray[songIndex]);           
+        setSongNameRef(() => songNameArray[songIndex]);
+        setPhotourlref(() => photoUrlArray[songIndex]);
       }
       console.log("inside use Effect of player songUrl", songRef);
       
@@ -72,26 +69,22 @@ const BottomNavbar: React.FC<Props> = ({
       setPhotourlref(photourl)
       setAlbumNameRef(albumname)
       if (songUrlArray.length > 0) {
-      setSongRefArray(songUrlArray);
-      setSongNameRefArray(songNameArray);
-      setPhotourlrefArray(photoUrlArray);
+      setSongUrlArray(songUrlArray);
+      setSongNameArray(songNameArray);
+      setPhotoUrlArray(photoUrlArray);
     }
 
   }, [songUrl,songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray]);
 
   const nextSong = () => {
-    console.log("inside use Effect of nextSong");
-    console.log(songRefArray)
-    console.log("ref array length: " + songRefArray.length)
-    console.log("index no",songIndex);
-    if (songRefArray.length > 0) {
-      setSongIndex((prevIndex) => (prevIndex + 1) % songRefArray.length);
+    if (songUrlArray.length > 0) {
+      setSongIndex((prevIndex) => (prevIndex + 1) % songUrlArray.length);
     }
   };
   const prevSong = () => {
     const nextIndex = songIndex - 1;
     if (nextIndex < 0) {
-      setSongIndex(songRefArray.length - 1);
+      setSongIndex(songUrlArray.length - 1);
     } else {
       setSongIndex(nextIndex);
     }
