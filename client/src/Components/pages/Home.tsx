@@ -57,6 +57,23 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
     type_arguments: Array<MoveType>;
     arguments: Array<any>;
   };
+  useEffect(()=>{
+    console.log("calling inital array store in home")
+    if (recentSongs && recentSongs[0]) {
+      console.log("addding recentSongs to array")
+      onPlaySongArray(
+        JSON.parse(JSON.stringify(recentSongs[0])).map(
+          (song: any) => song.videoLink
+        ),
+        JSON.parse(JSON.stringify(recentSongs[0])).map(
+          (song: any) => song.name
+        ),
+        JSON.parse(JSON.stringify(recentSongs[0])).map(
+          (song: any) => song.photoLink
+        )
+      );
+    }
+  },[])
 
   useEffect(() => {
     if (account || !isTopSongsFetched) {
@@ -109,6 +126,7 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
     const recentSongsResponse = await provider.view(payload);
     setRecentSongs(JSON.parse(JSON.stringify(recentSongsResponse)));
     if (recentSongs && recentSongs[0]) {
+      console.log("addding recentSongs to array")
       onPlaySongArray(
         JSON.parse(JSON.stringify(recentSongs[0])).map(
           (song: any) => song.videoLink

@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import Home from '../pages/Home'
 import TopNavbar from '../Navbar/TopNavbar'
 import SideNavbar from '../Navbar/SideNavbar'
@@ -21,6 +21,10 @@ const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname,photourl,albumname
     setSidenav(!sidenav);
     setText(sidenav ? 'close' :   'open');
 }
+useEffect(() => { 
+  console.log("inside use effect of fixed Comp")
+  console.log(songUrlArray) 
+},[songUrlArray])
   return (
     <div>
         {/* <Home/> */}

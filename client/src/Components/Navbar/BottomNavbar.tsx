@@ -18,9 +18,7 @@ type Props = {
 };
 
 const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray }) => {
-  // const [songUrl, setSongUrl] = useState<string | null>(null);
-  // console.log("songUrl", songUrl);
-  console.log('photourl', photourl);
+
   const [songIndex, setSongIndex] = useState<number>(0);
   const [songRef, setSongRef] = useState<string | null>(null);
   const [songnameref, setSongNameRef] = useState<string | null>(null);
@@ -34,18 +32,17 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
   //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
   // ];
   // const name = ["song1", "song2"];
- console.log("songname",songname)
+  useEffect(() =>{
+    console.log("bottom navabr inital use Effect")
+    console.log(songRefArray)
+  },[])
   useEffect(() => {
     const fetchSong = async () => {
-      console.log("fetching song")
-      console.log(songUrlArray)
-      console.log("setting song url to: " + songRefArray[songIndex])
       if (songRefArray.length > 0) {
         setSongRef(() => songRefArray[songIndex]);           
         setSongNameRef(() => songNameRefArray[songIndex]);
         setPhotourlref(() => photourlrefArray[songIndex]);
       }
-      console.log("inside use Effect of player songUrl", songRef);
       
     };
     fetchSong();
@@ -65,10 +62,6 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
   }, [songUrl,songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray]);
 
   const nextSong = () => {
-    console.log("inside use Effect of nextSong");
-    console.log(songRefArray)
-    console.log("ref array length: " + songRefArray.length)
-    console.log("index no",songIndex);
     if (songRefArray.length > 0) {
       setSongIndex((prevIndex) => (prevIndex + 1) % songRefArray.length);
     }
