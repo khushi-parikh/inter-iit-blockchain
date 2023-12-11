@@ -24,6 +24,13 @@
   font-size: 20px;
 }
 
+.tip-artist{
+    position: fixed;
+    left: 90%;
+    color: yellow;
+    font-size: 20px;
+}
+
 .rhap_time{
     color: antiquewhite;
   }
