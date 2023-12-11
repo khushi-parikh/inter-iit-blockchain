@@ -8,6 +8,7 @@ import { FaRegHeart } from "react-icons/fa6";
 import { Network, Provider } from 'aptos'
 import { useWallet } from "@aptos-labs/wallet-adapter-react"
 import { FcLike } from "react-icons/fc";
+import { PiCoinVertical } from "react-icons/pi";
 
 type Props = {
   songUrl: string | null;
@@ -152,7 +153,8 @@ const BottomNavbar: React.FC<Props> = ({
           }}
         />
       </div>
-      
+
+      <PiCoinVertical className="tip-artist"/>
       {
         liked ? 
         <><FcLike className="filled-heart-button"/></>
