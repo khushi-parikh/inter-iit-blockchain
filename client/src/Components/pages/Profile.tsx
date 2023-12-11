@@ -328,8 +328,6 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
             case 1:
                 return likedSongContent();
             case 2:
-                return recentSongContent();
-            case 3:
                 return transactionContent();
             default:
                 return <div>No tab selected</div>;
@@ -357,7 +355,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
                 <div className='tabs'>
                     <button onClick={() => { handleTabChange(0) }} className={activeTab == 0 ? "active-button" : "non-active-button"}>Your Playlist</button>
                     <button onClick={() => { handleTabChange(1) }} className={activeTab == 1 ? "active-button" : "non-active-button"}>Liked Songs</button>
-                    <button onClick={() => { handleTabChange(2) }} className={activeTab == 2 ? "active-button" : "non-active-button"}>Recent Songs</button>
+                    {/* <button onClick={() => { handleTabChange(2) }} className={activeTab == 2 ? "active-button" : "non-active-button"}>Recent Songs</button> */}
                     <button onClick={() => { handleTabChange(3) }} className={activeTab == 3 ? "active-button" : "non-active-button"}>Transaction History</button>
 
                 </div>

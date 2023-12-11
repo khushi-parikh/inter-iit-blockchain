@@ -14,7 +14,7 @@ body::-webkit-scrollbar {
 .page{
   margin: 4em 0rem 2rem 16.8%;
   width: calc(100%-16.8%);
-  background: linear-gradient(to top, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
+  background: linear-gradient(to top, rgb(16, 16, 16) 0%, rgb(64, 64, 64) 90.2%);
   /* background: linear-gradient(to left, #515151 20%, rgb(20, 19, 19) 80% ); */
   min-height: 100vh;
   column-gap: 10px;
