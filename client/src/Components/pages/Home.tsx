@@ -252,7 +252,8 @@ const sendRecentSongs = async (recentSongs:any) => {
                       />
                     );
                   })}
-                {apimusic.title === "Recently played" &&
+                  
+                {apimusic.title === "for you" &&
                   randomSongs &&
                   JSON.parse(JSON.stringify(randomSongs[0])).map(
                     (song: any) => {
@@ -287,7 +288,7 @@ const sendRecentSongs = async (recentSongs:any) => {
                       );
                     }
                   )}
-                {apimusic.title === "for you" &&
+                {apimusic.title === "Recently played" &&
                   recentSongs &&
                   JSON.parse(JSON.stringify(recentSongs[0])).map(
                     (song: any) => {

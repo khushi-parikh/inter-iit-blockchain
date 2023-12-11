@@ -12,12 +12,15 @@
   position: relative;
   margin-top: 0%;
   padding: 0%;
-  height: 20px;
+  height: 30px;
 }
+/* .profile-header-start h2{
+  font-size: medium;
+} */
 
 .profile-header-start-h1{
   position: relative;
-  height: 50px;
+  height: 30px;
 }
 
 .profile-header p{
