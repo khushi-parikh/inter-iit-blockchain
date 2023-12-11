@@ -51,7 +51,7 @@ function App() {
     songName: string[],
     photourl: string[]
   ) => {
-    console.log("inside handle play song array");
+    console.log("inside handle play song array in APP.TSX");
     console.log(url);
     setSongUrlArray(url);
     setSongNameArray(songName);

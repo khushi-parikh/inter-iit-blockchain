@@ -58,6 +58,13 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
     arguments: Array<any>;
   };
 
+useEffect(() => {
+    if(recentSongs && recentSongs[0]){
+        sendRecentSongs(recentSongs);
+    }
+}
+, [recentSongs])
+
   useEffect(() => {
     if (account || !isTopSongsFetched) {
       fetchTopSongs();
@@ -108,21 +115,26 @@ const Home: React.FC<HomeProps> = ({ onPlaySong, onPlaySongArray }) => {
 
     const recentSongsResponse = await provider.view(payload);
     setRecentSongs(JSON.parse(JSON.stringify(recentSongsResponse)));
-    if (recentSongs && recentSongs[0]) {
-      onPlaySongArray(
-        JSON.parse(JSON.stringify(recentSongs[0])).map(
-          (song: any) => song.videoLink
-        ),
-        JSON.parse(JSON.stringify(recentSongs[0])).map(
-          (song: any) => song.name
-        ),
-        JSON.parse(JSON.stringify(recentSongs[0])).map(
-          (song: any) => song.photoLink
-        )
-      );
-    }
+    sendRecentSongs(recentSongs);
     console.log("Recent Songs : ", recentSongsResponse);
   };
+const sendRecentSongs = async (recentSongs:any) => {
+    if (!account) return [];
+    if (recentSongs && recentSongs[0]) {
+        onPlaySongArray(
+          JSON.parse(JSON.stringify(recentSongs[0])).map(
+            (song: any) => song.videoLink
+          ),
+          JSON.parse(JSON.stringify(recentSongs[0])).map(
+            (song: any) => song.name
+          ),
+          JSON.parse(JSON.stringify(recentSongs[0])).map(
+            (song: any) => song.photoLink
+          )
+        );
+      }
+}
+
 
   const transferAmt = async (toAddress: string, amount: number) => {
     if (!account) return null;

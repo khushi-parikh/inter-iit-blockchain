@@ -17,7 +17,15 @@ type Props = {
 
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,songUrlArray,songNameArray,photoUrlArray }) => {
+const BottomNavbar: React.FC<Props> = ({
+  songUrl,
+  songname,
+  photourl,
+  albumname,
+  songUrlArray: initialSongUrlArray,
+  songNameArray: initialSongNameArray,
+  photoUrlArray: initialPhotoUrlArray,
+}) => {
   // const [songUrl, setSongUrl] = useState<string | null>(null);
   // console.log("songUrl", songUrl);
   console.log('photourl', photourl);
@@ -26,11 +34,21 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
   const [songnameref, setSongNameRef] = useState<string | null>(null);
   const [albumnameref, setAlbumNameRef] = useState<string| null>(null)
   const [photourlref,setPhotourlref] = useState<string>("");
+  const [songUrlArray, setSongUrlArray] = useState<string[]>(initialSongUrlArray || []);
+  const [songNameArray, setSongNameArray] = useState<string[]>(initialSongNameArray || []);
+  const [photoUrlArray, setPhotoUrlArray] = useState<string[]>(initialPhotoUrlArray || []);
+
   // const songs = [
   //   "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
   //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
   // ];
   // const name = ["song1", "song2"];
+  useEffect(() => {
+    setSongUrlArray(initialSongUrlArray || []);
+    setSongNameArray(initialSongNameArray || []);
+    setPhotoUrlArray(initialPhotoUrlArray || []);
+    console.log("inside FIRST use Effect of player songUrlArray", songUrlArray);
+  }, [initialSongUrlArray, initialSongNameArray, initialPhotoUrlArray]);
  console.log("songname",songname)
   useEffect(() => {
     const fetchSong = async () => {
@@ -41,7 +59,7 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,albumname,so
       
     };
     fetchSong();
-  }, [songIndex]);
+  }, [songIndex,songUrlArray]);
   useEffect(() => {
     setSongRef(songUrl);
     setSongNameRef(songname);
