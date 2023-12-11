@@ -78,7 +78,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
         const payload = {
             
             type: "entry_function_payload",
-            function: `${module_address}::Profile::create_artist`,
+            function: `${module_address}::Profile::create_user`,
             type_arguments: [],
             arguments: [],
         };
@@ -96,6 +96,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
         }
     }
 
+    
     const createResource = async () => {
         if (!account) return [];
         const payload = {

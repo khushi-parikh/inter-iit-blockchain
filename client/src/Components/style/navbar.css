@@ -18,10 +18,11 @@
     padding: 15px;
 }
 .project-name{
-    font-size: 2rem;
+    font-size: 2.1rem;
     background: -webkit-linear-gradient(rgb(188, 12, 241), rgb(212, 4, 4));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 900;
 }
 .search-bar{
     height: 34px;
@@ -165,6 +166,7 @@ a{
     /* background-color: red; */
 }
 .menu-item{
+    cursor: pointer;
     margin-left: 0px;
     position: relative;
     display: flex;
@@ -177,7 +179,6 @@ a{
     width:100%;
     height: 40px;
     transition: all 150ms ease-in-out;
-    cursor: pointer;
 }
 
 .menu-item:hover{
@@ -203,7 +204,22 @@ a{
 }
 
 .become_artist{
-    bottom: 0%;
+    bottom: 3%;
     position: fixed;
+    left: 2%; 
+    background: linear-gradient(25deg, rgb(214, 76, 127), rgb(238, 71, 88) 50%);
+    border: none;
+    color: white;
+    padding: 0.5%;
+    cursor: pointer;
+    font-size: bold;
+}
+.become_artist:hover{
+   border: 2px solid rgb(15, 15, 15);
+   box-shadow: 2px 2px 5px rgb(69, 66, 66);
+}
+.not-allowed , .not-allowed a{
+ cursor: not-allowed;
+ opacity: 0.5;
 }
 /* Example styles for the custom audio player */
