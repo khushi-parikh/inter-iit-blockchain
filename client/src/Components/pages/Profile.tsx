@@ -71,9 +71,7 @@ const Profile = (props: any) => {
     const [accountHasPlaylist, setAccountHasPlaylist] = useState(false);
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
-<<<<<<< Updated upstream
     let accountname= account?.address
-=======
 
     useEffect(() => {  
         // fetchPlaylists();
@@ -82,7 +80,6 @@ const Profile = (props: any) => {
         // fetchTransactions();
     }, [accountHasPlaylist, accountHasUser, isLikedSongFetched, isRecentSongFetched, isTransactionFetched]);
 
->>>>>>> Stashed changes
     const createUser = async () => {
         if (!account) return [];
         const payload = {
@@ -275,7 +272,7 @@ const Profile = (props: any) => {
                 {JSON.parse(JSON.stringify(likedSongsApi)).map((apimusic:any) => {
                     return (
                         <div className="pc">
-                            <LikedSongCard SongName={apimusic.name} ArtistName={apimusic.artist_address} AlbumName={apimusic.album_id} />
+                            <LikedSongCard PhotoUrl={apimusic.photoLink} SongName={apimusic.name} ArtistName={apimusic.artist_address} AlbumName={apimusic.album_id} />
                         </div>
                     )
                 })}
@@ -289,7 +286,7 @@ const Profile = (props: any) => {
                  {JSON.parse(JSON.stringify(likedSongsApi)).map((apimusic:any) => {
                     return (
                         <div className="pc">
-                            <LikedSongCard SongName={apimusic.name} ArtistName={apimusic.artist_address} AlbumName={apimusic.album_id} />
+                            <LikedSongCard PhotoUrl={apimusic.photoLink} SongName={apimusic.name} ArtistName={apimusic.artist_address} AlbumName={apimusic.album_id} />
                         </div>
                     )
                 })}

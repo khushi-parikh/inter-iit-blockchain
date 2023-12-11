@@ -6,12 +6,13 @@ import { FaRegHeart } from "react-icons/fa6";
 import { FcLike } from "react-icons/fc";
 
 type Props = {
+  PhotoUrl:string;
   SongName: string;
   ArtistName : string;
   AlbumName : string
 };
 
-const LikedSongs: React.FC<Props> = ({SongName , ArtistName , AlbumName}) => {
+const LikedSongs: React.FC<Props> = ({PhotoUrl,SongName , ArtistName , AlbumName}) => {
 const [isHovered, setIsHovered] = useState(false);
 const [isLiked , setIsLiked] = useState(false);
 
@@ -59,7 +60,7 @@ const [isLiked , setIsLiked] = useState(false);
             )
             }
         </div>
-        <img src= {khalasi} alt='song-image' className='card-image' />
+        <img src= {PhotoUrl} alt='song-image' className='card-image' />
       </div>
   )}
   
