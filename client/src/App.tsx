@@ -48,11 +48,10 @@ function App() {
       <Route path="/login" element={<Login/>} />
       <Route path="*" element={<PageNotFound/>} />
       <Route path="/profile" element={<Profile/>} />
-      <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} />
+      {/* <Route path="/Playlist" element={<PlayList PlaylistName={''} NumOfSongs={0}/>} /> */}
       <Route path="/upload" element={<Upload/>} />
       <Route path='/govern' element = {<Govern/>}/>
-      {/* <Route path="/feedback" element = {<Feedback/>}/> */}
-      {/* <Route path="/App" element={<Appdemo/>} /> */}
+      <Route path='/playlist' element = {<PlayList PlaylistName='abc' NumOfSongs= {4} />}/>
 
 
       
