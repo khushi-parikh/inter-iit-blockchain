@@ -5,15 +5,17 @@ import SideNavbar from '../Navbar/SideNavbar'
 import BottomNavbar from '../Navbar/BottomNavbar'
 
 interface FixedcompProps {
+  SongID:number|null;
   songUrl: string | null;
   songname: string | null;
   photourl : string;
   artistname: string | null;
+  songIDArray:number[];
   songUrlArray: string[];
   songNameArray: string[];
   photoUrlArray: string[];
  }
-const Fixedcomp:React.FC<FixedcompProps> = ({songUrl,songname,photourl,artistname,songUrlArray,songNameArray,photoUrlArray}) => {
+const Fixedcomp:React.FC<FixedcompProps> = ({SongID,songUrl,songname,photourl,artistname,songIDArray,songUrlArray,songNameArray,photoUrlArray}) => {
   // console.log('nasnksd',photourl)
     const [sidenav,setSidenav] = useState(true)
   const [text,setText] = useState('close')
@@ -30,7 +32,7 @@ useEffect(() => {
         {/* <Home/> */}
         <SideNavbar sidenav={sidenav} text={text} handleclose={handleclose} />
         <TopNavbar sidenav={sidenav}/>
-        <BottomNavbar songUrl={songUrl} songname={songname} photourl={photourl} artistname={artistname} songUrlArray={songUrlArray}songNameArray={songNameArray} photoUrlArray={photoUrlArray}/>
+        <BottomNavbar SongID={SongID} songUrl={songUrl} songname={songname} photourl={photourl} artistname={artistname} songIDAarray={songIDArray} songUrlArray={songUrlArray}songNameArray={songNameArray} photoUrlArray={photoUrlArray}/>
     </div>
   )
 }

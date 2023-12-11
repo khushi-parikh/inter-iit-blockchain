@@ -8,19 +8,21 @@ import { FcLike } from "react-icons/fc";
 type Props = {
   SongName: string;
   ArtistName: string;
+  SongID : number;
   AlbumName: string;
   SongUrl: string;
   PhotoUrl: string;
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
-  onPlaySong: (url: string,songName : string,photourl:string,ArtistName:string) => void;
+  onPlaySong: (songID: number,url: string,songName : string,photourl:string,ArtistName:string) => void;
 };
 
 const SongCard: React.FC<Props> = ({
   SongName,
   ArtistName,
   AlbumName,
+  SongID,
   SongUrl,
   PhotoUrl,
   Purchase_Status,
@@ -37,7 +39,7 @@ if(Purchase_Status){
 }
 }
   const playSong = () => {
-    onPlaySong(SongUrl,SongName,PhotoUrl,ArtistName); // Add this line
+    onPlaySong(SongID,SongUrl,SongName,PhotoUrl,ArtistName); // Add this line
     
 
   };

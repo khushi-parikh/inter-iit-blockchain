@@ -25,9 +25,11 @@ type AppProps = {
   songArtist: string | null;
 };
 function App() {
+  const [songID, setSongID] = useState<number>(0);
   const [songUrl, setSongUrl] = useState<string | null>(null);
   const [songname, setSongName] = useState<string | null>(null);
   const [photourl, setPhotourl] = useState<string>("");
+  const [songIdArray, setSongIdArray] = useState<number[]>([]);
   const [artistname, setArtistname] = useState<string | null>(null);
   const [songUrlArray, setSongUrlArray] = useState<string[]>([]);
   const [songNameArray, setSongNameArray] = useState<string[]>([]);
@@ -35,6 +37,7 @@ function App() {
 
   const [songArtist, setSongArtist] = useState<string | null>(null);
   const handlePlaySong = (
+    SongID : number,
     url: string,
     songName: string,
     photourl: string,
@@ -42,6 +45,7 @@ function App() {
   ) => {
     console.log("clicked play song");
     console.log(url);
+    setSongID(SongID);
     setSongUrl(url);
     setSongName(songName);
     setPhotourl(photourl);
@@ -64,10 +68,12 @@ function App() {
     <div>
       <BrowserRouter>
         <Fixedcomp
+          SongID={songID}
           songUrl={songUrl}
           songname={songname}
           photourl={photourl}
           artistname={artistname}
+          songIDArray={songIdArray}
           songUrlArray={songUrlArray}
           songNameArray={songNameArray}
           photoUrlArray={photoUrlArray}
