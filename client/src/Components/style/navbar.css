@@ -1,7 +1,6 @@
-                  /* top navbar */
+/* top navbar */
 .app-logo{
     height: 20px;
-    /* width: 30px; */
 }
 .top-navbar{
   background: linear-gradient(to bottom, rgb(32, 32, 32) 0%, rgb(64, 64, 64) 90.2%);
@@ -10,19 +9,21 @@
     right: 0;
     left: 16.8%;
     width: 100%;
-    height: 4rem;
+    height: 5rem;
     border-radius: 6px 0px;
     z-index: 10;
+    border-bottom: 1px solid black;
 }
 .top-inside{
     padding: 15px;
 }
 .project-name{
     font-size: 2.1rem;
-    background: -webkit-linear-gradient(rgb(188, 12, 241), rgb(212, 4, 4));
+    top: 15px;
+    background:linear-gradient(25deg, rgb(255, 2, 95),  rgb(255,128,141) 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 900;
+    font-weight: 700;
 }
 .search-bar{
     height: 34px;
@@ -65,7 +66,7 @@
     height: 35px;
     right: 7%;
     position: fixed;
-    top: 1.5%;
+    top: 2%;
 }
 
 .wallet-button{
@@ -74,8 +75,6 @@
     color: white;
     height: 100%;
     width: 100%;
-    /* height: 40px;
-    width: 140px; */
 }
 
 .wallet-button{
@@ -134,25 +133,23 @@ a{
     margin-top: 3%;
 }
               
-
-                 /* side navbar */
-
+/* side navbar */
 .logo-items{
     padding-left: 1.5%;
     display: flex;
     align-items: center;
     gap: 10px;
-    height: 4rem;
+    height: 5rem;
     background: radial-gradient(circle at 10% 20%, rgb(28, 27, 27) 0%, rgb(64, 64, 64) 90.2%);
     width: calc(100% - 1.5%);
 }
 
 .logo-items p{
-    font-size: 18px;
+    font-size: 24px;
 }
 
 .app-logo{
-    height: 35px;
+    height: 40px;
     border-radius: 50%;
 }
 
@@ -168,11 +165,9 @@ a{
     flex-direction: column;
     align-items: start;
     border-right: 5px solid black;
-
 }
 .menu-tab{
     width: 100%;
-    /* background-color: red; */
 }
 .menu-item{
     cursor: pointer;
@@ -181,7 +176,6 @@ a{
     display: flex;
     gap: 10px;
     align-items: center;
-    /* background-color: rgb(96, 94, 94); */
     border-bottom: 1px rgb(121, 119, 119) solid;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
@@ -192,7 +186,6 @@ a{
 
 .menu-item:hover{
     background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
-    /* background-color: grey; */
     height: 42px;
 }
 
@@ -231,4 +224,3 @@ a{
  cursor: not-allowed;
  opacity: 0.5;
 }
-/* Example styles for the custom audio player */

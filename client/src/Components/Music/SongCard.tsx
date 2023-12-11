@@ -8,19 +8,21 @@ import { FcLike } from "react-icons/fc";
 type Props = {
   SongName: string;
   ArtistName: string;
+  SongID : number;
   AlbumName: string;
   SongUrl: string;
   PhotoUrl: string;
   Purchase_Status: boolean;
   Song_Price: number;
   purchaseHandler: () => void;
-  onPlaySong: (url: string,songName : string,photourl:string,ArtistName:string) => void;
+  onPlaySong: (songID: number,url: string,songName : string,photourl:string,ArtistName:string) => void;
 };
 
 const SongCard: React.FC<Props> = ({
   SongName,
   ArtistName,
   AlbumName,
+  SongID,
   SongUrl,
   PhotoUrl,
   Purchase_Status,
@@ -37,7 +39,7 @@ if(Purchase_Status){
 }
 }
   const playSong = () => {
-    onPlaySong(SongUrl,SongName,PhotoUrl,ArtistName); // Add this line
+    onPlaySong(SongID,SongUrl,SongName,PhotoUrl,ArtistName); // Add this line
     
 
   };
@@ -51,18 +53,6 @@ if(Purchase_Status){
       {isHovered  ? (
         <>
           <div className="playlist-image">
-            <div className="unliked-heart">
-                {!isLiked ? 
-                (<div className="unliked-heart">
-                    <FaRegHeart className="heart-unliked"/>
-                    </div>
-                    ) : 
-                    (<div className="unliked-heart">
-                    <FcLike className="heart-unliked"/>
-                    </div>
-                    )
-                    }
-            </div>
             <img src={PhotoUrl} alt="song-image" className="card-image" />
             <center className="show-button">
               <FaPlay className="play-button"onClick={playSong} />
@@ -72,18 +62,6 @@ if(Purchase_Status){
       ) : (
         <>
           <div className="playlist-image">
-            <div className="unliked-heart">
-                {!isLiked ? (<div className="unliked-heart">
-                    <FaRegHeart className="heart-unliked"/>
-                    {/* <span className="num-of-likes">100</span> */}
-                    </div>
-                    ) : 
-                    (<div className="unliked-heart">
-                    <FcLike className="heart-unliked"/>
-                    </div>
-                )
-                }
-            </div>
             <img src={PhotoUrl} alt="song-image" className="card-image" />
           </div>
         </>
@@ -96,6 +74,7 @@ if(Purchase_Status){
         </div>
         <div className={Purchase_Status == true ? "purchase" : "not-purchase"}>
           <LiaCoinsSolid
+          onClick={handleCardClick}
             className={
               Purchase_Status == true ? "image-show" : "image-not-show"
             }
