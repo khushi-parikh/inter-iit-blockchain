@@ -173,9 +173,9 @@ const BottomNavbar: React.FC<Props> = ({
           }}
         />
       </div>
-      <Tooltip open={open} onClose={handleClose} onOpen={handleOpen} title="liked">
+      {/* <Tooltip open={open} onClose={handleClose} onOpen={handleOpen} title="liked">
       <FavoriteBorderIcon className="filled-heart-button"/>
-      </Tooltip>
+      </Tooltip> */}
 
       <PiCoinVertical className="tip-artist"/>
       {
