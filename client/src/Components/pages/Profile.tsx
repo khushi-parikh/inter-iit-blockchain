@@ -62,7 +62,7 @@ const Profile = (props: any) => {
     const [accountHasPlaylist, setAccountHasPlaylist] = useState(false);
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
-
+    let accountname= account?.address
     const createUser = async () => {
         if (!account) return [];
         const payload = {
@@ -209,15 +209,13 @@ const Profile = (props: any) => {
 
  }
     const playlistContent = () => {
-      // const [showResource , setResourse] = useState(false);
         return (
             <div className='Playlists'>
-              {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div> }
-                {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
+              {/* {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div> }
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
                 <h1>kasbdfaskdfkasdfb</h1>
-                <button onClick={create_Song}>Create Song</button>
+                <button onClick={create_Song}>Create Song</button> */}
                 {accountHasPlaylist && api.map((apimusic, index) => {
                     return (
                         <div className="pc">
@@ -293,10 +291,10 @@ const Profile = (props: any) => {
 
             <div className='profile-header'>
                 <div className='profile-header-start'>
-                    <p>Profile Details</p>
+                    <h2>Profile Details</h2>
                 </div>
                 <div className='profile-header-start-h1'>
-                    <h1>User key : 123ABCD</h1>
+                    <h3>User key : {accountname}</h3>
                 </div>
                 <div className='profile-header-start'>
                     <p>Playlists : {count} </p>
