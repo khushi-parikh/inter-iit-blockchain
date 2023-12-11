@@ -50,7 +50,7 @@ const [isLiked , setIsLiked] = useState(false);
       <div className='playlist-image'>
         <div className="unliked-heart">
             {!isLiked ? (<div className="unliked-heart">
-                <FaRegHeart className="heart-unliked"/>
+                <FaRegHeart className="heart-unliked" />
                 </div>
                 ) : 
                 (<div className="unliked-heart">
