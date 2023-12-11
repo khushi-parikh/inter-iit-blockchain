@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import '../style/profile.css'
 import api from '../API/Playlist.json'
 import PlaylistCard from '../Music/PlayList'
@@ -8,14 +8,13 @@ import likedSongsApi from '../API/LikedSong.json'
 import LikedSongCard from '../Music/LikedSongs'
 import Transaction from '../API/Transaction.json'
 import TransactionCard from '../Music/TransactionCard'
-import { useState } from 'react';
+import {useState} from 'react';
 import { Network, Provider } from 'aptos'
 import { useWallet } from "@aptos-labs/wallet-adapter-react"
-import SongCard from '../Music/SongCard'
 
-interface ProfileProps {
-    onPlaySong: (url: string,songName : string, photourl:string,albumname:string) => void
-}
+ 
+
+
 type Song = {
     album_id: BigInteger,
     song_id: BigInteger,
@@ -37,30 +36,23 @@ type Playlist = {
     songs: [],
     date_added: string,
 }
+
 const provider = new Provider(Network.DEVNET);
 
-const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
-
+const Profile = (props: any) => {
+    const [isLikedSongFetched, setIsLikedSongFetched] = useState(false);
+    const [isRecentSongFetched, setIsRecentSongFetched] = useState(false);
+    const [isTransactionFetched, setIsTransactionFetched] = useState(false);
+    const [isPlaylistFetched, setIsPlaylistFetched] = useState(false);
+    
     var count = Object.keys(api).length;
     const [activeTab, setActiveTab] = useState(0);
     const handleTabChange = (args: number) => {
         setActiveTab(args);
     };
-    
+
     const { account, signAndSubmitTransaction } = useWallet();
-    const userkey = account?.address.slice(0,20)+'....';
     const module_address = process.env.REACT_APP_MODULE_ADDRESS;
-
-    const [likedSongs, setLikedSongs] = useState();
-    const [isLikedSongsFetched, setIsLikedSongsFetched] = useState(false);
-
-    type EntryFunctionId = string;
-    type MoveType = string;
-    type ViewRequest = {
-        function: EntryFunctionId;
-        type_arguments: Array<MoveType>;
-        arguments: Array<any>;
-    };
 
     // console.log("profile : ", account);
 
@@ -70,13 +62,10 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
     const [accountHasPlaylist, setAccountHasPlaylist] = useState(false);
     const [accountHasUser, setAccountHasUser] = useState(false);
     const [playlists, setPlaylists] = useState<Playlist[]>([]);
-   
-    const createUser = async () => {
-        // console.log('account name',account?.address)
 
+    const createUser = async () => {
         if (!account) return [];
         const payload = {
-            
             type: "entry_function_payload",
             function: `${module_address}::Profile::create_user`,
             type_arguments: [],
@@ -86,7 +75,6 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
             // sign and submit transaction to chain
             const response = await signAndSubmitTransaction(payload);
             console.log("response", response)
-        // setUserkey(account?.address)
             await provider.waitForTransaction(response.hash);
             setAccountHasUser(true);
             console.log("Completed adding User")
@@ -198,37 +186,37 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
             setAccountHasPlaylist(false);
         }
     }
-    const create_Song = async () => {
-        if (!account) return [];
+ const create_Song=async()=>{
+    if(!account) return [];
 
-        const payload = {
-            type: "entry_function_payload",
-            function: `${module_address}::Profile::create_song`,
-            type_arguments: [],
-            arguments: [1, 1, "Song1", 180, 101, 20231231, "onasdolflsandflknsadf", "genre", 0, 120],
-        };
-        try {
-            const response = await signAndSubmitTransaction(payload);
-            await provider.waitForTransaction(response.hash);
+    const payload={
+        type:"entry_function_payload",
+        function:`${module_address}::Profile::create_song`,
+        type_arguments:[],
+        arguments:[1,1,"Song1",180,101,20231231,"onasdolflsandflknsadf","genre",0,120],
+    };
+    try{
+        const response=await signAndSubmitTransaction(payload);
+        await provider.waitForTransaction(response.hash);
 
-            console.log(response);
-            console.log("completed")
-        }
-        catch (error: any) {
-            console.log("error", error)
-        }
-
-
+        console.log(response);
+        console.log("completed")
     }
+    catch(error:any){
+        console.log("error",error)
+    }
+
+
+ }
     const playlistContent = () => {
-        // const [showResource , setResourse] = useState(false);
+      // const [showResource , setResourse] = useState(false);
         return (
             <div className='Playlists'>
-                {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div>}
+              {!accountHasUser ? <button onClick={createResource}>Create resource</button> : <div></div> }
                 {/* {!accountHasResource && <button onClick={createResource}>Create resource</button>} */}
                 {!accountHasPlaylist && <button onClick={addNewPlaylist}>Add Playlist</button>}
                 {!accountHasUser && <button onClick={createUser}>Create Artist</button>}
-                {/* <h1>kasbdfaskdfkasdfb</h1> */}
+                <h1>kasbdfaskdfkasdfb</h1>
                 <button onClick={create_Song}>Create Song</button>
                 {accountHasPlaylist && api.map((apimusic, index) => {
                     return (
@@ -241,56 +229,20 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
         );
     }
 
-    const fetchLikedSongs = async () => {
-        if (!account) return [];
-        const payload: ViewRequest = {
-            function: `${module_address}::Profile::viewLikedSongsMain`,
-            type_arguments: [],
-            arguments: [account?.address],
-        };
-
-        const likedSongsResponse = await provider.view(payload);
-        setLikedSongs(JSON.parse(JSON.stringify(likedSongsResponse)));
-        console.log("Liked Songs : ", likedSongs);
-    };
-
     const likedSongContent = () => {
         return (
             <div className='Playlists'>
 
-                {likedSongs && JSON.parse(JSON.stringify(likedSongs[0])).map((song: any) => {
+                {likedSongsApi.map((apimusic, index) => {
                     return (
                         <div className="pc">
-                            <SongCard
-                                SongName={song.name}
-                                ArtistName={
-                                    song.artist_address.slice(0, 5) +
-                                    "...." +
-                                    song.artist_address.substring(
-                                        song.artist_address.length - 3
-                                    )
-                                }
-                                AlbumName={song.album_id}
-                                Purchase_Status={false}
-                                SongUrl={song.videoLink}
-                                PhotoUrl={song.photoLink}
-                                Song_Price={song.current_price}
-                                purchaseHandler={() => null}
-                                onPlaySong={onPlaySong}
-                            />
+                            <LikedSongCard SongName={apimusic.SongTitle} ArtistName={apimusic.ArtistName} AlbumName={apimusic.AlbumName} />
                         </div>
                     )
                 })}
             </div>
         );
     }
-
-    useEffect(() => {
-        if (account || !isLikedSongsFetched) {
-            fetchLikedSongs();
-            setIsLikedSongsFetched(true);
-        }
-    }, [account, isLikedSongsFetched]);
 
     const recentSongContent = () => {
         return (
@@ -344,8 +296,7 @@ const Profile: React.FC<ProfileProps> = ({ onPlaySong }) => {
                     <p>Profile Details</p>
                 </div>
                 <div className='profile-header-start-h1'>
-    
-                    <h1>User key :{userkey}</h1>
+                    <h1>User key : 123ABCD</h1>
                 </div>
                 <div className='profile-header-start'>
                     <p>Playlists : {count} </p>
