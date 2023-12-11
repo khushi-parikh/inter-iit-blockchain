@@ -220,7 +220,8 @@ const sendRecentSongs = async (recentSongs:any) => {
                   JSON.parse(JSON.stringify(topSongs[0])).map((song: any) => {
                     return (
                       <SongCard
-                        SongName={song.name}
+                        SongName={song.name.slice(0, 15) +
+                          "...."}
                         ArtistName={
                           song.artist_address.slice(0, 5) +
                           "...." +
@@ -250,8 +251,11 @@ const sendRecentSongs = async (recentSongs:any) => {
                     (song: any) => {
                       return (
                         <SongCard
-                          SongName={song.name}
-                          ArtistName={
+                        SongName={song.name.slice(0, 15) +
+                          "...."}
+                          
+                           
+                            ArtistName={
                             song.artist_address.slice(0, 5) +
                             "...." +
                             song.artist_address.substring(
@@ -281,8 +285,11 @@ const sendRecentSongs = async (recentSongs:any) => {
                     (song: any) => {
                       return (
                         <SongCard
-                          SongName={song.name}
-                          ArtistName={
+                         
+                         
+                            SongName={song.name.slice(0, 15) +
+                              "...." }
+                            ArtistName={
                             song.artist_address.slice(0, 5) +
                             "...." +
                             song.artist_address.substring(
