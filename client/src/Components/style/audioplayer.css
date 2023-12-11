@@ -27,7 +27,7 @@
 
 .filled-heart-button{
   position: fixed;
-  left: 93%;
+  left: 88%;
   color: rgb(0, 255, 26);
   font-size: 20px;
   cursor: pointer;
@@ -39,6 +39,13 @@
   font-size: 20px;
   cursor: pointer;
 
+}
+.popup-button{
+  position: fixed;
+  left: 93%;
+  color: rgb(0, 255, 26);
+  font-size: 20px;
+  cursor: pointer;
 }
 .rhap_time{
     color: antiquewhite;
