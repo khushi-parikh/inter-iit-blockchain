@@ -53,18 +53,6 @@ if(Purchase_Status){
       {isHovered  ? (
         <>
           <div className="playlist-image">
-            <div className="unliked-heart">
-                {!isLiked ? 
-                (<div className="unliked-heart">
-                    <FaRegHeart className="heart-unliked"/>
-                    </div>
-                    ) : 
-                    (<div className="unliked-heart">
-                    <FcLike className="heart-unliked"/>
-                    </div>
-                    )
-                    }
-            </div>
             <img src={PhotoUrl} alt="song-image" className="card-image" />
             <center className="show-button">
               <FaPlay className="play-button"onClick={playSong} />
@@ -74,18 +62,6 @@ if(Purchase_Status){
       ) : (
         <>
           <div className="playlist-image">
-            <div className="unliked-heart">
-                {!isLiked ? (<div className="unliked-heart">
-                    <FaRegHeart className="heart-unliked"/>
-                    {/* <span className="num-of-likes">100</span> */}
-                    </div>
-                    ) : 
-                    (<div className="unliked-heart">
-                    <FcLike className="heart-unliked"/>
-                    </div>
-                )
-                }
-            </div>
             <img src={PhotoUrl} alt="song-image" className="card-image" />
           </div>
         </>

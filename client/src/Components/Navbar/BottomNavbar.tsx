@@ -15,6 +15,7 @@ import { FcLike } from "react-icons/fc";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import SimplePopup from "./SimplePopup";
+import MenuIntroduction from "./MenuIntroduction";
 type Props = {
   SongID: number | null;
   songUrl: string | null;
@@ -77,7 +78,6 @@ const BottomNavbar: React.FC<Props> = ({
   const [artistnameref, setArtistmNameRef] = useState<string | null>(null);
   const [photourlref, setPhotourlref] = useState<string>("");
   const [liked, setLiked] = useState(false);
-  console.log("songname", songname);
   const [songUrlArray, setSongUrlArray] = useState<string[]>(
     initialSongUrlArray || []
   );
@@ -88,11 +88,6 @@ const BottomNavbar: React.FC<Props> = ({
     initialPhotoUrlArray || []
   );
 
-  // const songs = [
-  //   "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
-  //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
-  // ];
-  // const name = ["song1", "song2"];
   useEffect(() => {
     setSongIDAarray(initialSongIDAarray || []);
     setSongUrlArray(initialSongUrlArray || []);
@@ -116,8 +111,6 @@ const BottomNavbar: React.FC<Props> = ({
       };
       try {
         const response = await provider.view(payload);
-        // console.log("Liked songs");
-        // console.log(response);
         setLikedSongs(JSON.parse(JSON.stringify(response)));
         console.log(likedSongs);
       } catch (error: any) {
@@ -132,16 +125,10 @@ const BottomNavbar: React.FC<Props> = ({
   const handleOpen = () => {
     setOpen(true);
   };
-  const handleCloseplus = () => {
-    setplus(false);
-  };
 
-  const handleOpenplus = () => {
-    setplus(true);
-  };
 
   const isLiked= async(song_id:any)=>{
-
+    console.log(song_id);
     if (!account) return [];
     const payload:ViewRequest={
       function:`${module_address}::Profile::isLiked`,
@@ -150,20 +137,21 @@ const BottomNavbar: React.FC<Props> = ({
     }
     try{
       const response=await provider.view(payload);
-      setLiked(JSON.parse(JSON.stringify(response)));
-    }catch{
-
+      setLiked(JSON.parse(JSON.stringify(response))[0]);
+    } catch (error: any) {
+      console.error("Error getting liked songs:", error);
     }
   }
 
   useEffect(()=>{
-  isLiked(songID)
+    console.log(songID);
+    isLiked(songID);
   },[songID])
 
   useEffect(() => {
     const fetchSong = async () => {
       if (songUrlArray.length > 0) {
-        setSongID(()=>songIDAarray[songIndex]);
+        setSongID(() => songIDAarray[songIndex]);
         setSongRef(() => songUrlArray[songIndex]);
         setSongNameRef(() => songNameArray[songIndex]);
         setPhotourlref(() => photoUrlArray[songIndex]);
@@ -184,6 +172,7 @@ const BottomNavbar: React.FC<Props> = ({
       setPhotoUrlArray(photoUrlArray);
     }
   }, [
+    songID,
     songUrl,
     songname,
     photourl,
@@ -192,7 +181,6 @@ const BottomNavbar: React.FC<Props> = ({
     songNameArray,
     photoUrlArray,
     songIDAarray,
-    songID,
   ]);
 
   const nextSong = () => {
@@ -275,9 +263,6 @@ const BottomNavbar: React.FC<Props> = ({
           }}
         />
       </div>
-      {/* <Tooltip open={open} onClose={handleClose} onOpen={handleOpen} title="liked">
-      <FavoriteBorderIcon className="filled-heart-button"/>
-      </Tooltip> */}
 
       <PiCoinVertical className="tip-artist" />
       {liked ? (
@@ -292,8 +277,8 @@ const BottomNavbar: React.FC<Props> = ({
 
       <Tooltip
         open={plus}
-        onClose={handleCloseplus}
-        onOpen={handleOpenplus}
+        onClose={handleClose}
+        onOpen={handleOpen}
         title="add to playlist"
       >
         <PlaylistAddIcon className="filled-plus-button" />
