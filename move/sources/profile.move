@@ -250,7 +250,16 @@ module profile_addr::Profile {
         delete_song(proposal_id);
     }
 
-    
+    #[view]
+    public fun getArtistAddress(song_id:u64) : address acquires Songs_Table{
+        let song_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
+
+        let song = table::borrow_mut(&mut song_table.songs, song_id);
+
+        let artistAddress = song.artist_address;
+
+        artistAddress
+    }
     
     #[view]
     public fun getVoters(proposal_id:u64) : vector<address> acquires Fullevent{
