@@ -21,21 +21,37 @@ type Props = {
 
 };
 
-const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,artistname,songUrlArray,songNameArray,photoUrlArray }) => {
-
+const BottomNavbar: React.FC<Props> = ({
+  songUrl,
+  songname,
+  photourl,
+  songUrlArray: initialSongUrlArray,
+  songNameArray: initialSongNameArray,
+  photoUrlArray: initialPhotoUrlArray,
+}) => {
+  // const [songUrl, setSongUrl] = useState<string | null>(null);
+  // console.log("songUrl", songUrl);
+  console.log('photourl', photourl);
   const [songIndex, setSongIndex] = useState<number>(0);
   const [songRef, setSongRef] = useState<string | null>(null);
   const [songnameref, setSongNameRef] = useState<string | null>(null);
   const [artistnameref, setArtistmNameRef] = useState<string| null>(null)
   const [photourlref,setPhotourlref] = useState<string>("");
-  const [songRefArray, setSongRefArray] = useState<string[]>([]);
-  const [photourlrefArray, setPhotourlrefArray] =useState<string[] >([]);
-  const [songNameRefArray, setSongNameRefArray] = useState<string[]>([]);
+  const [songUrlArray, setSongUrlArray] = useState<string[]>(initialSongUrlArray || []);
+  const [songNameArray, setSongNameArray] = useState<string[]>(initialSongNameArray || []);
+  const [photoUrlArray, setPhotoUrlArray] = useState<string[]>(initialPhotoUrlArray || []);
+
   // const songs = [
   //   "https://bafybeiewywvxiy2ydgjyxxqj3mrv7nodcdipeyco7yagbzodxuxbyzvfma.ipfs.dweb.link/drive-breakbeat-173062.mp3",
   //   "https://bafybeif2blrai645cdwlofg62b3pwaflqonfb6cwve5crkelfqpdcvvypu.ipfs.nftstorage.link/",
   // ];
   // const name = ["song1", "song2"];
+  useEffect(() => {
+    setSongUrlArray(initialSongUrlArray || []);
+    setSongNameArray(initialSongNameArray || []);
+    setPhotoUrlArray(initialPhotoUrlArray || []);
+    console.log("inside FIRST use Effect of player songUrlArray", songUrlArray);
+  }, [initialSongUrlArray, initialSongNameArray, initialPhotoUrlArray]);
   const [open, setOpen] = React.useState(false);
   const[plus,setplus] = React.useState(false);
 
@@ -68,7 +84,7 @@ const BottomNavbar: React.FC<Props> = ({ songUrl, songname,photourl,artistname,s
       
     };
     fetchSong();
-  }, [songIndex,songRefArray]);
+  }, [songIndex,songUrlArray]);
   useEffect(() => {
 
       setSongRef(songUrl);
