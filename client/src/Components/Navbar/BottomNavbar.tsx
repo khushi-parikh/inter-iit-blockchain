@@ -76,10 +76,11 @@ const BottomNavbar: React.FC<Props> = ({
   },[])
   useEffect(() => {
     const fetchSong = async () => {
-      if (songRefArray.length > 0) {
-        setSongRef(() => songRefArray[songIndex]);           
-        setSongNameRef(() => songNameRefArray[songIndex]);
-        setPhotourlref(() => photourlrefArray[songIndex]);
+
+      if (songUrlArray.length > 0) {
+        setSongRef(() => songUrlArray[songIndex]);           
+        setSongNameRef(() => songNameArray[songIndex]);
+        setPhotourlref(() => photoUrlArray[songIndex]);
       }
       
     };
@@ -92,22 +93,22 @@ const BottomNavbar: React.FC<Props> = ({
       setPhotourlref(photourl)
       setArtistmNameRef(artistname)
       if (songUrlArray.length > 0) {
-      setSongRefArray(songUrlArray);
-      setSongNameRefArray(songNameArray);
-      setPhotourlrefArray(photoUrlArray);
+      setSongUrlArray(songUrlArray);
+      setSongNameArray(songNameArray);
+      setPhotoUrlArray(photoUrlArray);
     }
 
   }, [songUrl,songname,photourl,artistname,songUrlArray,songNameArray,photoUrlArray]);
 
   const nextSong = () => {
-    if (songRefArray.length > 0) {
-      setSongIndex((prevIndex) => (prevIndex + 1) % songRefArray.length);
+    if (songUrlArray.length > 0) {
+      setSongIndex((prevIndex) => (prevIndex + 1) % songUrlArray.length);
     }
   };
   const prevSong = () => {
     const nextIndex = songIndex - 1;
     if (nextIndex < 0) {
-      setSongIndex(songRefArray.length - 1);
+      setSongIndex(songUrlArray.length - 1);
     } else {
       setSongIndex(nextIndex);
     }
