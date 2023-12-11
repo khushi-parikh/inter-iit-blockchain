@@ -5,6 +5,13 @@ import { Network, Provider } from "aptos";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 
 const provider = new Provider(Network.DEVNET);
+type EntryFunctionId = string;
+type MoveType = string;
+type ViewRequest = {
+  function: EntryFunctionId;
+  type_arguments: Array<MoveType>;
+  arguments: Array<any>;
+};
 
 const Govern = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -20,20 +27,21 @@ const Govern = () => {
     getAllEvents();
   }, [eventLength]);
 
+
   const getAllEvents = async () => {
-    const payload = {
-      type: "script_function_payload",
+    if (!account) return [];
+    const payload:ViewRequest = {
       function: `${module_address}::Profile::getAllEvents`,
       type_arguments: [],
       arguments: [],
     };
 
     try {
-      const response = await signAndSubmitTransaction(payload);
-      await provider.waitForTransaction(response.hash);
+      const response = await provider.view(payload);
       console.log("All events");
       setEventArray(JSON.parse(JSON.stringify(response)));
       console.log(eventArray);
+      console.log(eventArray[0])
       //   setEventLength(response.return_data[0].value);
       //   setEventArray(response.return_data[1].value);
     } catch (error: any) {
@@ -58,6 +66,7 @@ const Govern = () => {
       console.log("Event created successfully");
       setEventLength(eventLength + 1);
       console.log(response);
+      getAllEvents();
     } catch (error: any) {
       console.error("Error creating event:", error);
     }
@@ -115,15 +124,17 @@ const Govern = () => {
   const VoteIssue = () => {
     return (
       <div>
-        {/* {eventArray.map((event: any) => (
-            // <VoteCard
-            
-            // SongName={event.return_data[0].value}   
-            // ArtistName={event.return_data[1].value}
-            // Reason={event.return_data[2].value}
-            // />
+        {eventArray && eventArray[0] && JSON.parse(JSON.stringify(eventArray[0])).map((event: any) => {
+          return (
+            <VoteCard
+              proposalID={event.proposal_id}
+              Reason={event.message}
+            />
+          );
 
-        ))} */}
+        }
+        )
+        }
       </div>
     );
   };

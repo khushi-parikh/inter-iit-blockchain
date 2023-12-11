@@ -152,7 +152,7 @@ module profile_addr::Profile {
     const EEVENT_EXIST:u64=14;
     /// Not enough votes
     const EINSUFFICIENT_VOTES:u64=15;
-    
+    const SONGDOESNOTEXIST:u64=16;
     const PROFILE_ADDRESS: address = @0xc739387c9d59bcb22e2887559f73ebbf19cb2f68c6e07a864d27d2432daa6fb5; 
 
     const ADMIN_ADDRESS: address = @0x948360774544eb680c1214082633a63805bc231bc9cf6e8d2e12cdbc5872d7c0;
@@ -818,7 +818,7 @@ module profile_addr::Profile {
 
         let songs_table = borrow_global_mut<Songs_Table>(ADMIN_ADDRESS);
 
-        assert!(table::contains(&songs_table.songs, song_to_find), SAMPLE_ERROR);
+        assert!(table::contains(&songs_table.songs, song_to_find), SONGDOESNOTEXIST);
 
         let song = table::borrow(&songs_table.songs, song_to_find);
 
@@ -982,14 +982,11 @@ module profile_addr::Profile {
 
                     if(table::contains(&song_table.songs, i)){
 
-                        let song_match=table::borrow_mut(&mut song_table.songs,i);
 
                         std::debug::print(&std::string::utf8(b"Song match"));
                         
                         // accesssing the song likes
-                        if (song_match.num_likes > 1 ) {
                             vector::push_back(&mut top_songvector,i);
-                        };
                     };
                     i = i + 1
 
@@ -1003,6 +1000,32 @@ module profile_addr::Profile {
             profile_addr::Profile::retrieveSongs(top_songvector)
 
     }
+
+    #[view]
+    public fun checkEventCompleted(proposal_id:u64) : bool acquires Fullevent{
+        let eventTable = borrow_global_mut<Fullevent>(ADMIN_ADDRESS);
+
+        let event = table::borrow_mut(&mut eventTable.events, proposal_id);
+
+        let requiredVotes = event.minimum_votes;
+
+        let totalVotes = event.total_votes;
+
+        let requiredProposerStake = event.required_proposer_stake;
+
+        let totalStake = event.total_stake;
+
+        let isCompleted = false;
+
+        if(totalStake >= requiredProposerStake && totalVotes >= requiredVotes){
+            isCompleted = true;
+        };
+
+        isCompleted
+    }
+
+
+
 
     public entry fun addLike (account: &signer, 
                                 song_id: u64) acquires Songs_Table, User {
