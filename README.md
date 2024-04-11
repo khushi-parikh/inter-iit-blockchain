@@ -25,7 +25,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images\Aptos_Primary_WHT.png" alt="Logo" height="80">
+    <img src="\Aptos_Primary_WHT.png" alt="Logo" height="80">
   </a>
 
 <h3 align="center">On Chain Radio</h3>
