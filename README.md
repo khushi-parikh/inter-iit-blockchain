@@ -173,7 +173,7 @@ _To run the project locally_
 ## Collaborators
 |Name|
 |--|
-|[Khushi Parikh](https://github.com/kunal-iitj)|
+|[Khushi Parikh](https://github.com/khushi-parikh)|
 |[Arun Raghav S](https://github.com/Arun-Raghav-S)|
 |[Ashutosh Kumar](https://github.com/a19hu)|
 |[Drishti Agrawal](https://github.com/AgrawalDrishti)|
